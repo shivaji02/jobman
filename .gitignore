@@ -1,5 +1,7 @@
 node_modules/
 .env
 .chrome-profile/
+.jobman-profile/
+logs/
 *.log
 .DS_Store

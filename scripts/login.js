@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
  * Opens a persistent, visible Chrome profile so the user can log in to each
- * portal manually once. Logins persist in .chrome-profile/ for future runs.
+ * portal manually once. Sessions persist for future runs — passwords are never stored.
  */
-const { launch } = require('../src/core/browser');
+const { launch, PROFILE_DIR } = require('../src/core/browser');
+const logger = require('../src/core/logger');
 
 const PORTAL_URLS = {
   instahyre: 'https://www.instahyre.com/login/',
@@ -14,14 +15,15 @@ const PORTAL_URLS = {
 };
 
 async function main() {
-  const { browser, newPage } = await launch();
+  const { browser, newPage } = await launch({ skipProfileCheck: true });
   for (const [name, url] of Object.entries(PORTAL_URLS)) {
     const page = await newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' }).catch(() => {});
-    console.log(`Opened ${name} login page: ${url}`);
+    await page.goto(url, { waitUntil: 'domcontentloaded' }).catch(() => {});
+    logger.info(`Opened ${name} login page: ${url}`);
   }
-  console.log('\nLog in to each tab manually, then close this process (Ctrl+C) once done.');
-  console.log('Your sessions will persist in .chrome-profile/ for future jobman runs.');
+  logger.info('\nLog in to each tab manually, then close this process (Ctrl+C) once done.');
+  logger.info(`Your sessions will persist in ${PROFILE_DIR} for future jobman runs.`);
+  logger.info('Passwords are never stored — only the browser session cookies.');
 }
 
 main();
