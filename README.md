@@ -49,3 +49,5 @@ src/             # code (stubs with TODOs)
 - Never solves CAPTCHAs — skips and logs
 - Never fabricates salary, certifications, or experience in application answers
 - Dedup log is appended after every attempt, never batched
+
+See [LEGAL.md](./LEGAL.md) for Terms-of-Service risks and [SETUP.md](./SETUP.md) for install steps.

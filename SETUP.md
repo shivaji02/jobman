@@ -45,36 +45,27 @@ Edit `config/candidate.json` with your details:
 }
 ```
 
-### 3. Set Up Environment Variables
+### 3. Environment & Login (No Passwords)
 
-Create a `.env` file (copy from `.env.example`):
+Create a `.env` file (optional — only for flags like `HEADLESS`):
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` with your portal credentials if needed:
+**Do not put portal passwords in `.env` or `candidate.json`.** The bot never stores passwords.
 
-```
-NAUKRI_EMAIL=your.email@naukri.com
-NAUKRI_PASSWORD=your_password_here
-LINKEDIN_EMAIL=your.email@linkedin.com
-LINKEDIN_PASSWORD=your_password_here
-INSTAHYRE_EMAIL=your.email@instahyre.com
-INSTAHYRE_PASSWORD=your_password_here
-```
+Run `npm run login` once to save your browser session. The bot reuses this session for future runs.
 
-**⚠️ Important:** Never commit `.env` to git — it's already in `.gitignore`.
+See [LEGAL.md](./LEGAL.md) for security notices and Terms-of-Service risks.
 
 ### 4. Login to Job Portals (First Time Only)
-
-The bot uses persistent browser profiles. First, log in manually:
 
 ```bash
 npm run login
 ```
 
-This opens each portal in a browser. Sign in and close the browser window. Your session is saved for future runs.
+This opens each portal in a browser. Sign in manually, then stop the process (Ctrl+C). Your session cookies are saved under `~/.jobman-profile/` (or the legacy `.chrome-profile/` if you already logged in there).
 
 ---
 
