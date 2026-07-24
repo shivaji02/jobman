@@ -10,8 +10,9 @@ const PORTAL_URLS = {
   instahyre: 'https://www.instahyre.com/login/',
   naukri: 'https://www.naukri.com/nlogin/login',
   linkedin: 'https://www.linkedin.com/login',
-  yourstory: 'https://yourstory.com/login',
   wellfound: 'https://wellfound.com/login',
+  cutshort: 'https://cutshort.io/login',
+  yourstory: 'https://yourstory.com/login',
 };
 
 async function main() {

@@ -12,15 +12,23 @@ const reporter = require('./core/reporter');
 const browserCore = require('./core/browser');
 const logger = require('./core/logger');
 
-// yourstory is addressable via `jobman run yourstory` (it reports why it's
-// disabled) but excluded from the default run-all/scheduler order — its job
-// board no longer exists (see src/bots/yourstory.js).
-const PORTALS_IN_PRIORITY_ORDER = ['instahyre', 'naukri', 'linkedin'];
-const ALL_PORTALS = [...PORTALS_IN_PRIORITY_ORDER, 'yourstory'];
+// Priority: proven portals first, then newer boards. YourStory remains last —
+// its public startup board is gone (media careers only).
+const PORTALS_IN_PRIORITY_ORDER = [
+  'instahyre',
+  'naukri',
+  'linkedin',
+  'wellfound',
+  'cutshort',
+  'yourstory',
+];
+const ALL_PORTALS = [...PORTALS_IN_PRIORITY_ORDER];
 const BOTS = {
   instahyre: require('./bots/instahyre'),
   naukri: require('./bots/naukri'),
   linkedin: require('./bots/linkedin'),
+  wellfound: require('./bots/wellfound'),
+  cutshort: require('./bots/cutshort'),
   yourstory: require('./bots/yourstory'),
 };
 
