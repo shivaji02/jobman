@@ -1,0 +1,35 @@
+{
+  "name": "Shivaji Mandapati",
+  "email": "shivajimandapati@outlook.com",
+  "phone": "+91-8978577031",
+  "experience_years": 2.5,
+  "current_role": "Associate Software Engineer",
+  "current_company": "Neosoft Technologies",
+  "current_since": "2024-04",
+  "summary": "Software Engineer with 2.5+ years of experience building and shipping production-grade applications across mobile, web, and backend. Proficient in React Native, React, TypeScript, Node.js, and PostgreSQL. Proven track record delivering enterprise-scale apps on Google Play Store and App Store, with a strong foundation in REST API design, JWT authentication, RBAC, and performance optimization.",
+  "skills": [
+    "JavaScript (ES6+)", "TypeScript", "Java", "React.js", "React Native",
+    "Next.js (learning)", "Zustand", "React Query", "Node.js", "Fastify",
+    "Express.js", "REST APIs", "PostgreSQL", "Prisma ORM", "MongoDB (familiar)",
+    "Git", "GitHub", "Azure DevOps", "Figma", "CI/CD", "OTA updates",
+    "JWT auth", "RBAC", "feature flagging", "Play Store & App Store deployment",
+    "Flutter (fundamentals)"
+  ],
+  "projects": [
+    { "name": "ACE", "desc": "Large-scale insurance platform — React Native (Android/iOS/Web), JWT auth + RBAC, third-party API integration, IRDA compliance" },
+    { "name": "stayct", "desc": "Full-stack rental/property management SaaS — React Native, Node.js, Fastify, PostgreSQL, Prisma, Cloudflare R2" },
+    { "name": "FatakPay 2.0", "desc": "Cross-platform fintech app, React Native for Web" },
+    { "name": "Brokerly", "desc": "B2B rice brokerage app" },
+    { "name": "Alyte Driver App", "desc": "Logistics app for Mahindra — geo-fencing, biometric login" }
+  ],
+  "education": [
+    { "school": "Scaler Academy", "degree": "Specialization in Software Development & Problem Solving", "year": 2024 },
+    { "school": "Acharya Nagarjuna University", "degree": "BCA", "year": 2022 }
+  ],
+  "target_roles": [
+    "React Native Developer", "Mobile Engineer", "Frontend Engineer (React)",
+    "Full Stack Engineer (Node.js/React/React Native)", "JavaScript/TypeScript Engineer"
+  ],
+  "experience_range_target": { "min": 1.5, "max": 3.5 },
+  "locations": "anywhere in India — remote, hybrid, or onsite; no location filter"
+}

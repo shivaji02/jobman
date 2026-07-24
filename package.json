@@ -1,0 +1,22 @@
+{
+  "name": "jobman",
+  "version": "0.1.0",
+  "description": "Automated daily job-search-and-apply bot for Shivaji Mandapati (React Native / Mobile / Full-stack roles in India)",
+  "main": "src/index.js",
+  "scripts": {
+    "apply": "node src/index.js run-all",
+    "apply:dry": "node src/index.js run-all --dry-run",
+    "schedule": "node src/index.js schedule",
+    "report": "node src/index.js report",
+    "login": "node scripts/login.js",
+    "debug:tmp": "node /Users/neosoft/.claude/jobs/3f24e2d1/tmp/debug_wellfound1.js",
+    "test": "node --test \"tests/**/*.test.js\""
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "dotenv": "^16.4.0",
+    "node-cron": "^3.0.3",
+    "puppeteer": "^22.0.0"
+  },
+  "engines": { "node": ">=18" }
+}
