@@ -229,7 +229,7 @@ async function debugPageState(page, context) {
       hasDialog: !!document.querySelector('[role="dialog"]'),
     };
   }).catch((err) => ({ error: err.message }));
-  logger.info(`[linkedin] timeout debug (${context}):`, JSON.stringify(state));
+  logger.info(`[linkedin] timeout debug (${context})`, state);
 }
 
 function isTransientError(err) {
