@@ -10,6 +10,7 @@ const path = require('path');
 const dedup = require('./core/dedup');
 const reporter = require('./core/reporter');
 const browserCore = require('./core/browser');
+const logger = require('./core/logger');
 
 // yourstory is addressable via `jobman run yourstory` (it reports why it's
 // disabled) but excluded from the default run-all/scheduler order — its job
@@ -23,6 +24,10 @@ const BOTS = {
   yourstory: require('./bots/yourstory'),
 };
 
+function emptyResults(note) {
+  return { reviewed: 0, applied: [], skipped: [], failed: [], note };
+}
+
 function loadProfile() {
   const file = path.join(__dirname, '..', 'config', 'candidate.json');
   return JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -35,15 +40,34 @@ async function runPortal(portalName, { dryRun = false } = {}) {
   const profile = loadProfile();
   dedup.load();
 
-  const { browser, newPage } = await browserCore.launch();
+  let browser;
+  try {
+    ({ browser } = await browserCore.launch());
+  } catch (err) {
+    if (err instanceof browserCore.SkipPortalError) {
+      logger.warn(`[${portalName}] skipped: ${err.message}`);
+      return emptyResults(`skipped — ${err.message}`);
+    }
+    logger.error(`[${portalName}] browser launch failed: ${err.message}`);
+    return emptyResults(`crashed — browser launch failed: ${err.message}`);
+  }
+
+  const newPage = async () => {
+    const page = await browser.newPage();
+    page.setDefaultNavigationTimeout(45_000);
+    page.setDefaultTimeout(30_000);
+    return page;
+  };
+
   try {
     return await bot.run({ profile, dedup, dryRun, newPage, browser });
   } catch (err) {
     if (err instanceof browserCore.SkipPortalError) {
-      console.warn(`[${portalName}] skipped: ${err.message}`);
-      return { reviewed: 0, applied: [], skipped: [], failed: [], note: `skipped — ${err.message}` };
+      logger.warn(`[${portalName}] skipped: ${err.message}`);
+      return emptyResults(`skipped — ${err.message}`);
     }
-    throw err;
+    logger.error(`[${portalName}] crashed: ${err.message}`);
+    return emptyResults(`crashed — ${err.message}`);
   } finally {
     await browser.close().catch(() => {});
   }
@@ -52,18 +76,19 @@ async function runPortal(portalName, { dryRun = false } = {}) {
 async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER } = {}) {
   const results = {};
   for (const portalName of portals) {
-    console.log(`\n=== ${portalName} ===`);
+    logger.info(`\n=== ${portalName} ===`);
     try {
       results[portalName] = await runPortal(portalName, { dryRun });
     } catch (err) {
-      console.error(`[${portalName}] crashed: ${err.message}`);
-      results[portalName] = { reviewed: 0, applied: [], skipped: [], failed: [], note: `crashed — ${err.message}` };
+      // Defensive: runPortal already catches, but never let one portal abort the run
+      logger.error(`[${portalName}] crashed: ${err.message}`);
+      results[portalName] = emptyResults(`crashed — ${err.message}`);
     }
   }
 
   const date = dedup.istDate();
   const reportFile = reporter.write(date, results, { dryRun });
-  console.log(`\nReport written to ${reportFile}`);
+  logger.info(`\nReport written to ${reportFile}`);
 
   return results;
 }

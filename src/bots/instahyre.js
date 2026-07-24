@@ -19,7 +19,9 @@
  * synthetic URL derived from company + title.
  */
 const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
+const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
+const logger = require('../core/logger');
 
 const OPPORTUNITIES_URL = 'https://www.instahyre.com/candidate/opportunities/?job_type=0';
 const SEARCH_SKILL = 'React Native';
@@ -145,7 +147,14 @@ async function run({ profile, dedup, dryRun, newPage }) {
   const page = await newPage();
 
   try {
-    await page.goto(OPPORTUNITIES_URL, { waitUntil: 'domcontentloaded' });
+    await withRetry(
+      () => page.goto(OPPORTUNITIES_URL, { waitUntil: 'domcontentloaded' }),
+      {
+        maxAttempts: 2,
+        onRetry: (err, attempt, delay) =>
+          logger.warn(`[instahyre] navigation retry ${attempt} in ${delay}ms: ${err.message}`),
+      }
+    );
 
     // Safety: never log in automatically
     if (/\/login|\/signin/.test(page.url()) || (await page.$('input[type="password"]'))) {
@@ -158,7 +167,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
 
     const cards = await extractCards(page);
     results.reviewed = cards.length;
-    console.log(`[instahyre] ${cards.length} job cards after search`);
+    logger.info(`[instahyre] ${cards.length} job cards after search`);
 
     for (const card of cards) {
       if (results.applied.length >= MAX_APPS_PER_RUN) break;
@@ -167,7 +176,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
       const job = { title: card.title, company: card.company, url };
 
       if (dedup.has(url)) {
-        console.log(`[instahyre] dedup skip: ${card.title} @ ${card.company}`);
+        logger.info(`[instahyre] dedup skip: ${card.title} @ ${card.company}`);
         continue; // already applied — don't re-log
       }
 
@@ -182,7 +191,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
       if (dryRun) {
         job.reason = `would apply (score ${score})`;
         results.applied.push(job);
-        console.log(`[instahyre] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
+        logger.info(`[instahyre] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
         continue;
       }
 
@@ -195,7 +204,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
         } catch (err) {
           lastErr = err;
           if (err instanceof SkipPortalError) throw err;
-          console.warn(`[instahyre] attempt ${attempt} failed for "${card.title}": ${err.message}`);
+          logger.warn(`[instahyre] attempt ${attempt} failed for "${card.title}": ${err.message}`);
           await humanDelay(1500, 2500);
         }
       }
@@ -207,7 +216,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
       } else {
         results.applied.push(job);
         dedup.append({ site: 'Instahyre', job_title: card.title, company: card.company, job_url: url, status: 'applied', notes: `auto-applied (score ${score})` });
-        console.log(`[instahyre] applied: ${card.title} @ ${card.company}`);
+        logger.info(`[instahyre] applied: ${card.title} @ ${card.company}`);
       }
 
       await humanDelay(); // 2-3s between applications
