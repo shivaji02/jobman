@@ -29,6 +29,43 @@ class ExternalAtsError extends Error {
   }
 }
 
+/**
+ * DataDome often returns HTTP 403 with an empty shell (no captcha iframe in the
+ * accessible DOM) — checkForCaptcha() misses that. Detect empty / blocked pages
+ * before waiting for job cards.
+ */
+async function assertPageNotBlocked(page) {
+  const state = await page.evaluate(() => {
+    const body = document.body;
+    const text = (body?.innerText || '').toLowerCase();
+    const html = (document.documentElement?.outerHTML || '').toLowerCase();
+    const hasDataDomeFrame = !!document.querySelector(
+      'iframe[src*="captcha-delivery"], iframe[src*="datadome"]'
+    );
+    return {
+      title: document.title || '',
+      textLen: text.trim().length,
+      textSample: text.slice(0, 200),
+      htmlHasDataDome: /datadome|captcha-delivery|geo\.captcha/.test(html),
+      hasDataDomeFrame,
+    };
+  });
+
+  const blocked =
+    state.hasDataDomeFrame ||
+    state.htmlHasDataDome ||
+    /datadome|access denied|please enable cookies|robot|blocked/i.test(state.textSample) ||
+    /datadome|access denied/i.test(state.title) ||
+    // Empty shell after 403: title stays "wellfound.com", almost no body text
+    (state.textLen < 100 && /wellfound\.com/i.test(state.title));
+
+  if (blocked) {
+    throw new SkipPortalError(
+      'DataDome / bot challenge on Wellfound — session may be stale. Try: npm run login'
+    );
+  }
+}
+
 /** Map free-text queries to Wellfound role URL slugs. */
 function roleSlugForQuery(query) {
   const q = query.toLowerCase();
@@ -164,12 +201,8 @@ async function applyToJob(browser, job, profile) {
       { maxAttempts: 2 }
     );
     await new Promise((r) => setTimeout(r, 2000));
+    await assertPageNotBlocked(page);
     await checkForCaptcha(page);
-
-    // DataDome / login wall
-    if (/captcha|datadome|access denied/i.test(await page.title())) {
-      throw new SkipPortalError('CAPTCHA / bot challenge detected — skipped');
-    }
 
     const clicked = await page.evaluate(() => {
       const btn = Array.from(document.querySelectorAll('button, a')).find((b) =>
@@ -237,8 +270,19 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
       if (await page.$('input[type="password"]')) {
         throw new SkipPortalError('login required — sign in once via `npm run login`');
       }
+
+      // DataDome 403 returns an empty shell — detect before waiting for job links
+      await assertPageNotBlocked(page);
       await page.waitForSelector('a[href*="/jobs/"]', { timeout: 20000 }).catch(() => {});
       await checkForCaptcha(page);
+
+      // If the wait timed out and we still have no job links, treat as a soft block
+      const hasJobs = await page.$('a[href*="/jobs/"]');
+      if (!hasJobs) {
+        throw new SkipPortalError(
+          'DataDome / bot challenge on search page — no job links rendered. Try: npm run login'
+        );
+      }
 
       // SPA: scroll to load more cards
       for (let i = 0; i < 4; i++) {
