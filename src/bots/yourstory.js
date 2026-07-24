@@ -1,4 +1,5 @@
 /**
+const logger = require('../core/logger');
  * YourStory Jobs bot — DISABLED.
  *
  * Verified live (2026-07-24): jobs.yourstory.com no longer exists (404,
@@ -13,7 +14,7 @@
  * excluded from the default run-all/scheduler portal list in src/runner.js.
  */
 async function run() {
-  console.log('[yourstory] disabled — jobs.yourstory.com no longer exists (see src/bots/yourstory.js)');
+  logger.info('[yourstory] disabled — jobs.yourstory.com no longer exists (see src/bots/yourstory.js)');
   return {
     reviewed: 0,
     applied: [],

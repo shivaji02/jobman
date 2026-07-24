@@ -6,6 +6,7 @@
  */
 const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
 const { scoreJob, shouldApply } = require('../core/filter');
+const logger = require('../core/logger');
 
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 15;
 
@@ -228,7 +229,7 @@ async function debugPageState(page, context) {
       hasDialog: !!document.querySelector('[role="dialog"]'),
     };
   }).catch((err) => ({ error: err.message }));
-  console.log(`[linkedin] timeout debug (${context}):`, JSON.stringify(state));
+  logger.info(`[linkedin] timeout debug (${context}):`, JSON.stringify(state));
 }
 
 function isTransientError(err) {
@@ -326,7 +327,7 @@ async function openEasyApplyModal(page, job) {
       await debugPageState(page, `attempt ${attempt}/${maxAttempts}: ${err.message}`);
       if (attempt === maxAttempts || !isTransientError(err)) break;
       const backoff = 500 * 2 ** (attempt - 1); // 500ms, 1000ms
-      console.log(`[linkedin] Easy Apply load failed; retrying in ${backoff}ms`);
+      logger.info(`[linkedin] Easy Apply load failed; retrying in ${backoff}ms`);
       await new Promise((r) => setTimeout(r, backoff));
     }
   }
@@ -430,18 +431,18 @@ async function run({ profile, dedup, dryRun, newPage }) {
       await scrollResultsList(page);
       const cards = await extractCards(page);
       results.reviewed += cards.length;
-      console.log(`[linkedin] "${role}": ${cards.length} cards after scrolling list`);
+      logger.info(`[linkedin] "${role}": ${cards.length} cards after scrolling list`);
 
       for (const card of cards) {
         if (results.applied.length >= MAX_APPS_PER_RUN) break;
         if (dedup.has(card.url)) {
-          console.log(`[linkedin] "${card.title}" @ ${card.company} | dedup — already in log, skipping`);
+          logger.info(`[linkedin] "${card.title}" @ ${card.company} | dedup — already in log, skipping`);
           continue;
         }
 
         const score = scoreJob({ title: card.title, description: card.text });
         const job = { title: card.title, company: card.company, url: card.url };
-        console.log(
+        logger.info(
           `[linkedin] "${card.title}" @ ${card.company} | score ${score} | ` +
             (shouldApply(score) ? (dryRun ? 'would apply' : 'applying') : 'below threshold — skip')
         );
@@ -455,7 +456,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
         if (dryRun) {
           job.reason = `would apply (score ${score})`;
           results.applied.push(job);
-          console.log(`[linkedin] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
+          logger.info(`[linkedin] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
           continue;
         }
 
@@ -463,7 +464,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
           await applyToJob(page, card, profile);
           results.applied.push(job);
           dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'applied', notes: `Easy Apply (score ${score})` });
-          console.log(`[linkedin] applied: ${card.title} @ ${card.company}`);
+          logger.info(`[linkedin] applied: ${card.title} @ ${card.company}`);
         } catch (err) {
           if (err instanceof SkipPortalNoEasyApply) {
             job.reason = err.message;
@@ -473,12 +474,12 @@ async function run({ profile, dedup, dryRun, newPage }) {
             job.reason = err.message;
             results.skipped.push(job);
             dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: err.message });
-            console.log(`[linkedin] skipped (screening): ${card.title} — ${err.message}`);
+            logger.info(`[linkedin] skipped (screening): ${card.title} — ${err.message}`);
           } else {
             job.reason = err.message;
             results.failed.push(job);
             dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'failed', notes: err.message });
-            console.log(`[linkedin] failed: ${card.title} — ${err.message}`);
+            logger.info(`[linkedin] failed: ${card.title} — ${err.message}`);
           }
         }
 

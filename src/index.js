@@ -5,6 +5,7 @@ const { runAll, runPortal, ALL_PORTALS } = require('./runner');
 const reporter = require('./core/reporter');
 const dedup = require('./core/dedup');
 const scheduler = require('./scheduler');
+const logger = require('./core/logger');
 
 const program = new Command();
 program.name('jobman').description('Automated job application bot');
@@ -23,14 +24,14 @@ program
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)
   .action(async (portal, opts) => {
     if (!ALL_PORTALS.includes(portal)) {
-      console.error(`unknown portal "${portal}" — choose one of: ${ALL_PORTALS.join(', ')}`);
+      logger.error(`unknown portal "${portal}" — choose one of: ${ALL_PORTALS.join(', ')}`);
       process.exitCode = 1;
       return;
     }
     const result = await runPortal(portal, { dryRun: opts.dryRun });
     const date = dedup.istDate();
     const reportFile = reporter.write(date, { [portal]: result }, { dryRun: opts.dryRun });
-    console.log(`Report written to ${reportFile}`);
+    logger.info(`Report written to ${reportFile}`);
   });
 
 program
@@ -48,14 +49,14 @@ program
     const targetDate = date || dedup.istDate();
     const content = reporter.read(targetDate);
     if (!content) {
-      console.error(`no report found for ${targetDate}`);
+      logger.error(`no report found for ${targetDate}`);
       process.exitCode = 1;
       return;
     }
-    console.log(content);
+    logger.info(content);
   });
 
 program.parseAsync(process.argv).catch((err) => {
-  console.error(err);
+  logger.error(err && err.message ? err.message : String(err));
   process.exitCode = 1;
 });
