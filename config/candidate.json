@@ -31,5 +31,9 @@
     "Full Stack Engineer (Node.js/React/React Native)", "JavaScript/TypeScript Engineer"
   ],
   "experience_range_target": { "min": 1.5, "max": 3.5 },
+  "notice_period_days": 30,
+  "portfolio_url": "",
+  "current_ctc": "",
+  "expected_ctc": "",
   "locations": "anywhere in India — remote, hybrid, or onsite; no location filter"
 }
