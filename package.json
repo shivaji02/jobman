@@ -6,6 +6,7 @@
   "scripts": {
     "apply": "node src/index.js run-all",
     "apply:dry": "node src/index.js run-all --dry-run",
+    "test:linkedin:dry": "node src/index.js run linkedin --dry-run",
     "schedule": "node src/index.js schedule",
     "report": "node src/index.js report",
     "login": "node scripts/login.js",

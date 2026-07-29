@@ -5,10 +5,66 @@
  * delays. Dedup key is the /jobs/view/<id>/ URL.
  */
 const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
-const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
 
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 15;
+const LINKEDIN_THRESHOLD = 30;
+
+const TARGET_TITLES = {
+  'react native': 100,
+  'native developer': 100,
+  'mobile developer': 90,
+  'mobile engineer': 90,
+  'frontend engineer': 70,
+  'frontend developer': 70,
+  'front end developer': 70,
+  frontend: 65,
+  'front end': 65,
+  'react developer': 70,
+  'react engineer': 70,
+  'full stack': 60,
+  fullstack: 60,
+};
+
+const SENIORITY_MAP = {
+  junior: 40,
+  fresher: 40,
+  '0-2 years': 40,
+  entry: 40,
+  mid: 50,
+  '2-4 years': 50,
+  'mid-level': 50,
+  senior: 20,
+  '5+ years': 20,
+  lead: 10,
+  principal: 5,
+};
+
+const POSITIVE_KEYWORDS = [
+  'react',
+  'react native',
+  'node',
+  'typescript',
+  'javascript',
+  'startup',
+  'remote',
+  'india',
+  'flexible',
+];
+
+const NEGATIVE_KEYWORDS = ['senior', 'lead', '10+ years', 'principal', '8+ years', 'architect'];
+
+const LOCATION_SCORES = {
+  remote: 50,
+  india: 40,
+  hyderabad: 30,
+  bangalore: 30,
+  bengaluru: 30,
+  mumbai: 30,
+  delhi: 30,
+  'on site': 10,
+  onsite: 10,
+};
 
 function searchUrl(keywords) {
   // f_AL=true = Easy Apply only; f_E=2,3 = Entry/Associate (≈1–5 yrs)
@@ -52,15 +108,94 @@ async function extractCards(page) {
       const link = card.querySelector('a[href*="/jobs/view/"]');
       const titleEl = card.querySelector('.artdeco-entity-lockup__title, .job-card-list__title--link');
       const companyEl = card.querySelector('.artdeco-entity-lockup__subtitle, [class*="subtitle"]');
+      const locationEl = card.querySelector('.job-card-container__metadata-wrapper, .artdeco-entity-lockup__caption');
       const m = link?.href?.match(/\/jobs\/view\/(\d+)/);
       return {
         title: (titleEl?.textContent || link?.textContent || '').trim(),
         url: m ? `https://www.linkedin.com/jobs/view/${m[1]}/` : link?.href || '',
         company: (companyEl?.textContent || '').trim(),
+        location: (locationEl?.textContent || '').trim(),
         text: card.textContent.replace(/\s+/g, ' ').slice(0, 1200),
       };
     }).filter((c) => c.url);
   });
+}
+
+function normalizeText(value = '') {
+  return String(value).toLowerCase().replace(/[-_/|]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function calculateTitleScore(jobTitle = '') {
+  const title = normalizeText(jobTitle);
+  for (const [keyword, score] of Object.entries(TARGET_TITLES)) {
+    if (title.includes(keyword)) return score;
+  }
+  return 0;
+}
+
+function calculateSeniorityScore(text = '') {
+  const blob = normalizeText(text);
+  for (const [keyword, score] of Object.entries(SENIORITY_MAP)) {
+    if (blob.includes(keyword)) return score;
+  }
+  return 25;
+}
+
+function calculateKeywordScore(text = '') {
+  const blob = normalizeText(text);
+  let score = 0;
+
+  for (const keyword of POSITIVE_KEYWORDS) {
+    if (blob.includes(keyword)) score += 10;
+  }
+  for (const keyword of NEGATIVE_KEYWORDS) {
+    if (blob.includes(keyword)) score -= 20;
+  }
+
+  return Math.max(0, Math.min(50, score));
+}
+
+function calculateLocationScore(location = '') {
+  const blob = normalizeText(location);
+  for (const [keyword, score] of Object.entries(LOCATION_SCORES)) {
+    if (blob.includes(keyword)) return score;
+  }
+  return 0;
+}
+
+function calculateLinkedinScore(job = {}) {
+  const text = [job.description, job.text].filter(Boolean).join(' ');
+  const titleScore = calculateTitleScore(job.title);
+  const seniorityScore = calculateSeniorityScore([job.title, text].join(' '));
+  const keywordScore = calculateKeywordScore([job.title, text].join(' '));
+  const locationScore = calculateLocationScore(job.location);
+  let totalScore = titleScore + seniorityScore + keywordScore + locationScore;
+
+  // LinkedIn list cards often have thin metadata. If the title does not resemble
+  // a target role, avoid letting generic "remote + React mention" postings pass.
+  if (titleScore === 0 && keywordScore <= 30) {
+    totalScore = Math.min(totalScore, LINKEDIN_THRESHOLD - 1);
+  }
+
+  return {
+    titleScore,
+    seniorityScore,
+    keywordScore,
+    locationScore,
+    totalScore,
+  };
+}
+
+function shouldApplyLinkedin(scoring) {
+  return scoring.totalScore >= LINKEDIN_THRESHOLD;
+}
+
+function formatScoreBreakdown(job, scoring) {
+  return (
+    `[linkedin] Score breakdown for "${job.title}" @ ${job.company}: ` +
+    `title=${scoring.titleScore}, seniority=${scoring.seniorityScore}, ` +
+    `keywords=${scoring.keywordScore}, location=${scoring.locationScore}, total=${scoring.totalScore}`
+  );
 }
 
 /**
@@ -440,13 +575,22 @@ async function run({ profile, dedup, dryRun, newPage }) {
           continue;
         }
 
-        const score = scoreJob({ title: card.title, description: card.text });
-        const job = { title: card.title, company: card.company, url: card.url };
+        const job = {
+          title: card.title,
+          company: card.company,
+          url: card.url,
+          location: card.location,
+          description: card.text,
+        };
+        const scoring = calculateLinkedinScore(job);
+        const score = scoring.totalScore;
+        const passesThreshold = shouldApplyLinkedin(scoring);
+        logger.info(formatScoreBreakdown(job, scoring));
         logger.info(
           `[linkedin] "${card.title}" @ ${card.company} | score ${score} | ` +
-            (shouldApply(score) ? (dryRun ? 'would apply' : 'applying') : 'below threshold — skip')
+            (passesThreshold ? (dryRun ? 'would apply' : 'applying') : 'below threshold — skip')
         );
-        if (!shouldApply(score)) {
+        if (!passesThreshold) {
           job.reason = `score ${score} below threshold`;
           results.skipped.push(job);
           if (!dryRun) dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: job.reason });
@@ -493,4 +637,14 @@ async function run({ profile, dedup, dryRun, newPage }) {
   return results;
 }
 
-module.exports = { run };
+module.exports = {
+  run,
+  calculateTitleScore,
+  calculateSeniorityScore,
+  calculateKeywordScore,
+  calculateLocationScore,
+  calculateLinkedinScore,
+  shouldApplyLinkedin,
+  formatScoreBreakdown,
+  LINKEDIN_THRESHOLD,
+};

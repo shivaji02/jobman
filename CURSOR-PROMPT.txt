@@ -1,0 +1,77 @@
+You are helping fix critical issues in jobman — an automated job application bot for Indian job portals.
+
+PROJECT CONTEXT:
+- Bot searches job listings on Instahyre, Naukri, LinkedIn, YourStory, WellFound
+- Filters by skills/experience, auto-applies to matching roles
+- Current: Instahyre ✅ (3 apps), Naukri ✅ (4 apps), LinkedIn ❌ (6 timeout failures), YourStory/WellFound ❌ (stubs)
+
+CRITICAL ISSUES TO FIX (in order):
+
+1. ISSUE #1: LinkedIn Timeout Failures (HIGHEST PRIORITY)
+   File: src/bots/linkedin.js
+   Problem: All 6 LinkedIn applications fail with "Navigation timeout of 60000 ms exceeded"
+
+   Fix:
+   - Line 82: Change waitUntil from 'networkidle2' to 'domcontentloaded'
+   - Add explicit wait for Easy Apply button before clicking: await page.waitForSelector('button:has-text("Easy Apply")', { timeout: 15000 })
+   - Add retry logic: if Easy Apply fails, retry up to 2 times with exponential backoff (500ms, 1000ms)
+   - Reduce timeout from 60000ms to 45000ms
+   - Add console.log for debugging when timeout occurs
+   - Test manually with 3 LinkedIn applications to verify success
+
+2. ISSUE #2: Error Recovery & Retry Logic
+   Files: src/runner.js, src/bots/instahyre.js, src/bots/naukri.js, src/bots/linkedin.js
+   Problem: Single portal failure crashes entire run; no retry for transient errors
+
+   Fix:
+   - Wrap each bot call in src/runner.js with try-catch to prevent crash
+   - Create withRetry() helper function in each bot to retry failed operations
+   - Retry transient errors (network) but not UI errors (button not found)
+   - Add cleanup to kill stray Chrome processes in src/core/browser.js on startup
+
+3. ISSUE #3: Logging System
+   Create: src/core/logger.js
+   Problem: Errors only visible in terminal; no record for scheduled runs
+
+   Fix:
+   - Create Logger class with info(), warn(), error(), debug() methods
+   - Log to file: logs/YYYY-MM-DD.log (auto-create logs dir)
+   - Include timestamps and context
+   - Replace all console.log/console.warn with logger.info/logger.warn throughout codebase
+
+4. ISSUE #4: Security - Remove Plain-Text Passwords
+   Files: .env, config/candidate.json, SETUP.md
+   Problem: Passwords stored in plaintext = account takeover risk
+
+   Fix:
+   - Remove password fields from .env.example (comment them out)
+   - Update SETUP.md Step 3 to explain: run npm run login once, then bot reuses sessions (no password storage)
+   - Create LEGAL.md with security warnings about risks
+   - Never store passwords in files; use OAuth tokens or browser sessions instead
+
+5. ISSUE #5: Cross-Platform Browser Profile Support
+   File: src/core/browser.js
+   Problem: .chrome-profile/ path doesn't work on Windows
+
+   Fix:
+   - Detect OS: const platform = process.platform (darwin=Mac, linux=Linux, win32=Windows)
+   - Get profile path: ~/.jobman-profile/ on all platforms (auto-create if missing)
+   - On Linux only: add --no-sandbox flag to Chrome args
+   - Test that browser launches successfully on all 3 platforms
+
+AFTER FIXING THESE 5 ISSUES:
+- Run: npm test (should pass)
+- Run: npm run apply (should complete without crashes)
+- Verify: LinkedIn applies successfully without timeouts
+- Commit with message format: "Issue #N: [title]\n\nDetailed explanation\n\n- Bullet changes\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
+
+CODE QUALITY:
+- Keep as plain JavaScript (no TypeScript)
+- No new external dependencies
+- Minimal comments (only WHY, not WHAT)
+- Self-documenting code with clear names
+- Test after each fix
+
+START WITH ISSUE #1 (LinkedIn timeouts) - it's the highest priority and will unblock LinkedIn applications immediately.
+
+Ask me if you have questions about the requirements or need clarification on any issue.

@@ -31,7 +31,7 @@ const BOTS = {
 };
 
 function emptyResults(note) {
-  return { reviewed: 0, applied: [], skipped: [], failed: [], note };
+  return { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [], note };
 }
 
 function loadProfile() {

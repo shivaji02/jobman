@@ -34,6 +34,20 @@ test('skipped/failed entries are not treated as applied for dedup', () => {
   assert.equal(log.has(url), false);
 });
 
+test('manual-apply entries are treated as seen for dedup', () => {
+  const log = createLog(tempCsvPath());
+  const url = 'https://example.com/job/manual-1';
+  log.append({
+    site: 'Naukri',
+    job_title: 'RN Dev',
+    company: 'Acme',
+    job_url: url,
+    status: 'manual-apply',
+    notes: 'URL: https://boards.greenhouse.io/acme | Resume: /tmp/rn.pdf',
+  });
+  assert.equal(log.has(url), true);
+});
+
 test('append() persists rows across a fresh load from disk', () => {
   const file = tempCsvPath();
   const log1 = createLog(file);

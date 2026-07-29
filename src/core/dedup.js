@@ -2,10 +2,9 @@
  * Dedup log — data/applied_jobs_log.csv
  * Columns: date,site,job_title,company,job_url,status,notes
  *
- * Appends IMMEDIATELY after every attempt (applied/skipped/failed) — never
- * batched, so partial runs persist progress. Dedup checks consider only rows
- * with status === 'applied' (a previously failed/skipped job may be retried
- * on a later run).
+ * Appends IMMEDIATELY after every attempt (applied/skipped/failed/manual-apply) — never
+ * batched, so partial runs persist progress. Dedup checks consider rows with
+ * status === 'applied' or 'manual-apply' (failed/skipped may be retried later).
  */
 const fs = require('fs');
 const path = require('path');
@@ -74,7 +73,9 @@ function createLog(filePath = DEFAULT_LOG) {
     if (!fs.existsSync(filePath)) return appliedUrls;
     const rows = parseCsv(fs.readFileSync(filePath, 'utf8'));
     for (const row of rows) {
-      if (row.status === 'applied' && row.job_url) appliedUrls.add(row.job_url);
+      if ((row.status === 'applied' || row.status === 'manual-apply') && row.job_url) {
+        appliedUrls.add(row.job_url);
+      }
     }
     return appliedUrls;
   }
@@ -100,7 +101,9 @@ function createLog(filePath = DEFAULT_LOG) {
     fs.appendFileSync(filePath, toCsvRow(COLUMNS.map((c) => row[c])));
 
     if (!appliedUrls) load();
-    if (row.status === 'applied' && row.job_url) appliedUrls.add(row.job_url);
+    if ((row.status === 'applied' || row.status === 'manual-apply') && row.job_url) {
+      appliedUrls.add(row.job_url);
+    }
   }
 
   return { load, has, append, filePath };

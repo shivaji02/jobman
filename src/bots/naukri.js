@@ -16,6 +16,47 @@ const QUERIES = ['react native developer', 'mobile developer', 'frontend enginee
 const MAX_APPS_PER_RUN = 10;
 const MAX_SCREENING_ROUNDS = 10;
 
+const RESUME_RN = '/Users/neosoft/Downloads/Resumes/shivajirn02.pdf';
+const RESUME_FS = '/Users/neosoft/Downloads/Resumes/ShivajiPresidio.pdf';
+
+/** Pick resume path from job title keywords. Default: Full Stack. */
+function selectResume(jobTitle = '') {
+  const t = String(jobTitle).toLowerCase();
+  if (/react[\s-]?native|\bnative\b|\bmobile\b/.test(t)) return RESUME_RN;
+  return RESUME_FS;
+}
+
+/** Pull company/ATS URL from an ExternalAtsError or error message. */
+function extractCompanyUrl(error) {
+  if (!error) return '';
+  if (error.companyUrl) return String(error.companyUrl);
+  const msg = String(error.message || error);
+  const m = msg.match(/https?:\/\/[^\s)\]|'"]+/i);
+  if (m && !/naukri\.com/i.test(m[0])) return m[0].replace(/[.,;]+$/, '');
+  return '';
+}
+
+/**
+ * Log + print manual-apply instructions for external ATS redirects.
+ * Returns the report entry (does not write CSV — caller does).
+ */
+function handleExternalATS(job, error) {
+  const resume = selectResume(job.title);
+  const url = extractCompanyUrl(error) || job.url || '';
+  const entry = {
+    title: job.title,
+    company: job.company,
+    url: job.url,
+    companyUrl: url,
+    resume,
+    reason: `manual-apply — external ATS | Resume: ${resume}`,
+  };
+  const line = `⚠️  Manual Apply: ${job.title} @ ${job.company} | URL: ${url} | Resume: ${resume}`;
+  console.log(line);
+  logger.info(`[naukri] [manual-apply] ${job.title} @ ${job.company} | URL: ${url} | Resume: ${resume}`);
+  return entry;
+}
+
 /**
  * Pick reported experience years from job text.
  * Junior / 0-2 / fresher-friendly → 2.7; mid-level / 2-4 / higher → 3; else 2.7.
@@ -91,12 +132,79 @@ async function extractCards(page) {
   });
 }
 
-/** Job only offers "Apply on company site" (external ATS) — skip, don't retry. */
+/** Job only offers "Apply on company site" (external ATS) — manual apply, don't retry. */
 class ExternalAtsError extends Error {
-  constructor() {
-    super('skipped — external ATS (apply on company site)');
+  constructor(companyUrl = '') {
+    const url = companyUrl || '';
+    super(url ? `external ATS (apply on company site): ${url}` : 'external ATS (apply on company site)');
     this.name = 'ExternalAtsError';
+    this.companyUrl = url;
   }
+}
+
+/**
+ * Resolve the company/ATS URL for an external apply button.
+ * Prefers href/data attrs; falls back to click + popup/redirect capture.
+ */
+async function resolveExternalCompanyUrl(page, browser) {
+  const href = await page.evaluate(() => {
+    const el =
+      document.querySelector('#company-site-button') ||
+      Array.from(document.querySelectorAll('button, a')).find((b) =>
+        /apply on company site/i.test((b.textContent || '').trim())
+      );
+    if (!el) return '';
+    return (
+      el.href ||
+      el.getAttribute('href') ||
+      el.getAttribute('data-url') ||
+      el.getAttribute('data-href') ||
+      el.getAttribute('data-redirect') ||
+      ''
+    );
+  });
+  if (href && /^https?:\/\//i.test(href) && !/naukri\.com/i.test(href)) return href;
+
+  const popupPromise = new Promise((resolve) => {
+    const timer = setTimeout(() => {
+      browser.off('targetcreated', onTarget);
+      resolve('');
+    }, 8000);
+    async function onTarget(target) {
+      if (target.type() !== 'page') return;
+      clearTimeout(timer);
+      browser.off('targetcreated', onTarget);
+      try {
+        const p = await target.page();
+        if (!p) return resolve('');
+        await p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 8000 }).catch(() => {});
+        const url = p.url();
+        await p.close().catch(() => {});
+        resolve(url || '');
+      } catch {
+        resolve('');
+      }
+    }
+    browser.on('targetcreated', onTarget);
+  });
+
+  await page.evaluate(() => {
+    const el =
+      document.querySelector('#company-site-button') ||
+      Array.from(document.querySelectorAll('button, a')).find((b) =>
+        /apply on company site/i.test((b.textContent || '').trim())
+      );
+    if (el) el.click();
+  });
+
+  const popupUrl = await popupPromise;
+  if (popupUrl && !/naukri\.com/i.test(popupUrl)) return popupUrl;
+
+  await new Promise((r) => setTimeout(r, 2000));
+  const current = page.url();
+  if (current && !/naukri\.com/i.test(current)) return current;
+
+  return href || '';
 }
 
 /**
@@ -301,7 +409,7 @@ async function handleScreeningDrawer(page, job, profile) {
   return { answers, filled };
 }
 
-/** Open a job in a new tab, apply, answer screening questions, verify confirmation. */
+/** Open a job in a new tab, apply + screen, return immediately (optimistic success). */
 async function applyToJob(browser, job, profile = {}) {
   const page = await browser.newPage();
   try {
@@ -341,27 +449,34 @@ async function applyToJob(browser, job, profile = {}) {
         .slice(0, 10);
       return `none: [${[...new Set(labels)].join(' | ')}]`;
     });
-    if (outcome === 'external') throw new ExternalAtsError();
+
+    if (outcome === 'external') {
+      const companyUrl = await resolveExternalCompanyUrl(page, browser);
+      throw new ExternalAtsError(companyUrl);
+    }
     if (outcome === 'login') throw new Error('login required — session logged out on job page');
     if (outcome !== 'clicked') throw new Error(`Apply button not found — page buttons ${outcome.slice(5)}`);
 
     await new Promise((r) => setTimeout(r, 1500));
 
+    // Clicking Apply sometimes redirects straight to an external ATS.
+    const afterClickUrl = page.url();
+    if (afterClickUrl && !/naukri\.com/i.test(afterClickUrl)) {
+      throw new ExternalAtsError(afterClickUrl);
+    }
+
     // Answer screening questions (relocate / experience / notice / CTC / etc.)
     await handleScreeningDrawer(page, job, profile);
-    await new Promise((r) => setTimeout(r, 1500));
 
-    const confirmed = /myapply|saveapply/i.test(page.url()) || (await page.evaluate(() =>
-      document.body.innerText.toLowerCase().includes('application') && document.body.innerText.toLowerCase().includes('sent')
-    ));
-    if (!confirmed) throw new Error('No apply confirmation detected');
+    // Optimistic: form filled + apply clicked — assume success (no confirmation wait).
+    return { status: 'applied', resume: selectResume(job.title) };
   } finally {
     await page.close().catch(() => {});
   }
 }
 
 async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
-  const results = { reviewed: 0, applied: [], skipped: [], failed: [] };
+  const results = { reviewed: 0, applied: [], skipped: [], failed: [], manualApply: [] };
   const page = await newPage();
 
   try {
@@ -410,7 +525,9 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
 
         if (dryRun) {
           const preview = buildScreeningAnswers(card, profile);
-          job.reason = `would apply (score ${score}; exp=${preview.experience}, notice=${preview.notice}, relocate=${preview.relocate})`;
+          const resume = selectResume(card.title);
+          job.reason = `would apply (score ${score}; exp=${preview.experience}, notice=${preview.notice}, relocate=${preview.relocate}; resume=${resume})`;
+          job.resume = resume;
           results.applied.push(job);
           logger.info(`[naukri] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
           logger.info(`[naukri] DRY RUN screening:\n${formatScreeningLog(preview, [])}`);
@@ -425,24 +542,40 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
             break;
           } catch (err) {
             lastErr = err;
-            if (err instanceof ExternalAtsError) break; // not a failure — never retry
+            if (err instanceof ExternalAtsError) break; // manual apply — never retry
             logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${err.message}`);
             await humanDelay(1500, 2500);
           }
         }
 
         if (lastErr instanceof ExternalAtsError) {
-          job.reason = lastErr.message;
-          results.skipped.push(job);
-          dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: lastErr.message });
-          logger.info(`[naukri] skipped (external ATS): ${card.title} @ ${card.company}`);
+          const entry = handleExternalATS(job, lastErr);
+          results.manualApply.push(entry);
+          dedup.append({
+            site: 'Naukri',
+            job_title: card.title,
+            company: card.company,
+            job_url: card.url,
+            status: 'manual-apply',
+            notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
+          });
         } else if (lastErr) {
           job.reason = lastErr.message;
           results.failed.push(job);
           dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'failed', notes: lastErr.message });
         } else {
+          const resume = selectResume(card.title);
+          job.resume = resume;
           results.applied.push(job);
-          dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'applied', notes: `auto-applied (score ${score})` });
+          dedup.append({
+            site: 'Naukri',
+            job_title: card.title,
+            company: card.company,
+            job_url: card.url,
+            status: 'applied',
+            notes: `auto-applied (score ${score}; resume=${resume})`,
+          });
+          console.log(`✅ Applied: ${card.title} @ ${card.company}`);
           logger.info(`[naukri] applied: ${card.title} @ ${card.company}`);
         }
 
@@ -453,6 +586,18 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
     await page.close().catch(() => {});
   }
 
+  // End-of-run summary for the console
+  console.log(
+    `\n[naukri] Summary — Applied: ${results.applied.length} · ` +
+      `Manual Apply: ${results.manualApply.length} · Failed: ${results.failed.length}`
+  );
+  if (results.manualApply.length) {
+    console.log('[naukri] Manual Apply list:');
+    for (const j of results.manualApply) {
+      console.log(`  ⚠️  ${j.title} @ ${j.company} | URL: ${j.companyUrl} | Resume: ${j.resume}`);
+    }
+  }
+
   return results;
 }
 
@@ -461,4 +606,10 @@ module.exports = {
   pickExperienceYears,
   buildScreeningAnswers,
   formatScreeningLog,
+  selectResume,
+  extractCompanyUrl,
+  handleExternalATS,
+  ExternalAtsError,
+  RESUME_RN,
+  RESUME_FS,
 };

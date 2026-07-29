@@ -21,12 +21,59 @@ const QUERIES = [
   'full stack developer node react',
 ];
 const MAX_APPS_PER_RUN = 10;
+const RESUME_RN = '/Users/neosoft/Downloads/Resumes/shivajirn02.pdf';
+const RESUME_FS = '/Users/neosoft/Downloads/Resumes/ShivajiPresidio.pdf';
 
 class ExternalAtsError extends Error {
-  constructor(msg = 'skipped — external ATS, skipped') {
-    super(msg);
+  constructor(companyUrl = '') {
+    const url = companyUrl || '';
+    super(url ? `manual-apply — external apply: ${url}` : 'manual-apply — external or manual apply');
     this.name = 'ExternalAtsError';
+    this.companyUrl = url;
   }
+}
+
+function selectResume(jobTitle = '', jobText = '') {
+  const blob = `${jobTitle} ${jobText}`.toLowerCase();
+  if (/react[\s-]?native|\bnative\b|\bmobile\b/.test(blob)) return RESUME_RN;
+  return RESUME_FS;
+}
+
+function normalizeExternalUrl(url, currentUrl = '') {
+  const raw = String(url || '').trim();
+  if (!raw) return '';
+  try {
+    const absolute = new URL(raw, currentUrl || 'https://wellfound.com').href;
+    if (/wellfound\.com/i.test(absolute)) return '';
+    return absolute.replace(/[.,;]+$/, '');
+  } catch {
+    return '';
+  }
+}
+
+function extractCompanyUrl(error) {
+  if (!error) return '';
+  if (error.companyUrl) return String(error.companyUrl);
+  const msg = String(error.message || error);
+  const match = msg.match(/https?:\/\/[^\s)\]|'"]+/i);
+  return normalizeExternalUrl(match?.[0] || '');
+}
+
+function buildManualApplyEntry(job, companyUrl = '') {
+  const resume = selectResume(job.title, job.text);
+  const url = companyUrl || job.url || '';
+  const entry = {
+    title: job.title,
+    company: job.company,
+    url: job.url,
+    companyUrl: url,
+    resume,
+    reason: `manual-apply — external/manual apply | Resume: ${resume}`,
+  };
+  const line = `⚠️  Manual Apply: ${job.title} @ ${job.company} | URL: ${url} | Resume: ${resume}`;
+  console.log(line);
+  logger.info(`[wellfound] [manual-apply] ${job.title} @ ${job.company} | URL: ${url} | Resume: ${resume}`);
+  return entry;
 }
 
 /**
@@ -204,15 +251,57 @@ async function applyToJob(browser, job, profile) {
     await assertPageNotBlocked(page);
     await checkForCaptcha(page);
 
-    const clicked = await page.evaluate(() => {
-      const btn = Array.from(document.querySelectorAll('button, a')).find((b) =>
+    const applyAction = await page.evaluate(() => {
+      const isExternal = (value) => {
+        if (!value) return '';
+        try {
+          const absolute = new URL(value, location.href).href;
+          return /wellfound\.com/i.test(absolute) ? '' : absolute;
+        } catch {
+          return '';
+        }
+      };
+      const looksLikeManualApply = (text = '') =>
+        /apply|apply now|company site|external|official website|view job/i.test(text);
+
+      const externalCandidates = [];
+      for (const el of document.querySelectorAll('a[href], button, form[action]')) {
+        const text = (el.textContent || el.getAttribute?.('aria-label') || '').trim();
+        const href =
+          el.tagName === 'A'
+            ? el.getAttribute('href')
+            : el.tagName === 'FORM'
+              ? el.getAttribute('action')
+              : el.getAttribute('data-url') ||
+                el.getAttribute('data-href') ||
+                el.getAttribute('href') ||
+                '';
+        const externalUrl = isExternal(href);
+        if (externalUrl && looksLikeManualApply(text)) {
+          externalCandidates.push({ text, url: externalUrl });
+        }
+      }
+
+      const exactApply = Array.from(document.querySelectorAll('button, a')).find((b) =>
         /^apply( now)?$/i.test((b.textContent || '').trim())
       );
-      if (!btn) return false;
-      btn.click();
-      return true;
+      if (exactApply) {
+        const href = exactApply.getAttribute('href') || exactApply.getAttribute('data-url') || '';
+        const externalUrl = isExternal(href);
+        if (externalUrl) return { type: 'manual', companyUrl: externalUrl };
+        exactApply.click();
+        return { type: 'clicked' };
+      }
+
+      if (externalCandidates.length) {
+        return { type: 'manual', companyUrl: externalCandidates[0].url };
+      }
+
+      return { type: 'manual', companyUrl: '' };
     });
-    if (!clicked) throw new ExternalAtsError('no Easy Apply / Apply Now — external or missing apply');
+    if (applyAction.type === 'manual') {
+      throw new ExternalAtsError(applyAction.companyUrl);
+    }
 
     await new Promise((r) => setTimeout(r, 2000));
 
@@ -256,7 +345,7 @@ async function applyToJob(browser, job, profile) {
 }
 
 async function run({ profile, dedup, dryRun, newPage, browser }) {
-  const results = { reviewed: 0, applied: [], skipped: [], failed: [] };
+  const results = { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [] };
   const page = await newPage();
 
   try {
@@ -303,7 +392,12 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           description: card.text,
           experienceText: card.experienceText,
         });
-        const job = { title: card.title, company: card.company, url: card.url };
+        const job = {
+          title: card.title,
+          company: card.company,
+          url: card.url,
+          text: card.text,
+        };
 
         if (!shouldApply(score)) {
           job.reason = `score ${score} below threshold`;
@@ -346,7 +440,18 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
 
         if (lastErr instanceof SkipPortalError) throw lastErr;
 
-        if (lastErr instanceof ExternalAtsError || (lastErr && /unanswered required/i.test(lastErr.message))) {
+        if (lastErr instanceof ExternalAtsError) {
+          const entry = buildManualApplyEntry(job, extractCompanyUrl(lastErr) || card.url);
+          results.manualApply.push(entry);
+          dedup.append({
+            site: 'Wellfound',
+            job_title: card.title,
+            company: card.company,
+            job_url: card.url,
+            status: 'manual-apply',
+            notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
+          });
+        } else if (lastErr && /unanswered required/i.test(lastErr.message)) {
           job.reason = lastErr.message;
           results.skipped.push(job);
           dedup.append({
@@ -389,7 +494,28 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
     await page.close().catch(() => {});
   }
 
+  console.log(
+    `\n[wellfound] Summary — Applied: ${results.applied.length} · ` +
+      `Manual Apply: ${results.manualApply.length} · Failed: ${results.failed.length}`
+  );
+  if (results.manualApply.length) {
+    console.log('[wellfound] Manual Apply list:');
+    for (const j of results.manualApply) {
+      console.log(`  ⚠️  ${j.title} @ ${j.company} | URL: ${j.companyUrl} | Resume: ${j.resume}`);
+    }
+  }
+
   return results;
 }
 
-module.exports = { run, searchUrl, extractCards };
+module.exports = {
+  run,
+  searchUrl,
+  extractCards,
+  selectResume,
+  extractCompanyUrl,
+  buildManualApplyEntry,
+  ExternalAtsError,
+  RESUME_RN,
+  RESUME_FS,
+};
