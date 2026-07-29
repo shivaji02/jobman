@@ -2,11 +2,11 @@
   "name": "Shivaji Mandapati",
   "email": "shivajimandapati@outlook.com",
   "phone": "+91-8978577031",
-  "experience_years": 2.5,
+  "experience_years": 2.7,
   "current_role": "Associate Software Engineer",
   "current_company": "Neosoft Technologies",
   "current_since": "2024-04",
-  "summary": "Software Engineer with 2.5+ years of experience building and shipping production-grade applications across mobile, web, and backend. Proficient in React Native, React, TypeScript, Node.js, and PostgreSQL. Proven track record delivering enterprise-scale apps on Google Play Store and App Store, with a strong foundation in REST API design, JWT authentication, RBAC, and performance optimization.",
+  "summary": "Software Engineer with 2.7 years of experience building and shipping production-grade applications across mobile, web, and backend. Proficient in React Native, React, TypeScript, Node.js, and PostgreSQL. Proven track record delivering enterprise-scale apps on Google Play Store and App Store, with a strong foundation in REST API design, JWT authentication, RBAC, and performance optimization.",
   "skills": [
     "JavaScript (ES6+)", "TypeScript", "Java", "React.js", "React Native",
     "Next.js (learning)", "Zustand", "React Query", "Node.js", "Fastify",
@@ -31,9 +31,11 @@
     "Full Stack Engineer (Node.js/React/React Native)", "JavaScript/TypeScript Engineer"
   ],
   "experience_range_target": { "min": 1.5, "max": 3.5 },
-  "notice_period_days": 30,
+  "notice_period_days": 0,
   "portfolio_url": "",
   "current_ctc": "",
-  "expected_ctc": "",
-  "locations": "anywhere in India — remote, hybrid, or onsite; no location filter"
+  "expected_ctc": "15-20 LPA",
+  "locations": "anywhere in India — remote, hybrid, or onsite; open to relocation",
+  "willing_to_relocate": true,
+  "available_immediate": true
 }

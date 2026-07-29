@@ -2,8 +2,9 @@
  * Naukri bot — flow proven manually (2 applications submitted 2026-07-23).
  *
  * Search results pages, client-side experience filtering (the site's slider
- * filter is threshold-based, not a range), job cards open in a new tab, and
- * the Apply flow's CTC screening drawer is dismissed via "Skip this question".
+ * filter is threshold-based, not a range), job cards open in a new tab.
+ * Screening drawer questions are answered from profile defaults (relocate,
+ * experience, notice, CTC) — never skipped when an answer is known.
  * Job URLs are stable and used directly as the dedup key.
  */
 const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
@@ -13,6 +14,59 @@ const logger = require('../core/logger');
 
 const QUERIES = ['react native developer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
 const MAX_APPS_PER_RUN = 10;
+const MAX_SCREENING_ROUNDS = 10;
+
+/**
+ * Pick reported experience years from job text.
+ * Junior / 0-2 / fresher-friendly → 2.7; mid-level / 2-4 / higher → 3; else 2.7.
+ */
+function pickExperienceYears(jobText = '') {
+  const t = String(jobText).toLowerCase();
+  const junior =
+    /0\s*[-–to]+\s*2(\s*(yrs?|years?))?/i.test(t) ||
+    /\bjunior\b/.test(t) ||
+    /fresher[- ]friendly|\bfresher\b/.test(t);
+  const midOrHigher =
+    /2\s*[-–to]+\s*4(\s*(yrs?|years?))?/i.test(t) ||
+    /\bmid[- ]level\b/.test(t) ||
+    /3\s*[-–to]+\s*[4-9](\s*(yrs?|years?))?/i.test(t) ||
+    /4\s*\+?\s*(yrs?|years?)/i.test(t) ||
+    /\b(senior|lead|staff|principal)\b/.test(t);
+  if (junior) return '2.7';
+  if (midOrHigher) return '3';
+  return '2.7';
+}
+
+/** Build canonical screening answers for a job + profile. */
+function buildScreeningAnswers(job = {}, profile = {}) {
+  const blob = [job.title, job.experienceText, job.text, job.description].filter(Boolean).join(' ');
+  const experience = pickExperienceYears(blob);
+  const ctc = profile.expected_ctc || profile.current_ctc || '15-20 LPA';
+  return {
+    relocate: 'Yes',
+    experience,
+    notice: 'Immediate',
+    noticeFallback: '15 days',
+    ctc,
+    startup: 'Yes',
+    availability: 'Immediate',
+    employmentStatus: 'Available for immediate joining',
+    location: 'Open to relocation',
+  };
+}
+
+function formatScreeningLog(answers, filled) {
+  const other = filled
+    .filter((f) => !['relocate', 'experience', 'notice', 'ctc'].includes(f.key))
+    .map((f) => `${f.question}: ${f.answer}`);
+  const byKey = Object.fromEntries(filled.map((f) => [f.key, f.answer]));
+  return [
+    `- Relocate: ${byKey.relocate || answers.relocate}`,
+    `- Experience: ${byKey.experience || answers.experience}`,
+    `- Notice: ${byKey.notice || answers.notice}`,
+    `- Other: ${other.length ? other.join('; ') : '(none)'}`,
+  ].join('\n');
+}
 
 function searchUrl(query) {
   const slug = query.trim().toLowerCase().replace(/\s+/g, '-');
@@ -45,8 +99,210 @@ class ExternalAtsError extends Error {
   }
 }
 
-/** Open a job in a new tab, apply, dismiss the CTC drawer, verify via confirmation URL. */
-async function applyToJob(browser, job) {
+/**
+ * Answer one visible Naukri screening question (chatbot drawer or form).
+ * Returns { status, key?, question?, answer? }.
+ */
+function answerOneScreeningRound(page, answers) {
+  return page.evaluate((answers) => {
+    const root =
+      document.querySelector('[class*="chatbot"], [class*="Chatbot"], [class*="screening"], [class*="drawer"], [class*="modal"], [role="dialog"]') ||
+      document.body;
+
+    const visible = (el) => {
+      if (!el) return false;
+      const s = window.getComputedStyle(el);
+      if (s.display === 'none' || s.visibility === 'hidden' || Number(s.opacity) === 0) return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0;
+    };
+
+    const clickable = Array.from(root.querySelectorAll('button, a, span, div, li, label'))
+      .filter(visible)
+      .filter((el) => {
+        const t = (el.textContent || '').trim();
+        return t.length > 0 && t.length <= 80 && el.children.length <= 2;
+      });
+
+    // Prefer the latest bot/question bubble text.
+    const questionEls = Array.from(
+      root.querySelectorAll('[class*="question"], [class*="bot"], [class*="msg"], [class*="message"], p, h2, h3, h4, label')
+    ).filter(visible);
+    let question = '';
+    for (let i = questionEls.length - 1; i >= 0; i--) {
+      const t = (questionEls[i].textContent || '').replace(/\s+/g, ' ').trim();
+      if (t.length >= 8 && t.length <= 220 && /\?|experience|ctc|notice|relocat|salary|available|startup|location|willing/i.test(t)) {
+        question = t;
+        break;
+      }
+    }
+    if (!question) {
+      const bodySlice = (root.innerText || '').replace(/\s+/g, ' ').slice(0, 800);
+      const m = bodySlice.match(/[^?.!]{8,160}\?/);
+      question = m ? m[0].trim() : '';
+    }
+
+    const q = question.toLowerCase();
+    if (!q) {
+      // No screening UI — maybe already applied.
+      const skipBtn = clickable.find((b) => /skip this question/i.test(b.textContent));
+      if (!skipBtn) return { status: 'idle' };
+      return { status: 'idle' };
+    }
+
+    function pickOption(preferred, fallbacks = []) {
+      const wants = [preferred, ...fallbacks].map((s) => String(s).toLowerCase());
+      for (const want of wants) {
+        const exact = clickable.find((el) => el.textContent.trim().toLowerCase() === want);
+        if (exact) {
+          exact.click();
+          return exact.textContent.trim();
+        }
+      }
+      for (const want of wants) {
+        const partial = clickable.find((el) => {
+          const t = el.textContent.trim().toLowerCase();
+          return t.includes(want) || want.includes(t);
+        });
+        if (partial) {
+          partial.click();
+          return partial.textContent.trim();
+        }
+      }
+      return null;
+    }
+
+    function fillText(value) {
+      const inputs = Array.from(root.querySelectorAll('input:not([type="hidden"]), textarea, select')).filter(visible);
+      const empty = inputs.find((el) => !el.value || el.value === '0' || el.selectedIndex === 0);
+      const el = empty || inputs[inputs.length - 1];
+      if (!el) return false;
+      if (el.tagName === 'SELECT') {
+        const opts = Array.from(el.options);
+        const match =
+          opts.find((o) => o.textContent.trim().toLowerCase() === String(value).toLowerCase()) ||
+          opts.find((o) => o.textContent.toLowerCase().includes(String(value).toLowerCase())) ||
+          opts.find((o) => String(value).toLowerCase().includes(o.textContent.trim().toLowerCase()));
+        if (!match) return false;
+        el.value = match.value;
+      } else {
+        el.focus();
+        el.value = String(value);
+      }
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+
+    function clickSend() {
+      const send = clickable.find((b) => /^(send|submit|next|continue|save|done)$/i.test(b.textContent.trim()));
+      if (send) {
+        send.click();
+        return true;
+      }
+      return false;
+    }
+
+    let key = 'other';
+    let answer = null;
+    let optionalSkip = false;
+
+    if (/relocat|willing to (re)?locate|open to (re)?locat/i.test(q)) {
+      key = 'relocate';
+      answer = pickOption(answers.relocate, ['Yes', 'Y']);
+      if (!answer && fillText(answers.relocate)) answer = answers.relocate;
+    } else if (/total experience|years? of experience|how many years|experience in years|relevant experience/i.test(q)) {
+      key = 'experience';
+      answer = pickOption(answers.experience, [String(Math.round(Number(answers.experience))), '2.7', '3', '2']);
+      if (!answer && fillText(answers.experience)) answer = answers.experience;
+    } else if (/notice period|serving notice|how soon can you join|availability|available to join|joining/i.test(q)) {
+      key = 'notice';
+      answer = pickOption(answers.notice, [
+        'Immediate',
+        'Immediately',
+        '0 days',
+        '0',
+        answers.noticeFallback,
+        '15 days',
+        '15',
+      ]);
+      if (!answer && fillText(answers.notice)) answer = answers.notice;
+    } else if (/current ctc|expected ctc|current salary|expected salary|ctc|compensation|package/i.test(q)) {
+      key = 'ctc';
+      answer = pickOption(answers.ctc, ['15-20 LPA', '15 - 20 LPA', '15 to 20', '15', '20']);
+      if (!answer && fillText(answers.ctc)) answer = answers.ctc;
+      if (!answer) optionalSkip = true; // CTC optional — skip only this question
+    } else if (/startup/i.test(q)) {
+      key = 'startup';
+      answer = pickOption(answers.startup, ['Yes', 'Y']);
+      if (!answer && fillText(answers.startup)) answer = answers.startup;
+    } else if (/current (employment )?status|employment status|currently employed|working/i.test(q)) {
+      key = 'employmentStatus';
+      answer = pickOption(answers.employmentStatus, [
+        'Available for immediate joining',
+        'Immediate joiner',
+        'Not working',
+        'Serving notice',
+        answers.availability,
+      ]);
+      if (!answer && fillText(answers.employmentStatus)) answer = answers.employmentStatus;
+    } else if (/preferred location|current location|location/i.test(q)) {
+      key = 'location';
+      answer = pickOption(answers.location, ['Anywhere', 'Open to relocation', 'Remote', 'India']);
+      if (!answer && fillText(answers.location)) answer = answers.location;
+    } else if (/willing|agree|comfortable|okay with/i.test(q)) {
+      key = 'other';
+      answer = pickOption('Yes', ['Yes', 'Y']);
+      if (!answer && fillText('Yes')) answer = 'Yes';
+    }
+
+    if (answer) {
+      clickSend();
+      return { status: 'answered', key, question, answer };
+    }
+
+    if (optionalSkip) {
+      const skipBtn = clickable.find((b) => /skip this question|skip/i.test(b.textContent));
+      if (skipBtn) {
+        skipBtn.click();
+        return { status: 'skipped_optional', key, question, answer: '(skipped — optional CTC)' };
+      }
+    }
+
+    // Unknown required question — do not invent; leave for retry/failure path
+    return { status: 'unanswered', question };
+  }, answers);
+}
+
+async function handleScreeningDrawer(page, job, profile) {
+  const answers = buildScreeningAnswers(job, profile);
+  const filled = [];
+
+  for (let round = 0; round < MAX_SCREENING_ROUNDS; round++) {
+    const result = await answerOneScreeningRound(page, answers);
+    if (result.status === 'idle') break;
+    if (result.status === 'answered' || result.status === 'skipped_optional') {
+      filled.push({
+        key: result.key,
+        question: result.question,
+        answer: result.answer,
+      });
+      await new Promise((r) => setTimeout(r, 900));
+      continue;
+    }
+    if (result.status === 'unanswered') {
+      logger.warn(`[naukri] unanswered screening: ${result.question}`);
+      break;
+    }
+    break;
+  }
+
+  logger.info(`[naukri] screening answers for "${job.title}":\n${formatScreeningLog(answers, filled)}`);
+  return { answers, filled };
+}
+
+/** Open a job in a new tab, apply, answer screening questions, verify confirmation. */
+async function applyToJob(browser, job, profile = {}) {
   const page = await browser.newPage();
   try {
     await withRetry(
@@ -91,13 +347,8 @@ async function applyToJob(browser, job) {
 
     await new Promise((r) => setTimeout(r, 1500));
 
-    // dismiss CTC / screening chatbot drawer if present
-    await page.evaluate(() => {
-      const skipBtn = Array.from(document.querySelectorAll('button, a, span')).find((b) =>
-        /skip this question/i.test(b.textContent)
-      );
-      if (skipBtn) skipBtn.click();
-    });
+    // Answer screening questions (relocate / experience / notice / CTC / etc.)
+    await handleScreeningDrawer(page, job, profile);
     await new Promise((r) => setTimeout(r, 1500));
 
     const confirmed = /myapply|saveapply/i.test(page.url()) || (await page.evaluate(() =>
@@ -109,7 +360,7 @@ async function applyToJob(browser, job) {
   }
 }
 
-async function run({ dedup, dryRun, newPage, browser }) {
+async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
   const results = { reviewed: 0, applied: [], skipped: [], failed: [] };
   const page = await newPage();
 
@@ -158,16 +409,18 @@ async function run({ dedup, dryRun, newPage, browser }) {
         }
 
         if (dryRun) {
-          job.reason = `would apply (score ${score})`;
+          const preview = buildScreeningAnswers(card, profile);
+          job.reason = `would apply (score ${score}; exp=${preview.experience}, notice=${preview.notice}, relocate=${preview.relocate})`;
           results.applied.push(job);
           logger.info(`[naukri] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
+          logger.info(`[naukri] DRY RUN screening:\n${formatScreeningLog(preview, [])}`);
           continue;
         }
 
         let lastErr;
         for (let attempt = 1; attempt <= 2; attempt++) {
           try {
-            await applyToJob(browser, card);
+            await applyToJob(browser, card, profile);
             lastErr = null;
             break;
           } catch (err) {
@@ -203,4 +456,9 @@ async function run({ dedup, dryRun, newPage, browser }) {
   return results;
 }
 
-module.exports = { run };
+module.exports = {
+  run,
+  pickExperienceYears,
+  buildScreeningAnswers,
+  formatScreeningLog,
+};
