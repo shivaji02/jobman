@@ -19,7 +19,6 @@ const PORTALS_IN_PRIORITY_ORDER = [
   'naukri',
   'linkedin',
   'wellfound',
-  'cutshort',
   'yourstory',
 ];
 const ALL_PORTALS = [...PORTALS_IN_PRIORITY_ORDER];
@@ -28,7 +27,6 @@ const BOTS = {
   naukri: require('./bots/naukri'),
   linkedin: require('./bots/linkedin'),
   wellfound: require('./bots/wellfound'),
-  cutshort: require('./bots/cutshort'),
   yourstory: require('./bots/yourstory'),
 };
 

@@ -12,7 +12,7 @@ program.name('jobman').description('Automated job application bot');
 
 program
   .command('run-all')
-  .description('run every portal in priority order (instahyre, naukri, linkedin, wellfound, cutshort, yourstory)')
+  .description('run every portal in priority order (instahyre, naukri, linkedin, wellfound, yourstory)')
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)
   .action(async (opts) => {
     await runAll({ dryRun: opts.dryRun });
@@ -20,7 +20,7 @@ program
 
 program
   .command('run <portal>')
-  .description('run a single portal: instahyre | naukri | linkedin | wellfound | cutshort | yourstory')
+  .description('run a single portal: instahyre | naukri | linkedin | wellfound | yourstory')
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)
   .action(async (portal, opts) => {
     if (!ALL_PORTALS.includes(portal)) {
