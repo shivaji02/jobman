@@ -12,7 +12,7 @@ const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const logger = require('../core/logger');
 
-const QUERIES = ['react native developer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
+const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
 const MAX_APPS_PER_RUN = 10;
 const MAX_SCREENING_ROUNDS = 10;
 
