@@ -13,6 +13,7 @@ const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browse
 const { withRetry, isUiError } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
+const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const QUERIES = [
   'react native developer',
@@ -240,8 +241,19 @@ function fillWellfoundForm(page, profile) {
   }, profile);
 }
 
+async function openExternalOnPage(page, url) {
+  if (!url) return page.url();
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  } catch (err) {
+    logger.warn(`[wellfound] could not open external URL ${url}: ${err.message}`);
+  }
+  return page.url() || url;
+}
+
 async function applyToJob(browser, job, profile) {
   const page = await browser.newPage();
+  const resume = selectResume(job.title, job.text);
   try {
     await withRetry(
       () => page.goto(job.url, { waitUntil: 'domcontentloaded', timeout: 45000 }),
@@ -300,7 +312,17 @@ async function applyToJob(browser, job, profile) {
       return { type: 'manual', companyUrl: '' };
     });
     if (applyAction.type === 'manual') {
-      throw new ExternalAtsError(applyAction.companyUrl);
+      let companyUrl = applyAction.companyUrl || job.url;
+      if (applyAction.companyUrl) {
+        companyUrl = await openExternalOnPage(page, applyAction.companyUrl);
+      }
+      return {
+        status: 'manual-apply',
+        page,
+        companyUrl,
+        resume,
+        error: new ExternalAtsError(companyUrl),
+      };
     }
 
     await new Promise((r) => setTimeout(r, 2000));
@@ -313,12 +335,24 @@ async function applyToJob(browser, job, profile) {
       })
     );
     if (needsSignup) {
-      throw new SkipPortalError('login required — sign in once via `npm run login`');
+      return {
+        status: 'failed',
+        page,
+        resume,
+        reason: 'login required — sign in once via `npm run login`',
+        skipPortal: true,
+      };
     }
 
     const filled = await fillWellfoundForm(page, profile);
     if (!filled.ok) {
-      throw new Error(`unanswered required fields: ${filled.unanswered.join('; ')}`);
+      return {
+        status: 'failed',
+        page,
+        resume,
+        reason: `unanswered required fields: ${filled.unanswered.join('; ')}`,
+        skipAsScreening: true,
+      };
     }
 
     const submitted = await page.evaluate(() => {
@@ -329,7 +363,9 @@ async function applyToJob(browser, job, profile) {
       btn.click();
       return true;
     });
-    if (!submitted) throw new Error('Submit application button not found');
+    if (!submitted) {
+      return { status: 'failed', page, resume, reason: 'Submit application button not found' };
+    }
 
     await new Promise((r) => setTimeout(r, 2500));
     const confirmed = await page.evaluate(() => {
@@ -338,14 +374,29 @@ async function applyToJob(browser, job, profile) {
         text
       );
     });
-    if (!confirmed) throw new Error('no application-sent confirmation');
-  } finally {
-    await page.close().catch(() => {});
+    if (!confirmed) {
+      return { status: 'failed', page, resume, reason: 'no application-sent confirmation' };
+    }
+
+    return { status: 'applied', page, resume };
+  } catch (err) {
+    if (err instanceof ExternalAtsError) {
+      const companyUrl = err.companyUrl || job.url;
+      if (companyUrl && /wellfound\.com/i.test(page.url()) && !/wellfound\.com/i.test(companyUrl)) {
+        await openExternalOnPage(page, companyUrl);
+      }
+      return { status: 'manual-apply', page, companyUrl, resume, error: err };
+    }
+    if (err instanceof SkipPortalError) {
+      return { status: 'failed', page, resume, reason: err.message, skipPortal: true };
+    }
+    return { status: 'failed', page, resume, reason: err.message };
   }
 }
 
 async function run({ profile, dedup, dryRun, newPage, browser }) {
   const results = { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [] };
+  const tabs = createTabTracker('wellfound');
   const page = await newPage();
 
   try {
@@ -422,27 +473,53 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           continue;
         }
 
-        let lastErr;
+        const attemptPages = [];
+        let outcome;
         for (let attempt = 1; attempt <= 2; attempt++) {
-          try {
-            await applyToJob(browser, card, profile);
-            lastErr = null;
+          outcome = await applyToJob(browser, card, profile);
+          if (outcome.page) attemptPages.push(outcome.page);
+          if (
+            outcome.status === 'applied' ||
+            outcome.status === 'manual-apply' ||
+            outcome.skipPortal ||
+            outcome.skipAsScreening ||
+            isUiError(new Error(outcome.reason || ''))
+          ) {
             break;
-          } catch (err) {
-            lastErr = err;
-            if (err instanceof ExternalAtsError || err instanceof SkipPortalError || isUiError(err)) {
-              break;
-            }
-            logger.warn(`[wellfound] attempt ${attempt} failed for "${card.title}": ${err.message}`);
-            await humanDelay(1500, 2500);
           }
+          if (attempt < 2) {
+            logger.warn(`[wellfound] attempt ${attempt} failed for "${card.title}": ${outcome.reason}`);
+            await humanDelay(1500, 2500);
+            continue;
+          }
+          break;
         }
 
-        if (lastErr instanceof SkipPortalError) throw lastErr;
+        if (outcome.skipPortal) {
+          await settleAttemptPages(attemptPages, null);
+          throw new SkipPortalError(outcome.reason);
+        }
 
-        if (lastErr instanceof ExternalAtsError) {
-          const entry = buildManualApplyEntry(job, extractCompanyUrl(lastErr) || card.url);
+        const keepOpen =
+          outcome.status === 'manual-apply' ||
+          outcome.status === 'failed' ||
+          outcome.skipAsScreening;
+        const keepPage = keepOpen ? outcome.page : null;
+        await settleAttemptPages(attemptPages, keepPage);
+
+        const pageUrl = (() => {
+          try {
+            return keepPage?.url?.() || outcome.companyUrl || '';
+          } catch {
+            return outcome.companyUrl || '';
+          }
+        })();
+
+        if (outcome.status === 'manual-apply') {
+          const entry = buildManualApplyEntry(job, outcome.companyUrl || extractCompanyUrl(outcome.error) || card.url);
           results.manualApply.push(entry);
+          tabs.trackManualApply(entry, entry.companyUrl);
+          logger.info(`[wellfound] → Tab OPEN and ready for manual apply`);
           dedup.append({
             site: 'Wellfound',
             job_title: card.title,
@@ -451,28 +528,32 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
             status: 'manual-apply',
             notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
           });
-        } else if (lastErr && /unanswered required/i.test(lastErr.message)) {
-          job.reason = lastErr.message;
+        } else if (outcome.skipAsScreening || /unanswered required/i.test(outcome.reason || '')) {
+          job.reason = outcome.reason;
           results.skipped.push(job);
+          tabs.trackFailed({ ...job, reason: job.reason }, pageUrl || job.url);
+          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
           dedup.append({
             site: 'Wellfound',
             job_title: card.title,
             company: card.company,
             job_url: card.url,
             status: 'skipped',
-            notes: lastErr.message,
+            notes: outcome.reason,
           });
-          logger.info(`[wellfound] skipped: ${card.title} — ${lastErr.message}`);
-        } else if (lastErr) {
-          job.reason = lastErr.message;
+          logger.info(`[wellfound] skipped: ${card.title} — ${outcome.reason}`);
+        } else if (outcome.status === 'failed') {
+          job.reason = outcome.reason || 'apply failed';
           results.failed.push(job);
+          tabs.trackFailed(job, pageUrl || job.url);
+          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
           dedup.append({
             site: 'Wellfound',
             job_title: card.title,
             company: card.company,
             job_url: card.url,
             status: 'failed',
-            notes: lastErr.message,
+            notes: job.reason,
           });
         } else {
           results.applied.push(job);
@@ -484,27 +565,21 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
             status: 'applied',
             notes: `auto-applied (score ${score})`,
           });
-          logger.info(`[wellfound] applied: ${card.title} @ ${card.company}`);
+          console.log(`✅ Applied: ${card.title} @ ${card.company}`);
+          logger.info(`[wellfound] applied: ${card.title} @ ${card.company} → tab closed`);
         }
 
         await humanDelay(3000, 5000);
       }
     }
+  } catch (err) {
+    tabs.printSummary();
+    throw err;
   } finally {
-    await page.close().catch(() => {});
+    await closePageQuietly(page);
   }
 
-  console.log(
-    `\n[wellfound] Summary — Applied: ${results.applied.length} · ` +
-      `Manual Apply: ${results.manualApply.length} · Failed: ${results.failed.length}`
-  );
-  if (results.manualApply.length) {
-    console.log('[wellfound] Manual Apply list:');
-    for (const j of results.manualApply) {
-      console.log(`  ⚠️  ${j.title} @ ${j.company} | URL: ${j.companyUrl} | Resume: ${j.resume}`);
-    }
-  }
-
+  tabs.printSummary();
   return results;
 }
 

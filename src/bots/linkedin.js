@@ -1,11 +1,13 @@
 /**
- * LinkedIn bot — Easy Apply ONLY. External-redirect jobs are skipped.
+ * LinkedIn bot — Easy Apply when available; otherwise leave job tab open for manual apply.
+ * Successful applies close their tab; manual-apply and failed tabs stay open.
  *
  * Rate-limits aggressively: capped at 15 apps/run with randomized 3-5s
  * delays. Dedup key is the /jobs/view/<id>/ URL.
  */
 const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
 const logger = require('../core/logger');
+const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 15;
 const LINKEDIN_THRESHOLD = 30;
@@ -488,52 +490,76 @@ async function clickModalAction(page) {
   });
 }
 
-async function applyToJob(page, job, profile) {
-  await openEasyApplyModal(page, job);
+async function applyToJob(browser, job, profile) {
+  const page = await browser.newPage();
+  try {
+    await openEasyApplyModal(page, job);
 
-  for (let step = 0; step < 10; step++) {
-    const filled = await fillScreeningFields(page, profile);
-    if (!filled.ok) throw new Error(filled.reason);
+    for (let step = 0; step < 10; step++) {
+      const filled = await fillScreeningFields(page, profile);
+      if (!filled.ok) {
+        return { status: 'failed', page, reason: filled.reason };
+      }
 
-    const advanced = await clickModalAction(page);
-    if (!advanced) break;
-    await new Promise((r) => setTimeout(r, 1400));
+      const advanced = await clickModalAction(page);
+      if (!advanced) break;
+      await new Promise((r) => setTimeout(r, 1400));
 
-    // Stuck on same step with validation errors → abort
-    const stillInvalid = await page.evaluate(() => {
-      const text = document.body?.innerText || '';
-      return /invalid input/i.test(text) && /\d+\s*\/\s*\d+\s*pages/.test(text);
-    });
-    if (stillInvalid) {
-      throw new Error('required screening question cannot be answered from profile');
+      // Stuck on same step with validation errors → abort (tab stays open)
+      const stillInvalid = await page.evaluate(() => {
+        const text = document.body?.innerText || '';
+        return /invalid input/i.test(text) && /\d+\s*\/\s*\d+\s*pages/.test(text);
+      });
+      if (stillInvalid) {
+        return {
+          status: 'failed',
+          page,
+          reason: 'required screening question cannot be answered from profile',
+        };
+      }
+
+      if (/submit application/i.test(advanced)) break;
     }
 
-    if (/submit application/i.test(advanced)) break;
-  }
-
-  const confirmed = await page.evaluate(() => {
-    const text = (document.body?.innerText || '').toLowerCase();
-    return /application (sent|submitted)|your application was sent|successfully submitted/i.test(text);
-  });
-  if (!confirmed) {
-    await page.evaluate(() => {
-      const dialog = document.querySelector('[role="dialog"]');
-      const scope = dialog || document;
-      const dismiss = Array.from(scope.querySelectorAll('button')).find((b) =>
-        /^(done|dismiss)$/i.test((b.textContent || '').trim()) ||
-        /^dismiss$/i.test(b.getAttribute('aria-label') || '')
-      );
-      if (dismiss) dismiss.click();
+    const confirmed = await page.evaluate(() => {
+      const text = (document.body?.innerText || '').toLowerCase();
+      return /application (sent|submitted)|your application was sent|successfully submitted/i.test(text);
     });
-    await new Promise((r) => setTimeout(r, 800));
-    const alreadyApplied = await page.evaluate(() => {
-      const btn = Array.from(document.querySelectorAll('button')).find((b) => {
-        const label = `${b.getAttribute('aria-label') || ''} ${b.textContent || ''}`.toLowerCase();
-        return /\bapplied\b/.test(label);
+    if (!confirmed) {
+      await page.evaluate(() => {
+        const dialog = document.querySelector('[role="dialog"]');
+        const scope = dialog || document;
+        const dismiss = Array.from(scope.querySelectorAll('button')).find((b) =>
+          /^(done|dismiss)$/i.test((b.textContent || '').trim()) ||
+          /^dismiss$/i.test(b.getAttribute('aria-label') || '')
+        );
+        if (dismiss) dismiss.click();
       });
-      return !!btn;
-    });
-    if (!alreadyApplied) throw new Error('no application-sent confirmation');
+      await new Promise((r) => setTimeout(r, 800));
+      const alreadyApplied = await page.evaluate(() => {
+        const btn = Array.from(document.querySelectorAll('button')).find((b) => {
+          const label = `${b.getAttribute('aria-label') || ''} ${b.textContent || ''}`.toLowerCase();
+          return /\bapplied\b/.test(label);
+        });
+        return !!btn;
+      });
+      if (!alreadyApplied) {
+        return { status: 'failed', page, reason: 'no application-sent confirmation' };
+      }
+    }
+
+    return { status: 'applied', page };
+  } catch (err) {
+    if (err instanceof SkipPortalNoEasyApply) {
+      // Leave job detail tab open for manual / external apply
+      return {
+        status: 'manual-apply',
+        page,
+        companyUrl: job.url,
+        reason: 'no Easy Apply — complete on this tab or company site',
+      };
+    }
+    return { status: 'failed', page, reason: err.message };
   }
 }
 
@@ -543,8 +569,9 @@ class SkipPortalNoEasyApply extends Error {
   }
 }
 
-async function run({ profile, dedup, dryRun, newPage }) {
-  const results = { reviewed: 0, applied: [], skipped: [], failed: [] };
+async function run({ profile, dedup, dryRun, newPage, browser }) {
+  const results = { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [] };
+  const tabs = createTabTracker('linkedin');
   const page = await newPage();
 
   try {
@@ -604,36 +631,72 @@ async function run({ profile, dedup, dryRun, newPage }) {
           continue;
         }
 
-        try {
-          await applyToJob(page, card, profile);
+        const outcome = await applyToJob(browser, card, profile);
+        const keepOpen = outcome.status === 'manual-apply' || outcome.status === 'failed';
+        const keepPage = keepOpen ? outcome.page : null;
+        await settleAttemptPages(outcome.page ? [outcome.page] : [], keepPage);
+
+        const pageUrl = (() => {
+          try {
+            return keepPage?.url?.() || outcome.companyUrl || card.url;
+          } catch {
+            return outcome.companyUrl || card.url;
+          }
+        })();
+
+        if (outcome.status === 'applied') {
           results.applied.push(job);
           dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'applied', notes: `Easy Apply (score ${score})` });
-          logger.info(`[linkedin] applied: ${card.title} @ ${card.company}`);
-        } catch (err) {
-          if (err instanceof SkipPortalNoEasyApply) {
-            job.reason = err.message;
-            results.skipped.push(job);
-            dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: err.message });
-          } else if (/unanswered required|cannot be answered from profile/i.test(err.message)) {
-            job.reason = err.message;
-            results.skipped.push(job);
-            dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: err.message });
-            logger.info(`[linkedin] skipped (screening): ${card.title} — ${err.message}`);
-          } else {
-            job.reason = err.message;
-            results.failed.push(job);
-            dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'failed', notes: err.message });
-            logger.info(`[linkedin] failed: ${card.title} — ${err.message}`);
-          }
+          console.log(`✅ Applied: ${card.title} @ ${card.company}`);
+          logger.info(`[linkedin] applied: ${card.title} @ ${card.company} → tab closed`);
+        } else if (outcome.status === 'manual-apply') {
+          const entry = {
+            title: card.title,
+            company: card.company,
+            url: card.url,
+            companyUrl: outcome.companyUrl || pageUrl || card.url,
+            reason: outcome.reason || 'manual-apply — no Easy Apply',
+          };
+          results.manualApply.push(entry);
+          tabs.trackManualApply(entry, entry.companyUrl);
+          console.log(`⚠️  Manual Apply: ${card.title} @ ${card.company} | URL: ${entry.companyUrl}`);
+          logger.info(`[linkedin] → Tab OPEN and ready for manual apply`);
+          dedup.append({
+            site: 'LinkedIn',
+            job_title: card.title,
+            company: card.company,
+            job_url: card.url,
+            status: 'manual-apply',
+            notes: entry.reason,
+          });
+        } else if (/unanswered required|cannot be answered from profile/i.test(outcome.reason || '')) {
+          job.reason = outcome.reason;
+          results.skipped.push(job);
+          // Screening can't be completed — leave tab open for manual fill
+          tabs.trackFailed({ ...job, reason: job.reason }, pageUrl);
+          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
+          dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: outcome.reason });
+          logger.info(`[linkedin] skipped (screening): ${card.title} — ${outcome.reason}`);
+        } else {
+          job.reason = outcome.reason || 'apply failed';
+          results.failed.push(job);
+          tabs.trackFailed(job, pageUrl);
+          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
+          dedup.append({ site: 'LinkedIn', job_title: card.title, company: card.company, job_url: card.url, status: 'failed', notes: job.reason });
+          logger.info(`[linkedin] failed: ${card.title} — ${job.reason}`);
         }
 
         await humanDelay(3000, 5000);
       }
     }
+  } catch (err) {
+    tabs.printSummary();
+    throw err;
   } finally {
-    await page.close().catch(() => {});
+    await closePageQuietly(page);
   }
 
+  tabs.printSummary();
   return results;
 }
 

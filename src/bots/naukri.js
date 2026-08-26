@@ -11,6 +11,7 @@ const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browse
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const logger = require('../core/logger');
+const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
 const MAX_APPS_PER_RUN = 10;
@@ -144,7 +145,9 @@ class ExternalAtsError extends Error {
 
 /**
  * Resolve the company/ATS URL for an external apply button.
- * Prefers href/data attrs; falls back to click + popup/redirect capture.
+ * Prefers href/data attrs; falls back to click + popup/redirect.
+ * Never closes tabs — popup/redirect pages stay open for manual apply.
+ * Returns { url, page? } where page is a newly opened ATS tab when applicable.
  */
 async function resolveExternalCompanyUrl(page, browser) {
   const href = await page.evaluate(() => {
@@ -163,12 +166,14 @@ async function resolveExternalCompanyUrl(page, browser) {
       ''
     );
   });
-  if (href && /^https?:\/\//i.test(href) && !/naukri\.com/i.test(href)) return href;
+  if (href && /^https?:\/\//i.test(href) && !/naukri\.com/i.test(href)) {
+    return { url: href, page: null };
+  }
 
   const popupPromise = new Promise((resolve) => {
     const timer = setTimeout(() => {
       browser.off('targetcreated', onTarget);
-      resolve('');
+      resolve({ url: '', page: null });
     }, 8000);
     async function onTarget(target) {
       if (target.type() !== 'page') return;
@@ -176,13 +181,13 @@ async function resolveExternalCompanyUrl(page, browser) {
       browser.off('targetcreated', onTarget);
       try {
         const p = await target.page();
-        if (!p) return resolve('');
+        if (!p) return resolve({ url: '', page: null });
         await p.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 8000 }).catch(() => {});
         const url = p.url();
-        await p.close().catch(() => {});
-        resolve(url || '');
+        // Leave popup open for the user to complete manual apply
+        resolve({ url: url || '', page: p });
       } catch {
-        resolve('');
+        resolve({ url: '', page: null });
       }
     }
     browser.on('targetcreated', onTarget);
@@ -197,14 +202,25 @@ async function resolveExternalCompanyUrl(page, browser) {
     if (el) el.click();
   });
 
-  const popupUrl = await popupPromise;
-  if (popupUrl && !/naukri\.com/i.test(popupUrl)) return popupUrl;
+  const popup = await popupPromise;
+  if (popup.url && !/naukri\.com/i.test(popup.url)) return popup;
 
   await new Promise((r) => setTimeout(r, 2000));
   const current = page.url();
-  if (current && !/naukri\.com/i.test(current)) return current;
+  if (current && !/naukri\.com/i.test(current)) return { url: current, page: null };
 
-  return href || '';
+  return { url: href || '', page: null };
+}
+
+/** Navigate job tab to external ATS URL when we only have an href (no popup). */
+async function openExternalOnPage(page, url) {
+  if (!url) return page.url();
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  } catch (err) {
+    logger.warn(`[naukri] could not open external URL ${url}: ${err.message}`);
+  }
+  return page.url() || url;
 }
 
 /**
@@ -409,9 +425,14 @@ async function handleScreeningDrawer(page, job, profile) {
   return { answers, filled };
 }
 
-/** Open a job in a new tab, apply + screen, return immediately (optimistic success). */
+/**
+ * Open a job in a new tab, apply + screen.
+ * Caller closes the page on success; keeps it open for manual-apply/failed.
+ * Returns { status: 'applied'|'manual-apply'|'failed', page, ... }.
+ */
 async function applyToJob(browser, job, profile = {}) {
   const page = await browser.newPage();
+  const resume = selectResume(job.title);
   try {
     await withRetry(
       () => page.goto(job.url, { waitUntil: 'domcontentloaded' }),
@@ -451,32 +472,74 @@ async function applyToJob(browser, job, profile = {}) {
     });
 
     if (outcome === 'external') {
-      const companyUrl = await resolveExternalCompanyUrl(page, browser);
-      throw new ExternalAtsError(companyUrl);
+      const resolved = await resolveExternalCompanyUrl(page, browser);
+      let companyUrl = resolved.url || '';
+      let trackPage = resolved.page || page;
+      if (!resolved.page && companyUrl) {
+        companyUrl = await openExternalOnPage(page, companyUrl);
+        trackPage = page;
+      } else if (!companyUrl) {
+        companyUrl = page.url() || job.url;
+      }
+      return {
+        status: 'manual-apply',
+        page: trackPage,
+        companyUrl,
+        resume,
+        error: new ExternalAtsError(companyUrl),
+      };
     }
-    if (outcome === 'login') throw new Error('login required — session logged out on job page');
-    if (outcome !== 'clicked') throw new Error(`Apply button not found — page buttons ${outcome.slice(5)}`);
+    if (outcome === 'login') {
+      return {
+        status: 'failed',
+        page,
+        resume,
+        reason: 'login required — session logged out on job page',
+      };
+    }
+    if (outcome !== 'clicked') {
+      return {
+        status: 'failed',
+        page,
+        resume,
+        reason: `Apply button not found — page buttons ${outcome.slice(5)}`,
+      };
+    }
 
     await new Promise((r) => setTimeout(r, 1500));
 
     // Clicking Apply sometimes redirects straight to an external ATS.
     const afterClickUrl = page.url();
     if (afterClickUrl && !/naukri\.com/i.test(afterClickUrl)) {
-      throw new ExternalAtsError(afterClickUrl);
+      return {
+        status: 'manual-apply',
+        page,
+        companyUrl: afterClickUrl,
+        resume,
+        error: new ExternalAtsError(afterClickUrl),
+      };
     }
 
     // Answer screening questions (relocate / experience / notice / CTC / etc.)
     await handleScreeningDrawer(page, job, profile);
 
-    // Optimistic: form filled + apply clicked — assume success (no confirmation wait).
-    return { status: 'applied', resume: selectResume(job.title) };
-  } finally {
-    await page.close().catch(() => {});
+    // Optimistic: form filled + apply clicked — caller closes this tab.
+    return { status: 'applied', page, resume };
+  } catch (err) {
+    if (err instanceof ExternalAtsError) {
+      const companyUrl = err.companyUrl || page.url() || job.url;
+      if (companyUrl && /naukri\.com/i.test(page.url()) && !/naukri\.com/i.test(companyUrl)) {
+        await openExternalOnPage(page, companyUrl);
+      }
+      return { status: 'manual-apply', page, companyUrl, resume, error: err };
+    }
+    return { status: 'failed', page, resume, reason: err.message, error: err };
   }
 }
 
 async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
   const results = { reviewed: 0, applied: [], skipped: [], failed: [], manualApply: [] };
+  const tabs = createTabTracker('naukri');
   const page = await newPage();
 
   try {
@@ -534,23 +597,39 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           continue;
         }
 
-        let lastErr;
+        const attemptPages = [];
+        let outcome;
         for (let attempt = 1; attempt <= 2; attempt++) {
-          try {
-            await applyToJob(browser, card, profile);
-            lastErr = null;
-            break;
-          } catch (err) {
-            lastErr = err;
-            if (err instanceof ExternalAtsError) break; // manual apply — never retry
-            logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${err.message}`);
+          outcome = await applyToJob(browser, card, profile);
+          if (outcome.page) attemptPages.push(outcome.page);
+          if (outcome.status === 'applied' || outcome.status === 'manual-apply') break;
+          // Retry transient failures only (fresh tab on retry; prior tab closed below)
+          if (attempt < 2 && outcome.reason && !/Apply button not found|login required/i.test(outcome.reason)) {
+            logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${outcome.reason}`);
             await humanDelay(1500, 2500);
+            continue;
           }
+          break;
         }
 
-        if (lastErr instanceof ExternalAtsError) {
-          const entry = handleExternalATS(job, lastErr);
+        const keepOpen = outcome.status === 'manual-apply' || outcome.status === 'failed';
+        const keepPage = keepOpen ? outcome.page : null;
+        await settleAttemptPages(attemptPages, keepPage);
+
+        const pageUrl = (() => {
+          try {
+            return keepPage?.url?.() || outcome.companyUrl || '';
+          } catch {
+            return outcome.companyUrl || '';
+          }
+        })();
+
+        if (outcome.status === 'manual-apply') {
+          const entry = handleExternalATS(job, outcome.error || new ExternalAtsError(outcome.companyUrl));
+          entry.companyUrl = outcome.companyUrl || entry.companyUrl || pageUrl;
           results.manualApply.push(entry);
+          tabs.trackManualApply(entry, entry.companyUrl);
+          logger.info(`[naukri] → Tab OPEN and ready for manual apply`);
           dedup.append({
             site: 'Naukri',
             job_title: card.title,
@@ -559,12 +638,22 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
             status: 'manual-apply',
             notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
           });
-        } else if (lastErr) {
-          job.reason = lastErr.message;
+        } else if (outcome.status === 'failed') {
+          job.reason = outcome.reason || 'apply failed';
           results.failed.push(job);
-          dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'failed', notes: lastErr.message });
+          tabs.trackFailed(job, pageUrl || job.url);
+          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
+          logger.warn(`[naukri] [failed] ${card.title} — ${job.reason} → Tab OPEN for inspection`);
+          dedup.append({
+            site: 'Naukri',
+            job_title: card.title,
+            company: card.company,
+            job_url: card.url,
+            status: 'failed',
+            notes: job.reason,
+          });
         } else {
-          const resume = selectResume(card.title);
+          const resume = outcome.resume || selectResume(card.title);
           job.resume = resume;
           results.applied.push(job);
           dedup.append({
@@ -576,28 +665,20 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
             notes: `auto-applied (score ${score}; resume=${resume})`,
           });
           console.log(`✅ Applied: ${card.title} @ ${card.company}`);
-          logger.info(`[naukri] applied: ${card.title} @ ${card.company}`);
+          logger.info(`[naukri] applied: ${card.title} @ ${card.company} → tab closed`);
         }
 
         await humanDelay();
       }
     }
+  } catch (err) {
+    tabs.printSummary();
+    throw err;
   } finally {
-    await page.close().catch(() => {});
+    await closePageQuietly(page);
   }
 
-  // End-of-run summary for the console
-  console.log(
-    `\n[naukri] Summary — Applied: ${results.applied.length} · ` +
-      `Manual Apply: ${results.manualApply.length} · Failed: ${results.failed.length}`
-  );
-  if (results.manualApply.length) {
-    console.log('[naukri] Manual Apply list:');
-    for (const j of results.manualApply) {
-      console.log(`  ⚠️  ${j.title} @ ${j.company} | URL: ${j.companyUrl} | Resume: ${j.resume}`);
-    }
-  }
-
+  tabs.printSummary();
   return results;
 }
 
