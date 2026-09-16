@@ -5,9 +5,8 @@
  * Rate-limits aggressively: capped at 15 apps/run with randomized 3-5s
  * delays. Dedup key is the /jobs/view/<id>/ URL.
  */
-const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
+const { humanDelay, checkForCaptcha, SkipPortalError, createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/browser');
 const logger = require('../core/logger');
-const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 15;
 const LINKEDIN_THRESHOLD = 30;

@@ -9,11 +9,10 @@
  * signup), we skip — never store/enter passwords. Fill only profile-backed
  * fields (name, email, experience, optional CTC).
  */
-const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
+const { humanDelay, checkForCaptcha, SkipPortalError, createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/browser');
 const { withRetry, isUiError } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
-const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const QUERIES = [
   'react native developer',

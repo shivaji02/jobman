@@ -14,7 +14,6 @@ const dedup = require('./core/dedup');
 const reporter = require('./core/reporter');
 const browserCore = require('./core/browser');
 const logger = require('./core/logger');
-const { printRunTabSummary } = require('./core/tabTracker');
 
 // Priority: proven portals first, then newer boards. YourStory remains last —
 // its public startup board is gone (media careers only).
@@ -65,6 +64,60 @@ function installSigintHook() {
     }
     process.exit(0);
   });
+}
+
+/** Aggregate open-tab summary across portals at end of full run. */
+function printRunTabSummary(resultsByPortal) {
+  const manualApply = [];
+  const failed = [];
+
+  for (const [portal, r] of Object.entries(resultsByPortal || {})) {
+    for (const j of r.manualApply || []) {
+      manualApply.push({ portal, ...j });
+    }
+    for (const j of r.failed || []) {
+      failed.push({ portal, ...j });
+    }
+  }
+
+  const openCount = manualApply.length + failed.length;
+  const appliedCount = Object.values(resultsByPortal || {}).reduce(
+    (n, r) => n + ((r.applied || []).length),
+    0
+  );
+
+  console.log(`\n${'='.repeat(60)}`);
+  console.log('OPEN TABS SUMMARY');
+  console.log(`${'='.repeat(60)}`);
+  console.log(`✅ Applied (closed automatically): ${appliedCount}`);
+
+  console.log(`\n⚠️  MANUAL APPLY (${manualApply.length} tabs) — Ready to apply manually:`);
+  if (!manualApply.length) {
+    console.log('  (none)');
+  } else {
+    manualApply.forEach((tab, idx) => {
+      const url = tab.companyUrl || tab.url || '';
+      console.log(`\n  ${idx + 1}. [${tab.portal}] ${tab.title} @ ${tab.company}`);
+      console.log(`     URL: ${url}`);
+      if (tab.resume) console.log(`     Resume: ${tab.resume}`);
+    });
+  }
+
+  if (failed.length) {
+    console.log(`\n❌ FAILED (${failed.length} tabs) — Inspect & retry manually:`);
+    failed.forEach((tab, idx) => {
+      console.log(`\n  ${idx + 1}. [${tab.portal}] ${tab.title} @ ${tab.company}`);
+      if (tab.url) console.log(`     URL: ${tab.url}`);
+      if (tab.reason) console.log(`     Error: ${tab.reason}`);
+    });
+  }
+
+  console.log(`\n${'='.repeat(60)}`);
+  console.log(`ℹ️  ${openCount} tabs left OPEN`);
+  console.log('→ Go through each tab and apply/inspect manually');
+  console.log('→ Close tab when done');
+  console.log('→ Press Ctrl+C to shutdown browser when all done');
+  console.log(`${'='.repeat(60)}\n`);
 }
 
 /** Detach Puppeteer from Chrome so tabs survive process exit. */

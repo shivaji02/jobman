@@ -7,11 +7,10 @@
  * experience, notice, CTC) — never skipped when an answer is known.
  * Job URLs are stable and used directly as the dedup key.
  */
-const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browser');
+const { humanDelay, checkForCaptcha, SkipPortalError, createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/browser');
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const logger = require('../core/logger');
-const { createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/tabTracker');
 
 const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
 const MAX_APPS_PER_RUN = 10;
