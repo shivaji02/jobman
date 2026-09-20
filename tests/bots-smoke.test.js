@@ -38,6 +38,43 @@ test('bots/naukri selectResume picks RN vs Full Stack by title keywords', () => 
   assert.equal(selectResume('Frontend Engineer (React)'), RESUME_FS);
 });
 
+test('bots/naukri already-applied log/page never keeps a tab open', () => {
+  const {
+    shouldKeepNaukriTab,
+    classifyNaukriApplyState,
+    isAlreadyAppliedPage,
+  } = require('../src/bots/naukri');
+  const { createLog } = require('../src/core/dedup');
+  const fs = require('fs');
+  const os = require('os');
+  const path = require('path');
+
+  const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'jobman-naukri-')), 'log.csv');
+  const log = createLog(file);
+  const url = 'https://www.naukri.com/job-listings-rn-acme-210726011670';
+  log.append({
+    site: 'Naukri',
+    job_title: 'React Native Developer',
+    company: 'Acme',
+    job_url: url,
+    status: 'applied',
+    notes: 'applied yesterday',
+  });
+
+  assert.equal(log.isApplied(`${url}?src=jobsearchDesk`), true);
+  assert.equal(shouldKeepNaukriTab('failed', { alreadyAppliedInLog: log.isApplied(url) }), false);
+  assert.equal(shouldKeepNaukriTab('already-applied'), false);
+  assert.equal(shouldKeepNaukriTab('applied'), false);
+  // Real new job with no Apply button: still inspectable
+  assert.equal(shouldKeepNaukriTab('failed', { alreadyAppliedInLog: false }), true);
+  assert.equal(shouldKeepNaukriTab('manual-apply'), true);
+
+  assert.equal(classifyNaukriApplyState({ applyButtonText: 'Applied' }), 'already-applied');
+  assert.equal(isAlreadyAppliedPage({ buttons: ['Applied', 'Save'] }), true);
+  assert.equal(isAlreadyAppliedPage({ bodyText: 'You have already applied to this job.' }), true);
+  assert.equal(isAlreadyAppliedPage({ buttons: ['Save', 'Share'], applyButtonText: 'Apply' }), false);
+});
+
 test('bots/naukri extractCompanyUrl + handleExternalATS', () => {
   const {
     extractCompanyUrl,
@@ -61,6 +98,15 @@ test('bots/naukri extractCompanyUrl + handleExternalATS', () => {
   assert.equal(entry.companyUrl, 'https://boards.greenhouse.io/acme/jobs/1');
   assert.equal(entry.resume, RESUME_RN);
   assert.match(entry.reason, /manual-apply/);
+});
+
+test('bots/instahyre selectResume picks RN resume for React Native / mobile', () => {
+  const { selectResume, RESUME_RN, RESUME_FS, SEARCH_SKILL } = require('../src/bots/instahyre');
+  assert.equal(SEARCH_SKILL, 'React Native');
+  assert.equal(selectResume('React Native Developer'), RESUME_RN);
+  assert.equal(selectResume('Mobile Engineer'), RESUME_RN);
+  assert.equal(selectResume('Frontend Engineer (React)'), RESUME_FS);
+  assert.match(RESUME_RN, /shivajirn02\.pdf$/);
 });
 
 test('bots/yourstory searchUrl encodes query', () => {

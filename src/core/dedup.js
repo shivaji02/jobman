@@ -5,6 +5,8 @@
  * Appends IMMEDIATELY after every attempt (applied/skipped/failed/manual-apply) — never
  * batched, so partial runs persist progress. Dedup checks consider rows with
  * status === 'applied' or 'manual-apply' (failed/skipped may be retried later).
+ * `isApplied(url)` is true only for status === 'applied' (any day in the log).
+ * job_url is matched after normalizeJobUrl (query-string stripped; hash kept).
  */
 const fs = require('fs');
 const path = require('path');
@@ -64,17 +66,44 @@ function toCsvRow(values) {
   return values.map(csvEscape).join(',') + '\n';
 }
 
+/**
+ * Canonicalize a job_url for dedup.
+ * Strips query-string tracking params (Naukri `?src=&sid=` changes every search)
+ * and a trailing slash. Keeps the hash — Instahyre keys live in the fragment.
+ */
+function normalizeJobUrl(jobUrl) {
+  const raw = String(jobUrl || '').trim();
+  if (!raw) return '';
+  try {
+    const u = new URL(raw);
+    u.search = '';
+    if (!u.hash && u.pathname.length > 1 && u.pathname.endsWith('/')) {
+      u.pathname = u.pathname.replace(/\/+$/, '');
+    }
+    return u.href;
+  } catch {
+    return raw.split('#')[0].split('?')[0].replace(/\/+$/, '');
+  }
+}
+
 /** Factory so tests can point at a temp file. */
 function createLog(filePath = DEFAULT_LOG) {
-  let appliedUrls = null; // lazy cache, kept in sync by append()
+  let appliedUrls = null; // applied + manual-apply (has)
+  let strictlyAppliedUrls = null; // applied only (isApplied)
 
   function load() {
     appliedUrls = new Set();
+    strictlyAppliedUrls = new Set();
     if (!fs.existsSync(filePath)) return appliedUrls;
     const rows = parseCsv(fs.readFileSync(filePath, 'utf8'));
     for (const row of rows) {
-      if ((row.status === 'applied' || row.status === 'manual-apply') && row.job_url) {
-        appliedUrls.add(row.job_url);
+      const url = normalizeJobUrl(row.job_url);
+      if (!url) continue;
+      if (row.status === 'applied') {
+        strictlyAppliedUrls.add(url);
+        appliedUrls.add(url);
+      } else if (row.status === 'manual-apply') {
+        appliedUrls.add(url);
       }
     }
     return appliedUrls;
@@ -82,13 +111,20 @@ function createLog(filePath = DEFAULT_LOG) {
 
   function has(jobUrl) {
     if (!appliedUrls) load();
-    return appliedUrls.has(jobUrl);
+    return appliedUrls.has(normalizeJobUrl(jobUrl));
+  }
+
+  /** True only when a persisted row for this URL is status === 'applied' (any day). */
+  function isApplied(jobUrl) {
+    if (!strictlyAppliedUrls) load();
+    return strictlyAppliedUrls.has(normalizeJobUrl(jobUrl));
   }
 
   function append(entry) {
     const row = {};
     for (const col of COLUMNS) row[col] = entry[col] != null ? String(entry[col]) : '';
     if (!row.date) row.date = istDate();
+    if (row.job_url) row.job_url = normalizeJobUrl(row.job_url);
 
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     if (!fs.existsSync(filePath)) {
@@ -101,12 +137,15 @@ function createLog(filePath = DEFAULT_LOG) {
     fs.appendFileSync(filePath, toCsvRow(COLUMNS.map((c) => row[c])));
 
     if (!appliedUrls) load();
-    if ((row.status === 'applied' || row.status === 'manual-apply') && row.job_url) {
+    if (row.job_url && row.status === 'applied') {
+      strictlyAppliedUrls.add(row.job_url);
+      appliedUrls.add(row.job_url);
+    } else if (row.job_url && row.status === 'manual-apply') {
       appliedUrls.add(row.job_url);
     }
   }
 
-  return { load, has, append, filePath };
+  return { load, has, isApplied, append, filePath };
 }
 
 /** Today's date in IST as YYYY-MM-DD. */
@@ -119,8 +158,10 @@ const defaultLog = createLog();
 module.exports = {
   load: defaultLog.load,
   has: defaultLog.has,
+  isApplied: defaultLog.isApplied,
   append: defaultLog.append,
   createLog,
   istDate,
   COLUMNS,
+  normalizeJobUrl,
 };

@@ -114,6 +114,53 @@ function searchUrl(query) {
   return `https://www.naukri.com/${slug}-jobs?k=${encodeURIComponent(query)}`;
 }
 
+/**
+ * Classify Naukri job-page apply controls from a snapshot (no browser).
+ * Returns: already-applied | on-site | external | login | none
+ */
+function classifyNaukriApplyState({
+  applyButtonText = '',
+  applyButtonDisabled = false,
+  buttons = [],
+  companySitePresent = false,
+  loginToApply = false,
+  bodyText = '',
+} = {}) {
+  const applyLabel = String(applyButtonText || '').replace(/\s+/g, ' ').trim();
+  const labels = (buttons || []).map((b) => String(b || '').replace(/\s+/g, ' ').trim());
+  const body = String(bodyText || '').replace(/\s+/g, ' ');
+
+  if (/^applied$/i.test(applyLabel) || (/applied/i.test(applyLabel) && applyButtonDisabled)) {
+    return 'already-applied';
+  }
+  if (labels.some((t) => /^(applied|already applied)$/i.test(t))) return 'already-applied';
+  if (/you have already applied|already applied to this (job|position)/i.test(body)) {
+    return 'already-applied';
+  }
+
+  if (/^apply$/i.test(applyLabel) && !applyButtonDisabled) return 'on-site';
+  if (labels.some((t) => /^apply$/i.test(t))) return 'on-site';
+  if (companySitePresent || labels.some((t) => /apply on company site/i.test(t))) return 'external';
+  if (loginToApply || labels.some((t) => /login to apply|register to apply/i.test(t))) return 'login';
+  return 'none';
+}
+
+function isAlreadyAppliedPage(snapshot) {
+  return classifyNaukriApplyState(snapshot) === 'already-applied';
+}
+
+/**
+ * Failed / manual-apply tabs stay open only for jobs that still need action.
+ * Already-applied (CSV log or page state) always closes.
+ */
+function shouldKeepNaukriTab(outcomeStatus, { alreadyAppliedInLog = false } = {}) {
+  if (alreadyAppliedInLog) return false;
+  if (outcomeStatus === 'already-applied' || outcomeStatus === 'applied' || outcomeStatus === 'skipped') {
+    return false;
+  }
+  return outcomeStatus === 'manual-apply' || outcomeStatus === 'failed';
+}
+
 async function extractCards(page) {
   return page.evaluate(() => {
     const cards = Array.from(document.querySelectorAll('.cust-job-tuple, [class*="jobTuple"]'));
@@ -426,8 +473,9 @@ async function handleScreeningDrawer(page, job, profile) {
 
 /**
  * Open a job in a new tab, apply + screen.
- * Caller closes the page on success; keeps it open for manual-apply/failed.
- * Returns { status: 'applied'|'manual-apply'|'failed', page, ... }.
+ * Caller closes the page on success or already-applied; keeps it open for
+ * manual-apply / failed only when the job is not already applied.
+ * Returns { status: 'applied'|'already-applied'|'manual-apply'|'failed', page, ... }.
  */
 async function applyToJob(browser, job, profile = {}) {
   const page = await browser.newPage();
@@ -440,31 +488,56 @@ async function applyToJob(browser, job, profile = {}) {
     await new Promise((r) => setTimeout(r, 2000));
     await checkForCaptcha(page);
 
-    // Apply buttons hydrate late — wait for either variant before deciding.
+    // Apply / Applied controls hydrate late — wait before deciding.
     await page
-      .waitForSelector('#apply-button, #company-site-button, [class*="apply-button"], [id*="apply"]', { timeout: 10000 })
+      .waitForSelector(
+        '#apply-button, #company-site-button, [class*="apply-button"], [id*="apply"], [class*="already-applied"], [id*="already-applied"]',
+        { timeout: 10000 }
+      )
       .catch(() => {});
 
     const outcome = await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll('button, a'));
-      // On-site apply: exact "Apply" (or the #apply-button id). Must NOT match
-      // "Apply on company site" — that redirects to an external ATS.
-      const onSite =
-        document.querySelector('#apply-button') ||
-        buttons.find((b) => /^apply$/i.test(b.textContent.trim()));
+      const visible = (el) => {
+        if (!el) return false;
+        const s = window.getComputedStyle(el);
+        if (s.display === 'none' || s.visibility === 'hidden' || Number(s.opacity) === 0) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0;
+      };
+      const labelOf = (el) => (el.textContent || '').replace(/\s+/g, ' ').trim();
+
+      const applyEl = document.querySelector('#apply-button');
+      if (applyEl && visible(applyEl)) {
+        const t = labelOf(applyEl);
+        // After a prior apply Naukri keeps #apply-button but relabels it Applied.
+        if (/^applied$/i.test(t) || applyEl.disabled) return 'already-applied';
+        if (/^apply$/i.test(t)) {
+          applyEl.click();
+          return 'clicked';
+        }
+      }
+
+      const controls = Array.from(document.querySelectorAll('button, a, [role="button"]')).filter(visible);
+      if (controls.some((b) => /^(applied|already applied)$/i.test(labelOf(b)))) return 'already-applied';
+
+      const body = (document.body.innerText || '').replace(/\s+/g, ' ');
+      if (/you have already applied|already applied to this (job|position)/i.test(body)) {
+        return 'already-applied';
+      }
+
+      // On-site apply: exact "Apply". Must NOT match "Apply on company site".
+      const onSite = controls.find((b) => /^apply$/i.test(labelOf(b)));
       if (onSite) {
         onSite.click();
         return 'clicked';
       }
       const external =
         document.querySelector('#company-site-button') ||
-        buttons.find((b) => /apply on company site/i.test(b.textContent.trim()));
+        controls.find((b) => /apply on company site/i.test(labelOf(b)));
       if (external) return 'external';
-      if (buttons.some((b) => /login to apply|register to apply/i.test(b.textContent.trim()))) return 'login';
-      // No apply control at all — snapshot visible button labels so the
-      // failure log says what the page actually offered.
-      const labels = buttons
-        .map((b) => b.textContent.trim())
+      if (controls.some((b) => /login to apply|register to apply/i.test(labelOf(b)))) return 'login';
+      const labels = controls
+        .map(labelOf)
         .filter((t) => t && t.length <= 40)
         .slice(0, 10);
       return `none: [${[...new Set(labels)].join(' | ')}]`;
@@ -488,6 +561,9 @@ async function applyToJob(browser, job, profile = {}) {
         error: new ExternalAtsError(companyUrl),
       };
     }
+    if (outcome === 'already-applied') {
+      return { status: 'already-applied', page, resume, reason: 'already applied on Naukri' };
+    }
     if (outcome === 'login') {
       return {
         status: 'failed',
@@ -501,7 +577,7 @@ async function applyToJob(browser, job, profile = {}) {
         status: 'failed',
         page,
         resume,
-        reason: `Apply button not found — page buttons ${outcome.slice(5)}`,
+        reason: `Apply button not found — page buttons ${String(outcome).replace(/^none:\s*/, '')}`,
       };
     }
 
@@ -566,7 +642,12 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
       for (const card of cards) {
         if (results.applied.length >= MAX_APPS_PER_RUN) break;
 
-        if (dedup.has(card.url)) continue; // already applied
+        // Persistent log (any day): applied / manual-apply → never open a tab.
+        if (typeof dedup.isApplied === 'function' && dedup.isApplied(card.url)) {
+          logger.info(`[naukri] skip already applied (log): ${card.title} @ ${card.company}`);
+          continue;
+        }
+        if (dedup.has(card.url)) continue;
 
         const range = parseExperienceRange(card.experienceText);
         if (range && (range.min > 3.5 || range.max < 1.5)) {
@@ -601,7 +682,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         for (let attempt = 1; attempt <= 2; attempt++) {
           outcome = await applyToJob(browser, card, profile);
           if (outcome.page) attemptPages.push(outcome.page);
-          if (outcome.status === 'applied' || outcome.status === 'manual-apply') break;
+          if (outcome.status === 'applied' || outcome.status === 'manual-apply' || outcome.status === 'already-applied') break;
           // Retry transient failures only (fresh tab on retry; prior tab closed below)
           if (attempt < 2 && outcome.reason && !/Apply button not found|login required/i.test(outcome.reason)) {
             logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${outcome.reason}`);
@@ -611,9 +692,30 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           break;
         }
 
-        const keepOpen = outcome.status === 'manual-apply' || outcome.status === 'failed';
+        const alreadyAppliedInLog = typeof dedup.isApplied === 'function' && dedup.isApplied(card.url);
+        const treatAsAlreadyApplied = outcome.status === 'already-applied' || alreadyAppliedInLog;
+
+        const keepOpen = !treatAsAlreadyApplied && shouldKeepNaukriTab(outcome.status, { alreadyAppliedInLog });
         const keepPage = keepOpen ? outcome.page : null;
         await settleAttemptPages(attemptPages, keepPage);
+
+        if (treatAsAlreadyApplied) {
+          job.reason = alreadyAppliedInLog ? 'already applied (logged)' : 'already applied on Naukri';
+          results.skipped.push(job);
+          logger.info(`[naukri] skip already applied: ${card.title} @ ${card.company} → tab closed`);
+          if (!dedup.has(card.url)) {
+            dedup.append({
+              site: 'Naukri',
+              job_title: card.title,
+              company: card.company,
+              job_url: card.url,
+              status: 'applied',
+              notes: 'already applied on Naukri (Apply hidden / Applied state)',
+            });
+          }
+          await humanDelay();
+          continue;
+        }
 
         const pageUrl = (() => {
           try {
@@ -690,6 +792,9 @@ module.exports = {
   extractCompanyUrl,
   handleExternalATS,
   ExternalAtsError,
+  classifyNaukriApplyState,
+  isAlreadyAppliedPage,
+  shouldKeepNaukriTab,
   RESUME_RN,
   RESUME_FS,
 };

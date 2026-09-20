@@ -80,6 +80,44 @@ test('append() CSV-escapes fields containing commas and quotes', () => {
   assert.equal(log2.has(url), true);
 });
 
+test('has() matches URL variants after query-string / trailing-slash normalize', () => {
+  const log = createLog(tempCsvPath());
+  const stored = 'https://www.naukri.com/job-listings-react-native-developer-acme-210726011670';
+  log.append({ site: 'Naukri', job_title: 'RN', company: 'Acme', job_url: stored, status: 'applied', notes: 'day 1' });
+
+  assert.equal(log.has(`${stored}?src=jobsearchDesk&sid=abc`), true);
+  assert.equal(log.isApplied(`${stored}?xp=1`), true);
+  assert.equal(log.has(stored + '/'), true);
+});
+
+test('isApplied() is true only for applied rows, not failed/skipped/manual-apply', () => {
+  const log = createLog(tempCsvPath());
+  const applied = 'https://www.naukri.com/job-listings-applied-1';
+  const failed = 'https://www.naukri.com/job-listings-failed-1';
+  const manual = 'https://www.naukri.com/job-listings-manual-1';
+
+  log.append({ site: 'Naukri', job_title: 'A', company: 'C', job_url: applied, status: 'applied', notes: '' });
+  log.append({ site: 'Naukri', job_title: 'B', company: 'C', job_url: failed, status: 'failed', notes: 'Apply button not found' });
+  log.append({ site: 'Naukri', job_title: 'C', company: 'C', job_url: manual, status: 'manual-apply', notes: '' });
+
+  assert.equal(log.isApplied(applied), true);
+  assert.equal(log.has(applied), true);
+  assert.equal(log.isApplied(failed), false);
+  assert.equal(log.has(failed), false);
+  assert.equal(log.isApplied(manual), false);
+  assert.equal(log.has(manual), true);
+});
+
+test('normalizeJobUrl keeps Instahyre hash keys and strips Naukri query params', () => {
+  const { normalizeJobUrl } = require('../src/core/dedup');
+  const insta = 'https://www.instahyre.com/#job/edatabae/edatabae-sde-1-react-native';
+  assert.equal(normalizeJobUrl(insta), insta);
+  assert.equal(
+    normalizeJobUrl('https://www.naukri.com/job-listings-foo-123?src=desk&sid=x'),
+    'https://www.naukri.com/job-listings-foo-123'
+  );
+});
+
 test('append() appends immediately — one call, one row, no batching', () => {
   const file = tempCsvPath();
   const log = createLog(file);
