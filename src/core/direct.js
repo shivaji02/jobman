@@ -14,7 +14,7 @@ const path = require('path');
 const { scoreJob, shouldApply, experienceFromText, TARGET_EXP } = require('./filter');
 const { classifyLocation } = require('./location');
 const { selectResume } = require('./resume');
-const { admit } = require('./disposition');
+const { admit, claimGate } = require('./disposition');
 const { normalizeJobUrl } = require('./dedup');
 const { evidenceNote } = require('./evidence');
 const { humanDelay, closePageQuietly } = require('./browser');
@@ -97,6 +97,7 @@ async function processPosting(p, ctx) {
   if (reject) {
     entry.reason = reject;
     results.skipped.push(entry);
+    if (typeof dedup.record === 'function') dedup.record(key, 'REJECTED', reject, entry);
     return 'rejected';
   }
 
@@ -107,6 +108,8 @@ async function processPosting(p, ctx) {
     results.skipped.push(entry);
     return 'deferred';
   }
+  // Parallel runs: atomically claim across workers + wait for an application slot.
+  if (!(await claimGate(results, dedup, key, entry))) return 'already';
 
   entry.resume = selectResume(p.title, p.text);
   entry.companyUrl = p.url;

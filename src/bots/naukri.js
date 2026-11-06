@@ -13,7 +13,7 @@ const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter'
 const logger = require('../core/logger');
 const { classifyLocation, SEARCH_CITIES } = require('../core/location');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate } = require('../core/disposition');
 const { planAnswers } = require('../core/screening');
 
 const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
@@ -850,6 +850,9 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           results.skipped.push(job);
           continue;
         }
+
+        // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+        if (!(await claimGate(results, dedup, card.url, job))) continue;
 
         if (dryRun) {
           const preview = buildScreeningAnswers(card, profile);

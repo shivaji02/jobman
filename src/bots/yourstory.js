@@ -14,7 +14,7 @@ const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browse
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate } = require('../core/disposition');
 const { classifyLocation, byLocationPreference } = require('../core/location');
 
 const QUERIES = [
@@ -189,6 +189,9 @@ async function run({ dedup, dryRun, newPage, browser }) {
         }
         continue;
       }
+
+      // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+      if (!(await claimGate(results, dedup, card.url, job))) continue;
 
       if (dryRun) {
         job.reason = `would apply (score ${score})`;

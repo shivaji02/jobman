@@ -21,6 +21,38 @@ program
   });
 
 program
+  .command('parallel')
+  .description('run every portal concurrently with a shared job store, live dashboard, checkpoints and graceful Ctrl+C')
+  .option('--dry-run', 'do everything except submit; log what would happen', false)
+  .option('--portals <list>', 'comma-separated subset, e.g. naukri,linkedin')
+  .option('--resume', "skip portals already finished in today's checkpoint (after Ctrl+C / crash)", false)
+  .option('--discovery-workers <n>', 'portals running at once (default: 8 on this class of Mac)', (v) => parseInt(v, 10))
+  .option('--apply-workers <n>', 'submissions in flight across all portals (default 3)', (v) => parseInt(v, 10))
+  .option('--apply-workers-max <n>', 'ceiling for adaptive scaling of application workers (default 5)', (v) => parseInt(v, 10))
+  .option('--ats-workers <n>', 'employer postings handled at once in the careers channel (default 3)', (v) => parseInt(v, 10))
+  .option('--retries <n>', 'retries for a crashed portal, with exponential backoff (default 2)', (v) => parseInt(v, 10))
+  .option('--no-adaptive', 'keep worker limits fixed (no resource-based scaling)')
+  .option('--no-dashboard', 'plain log output instead of the live dashboard')
+  .action(async (opts) => {
+    const { runParallel } = require('./parallel');
+    const portals = opts.portals ? opts.portals.split(',').map((p) => p.trim()).filter((p) => ALL_PORTALS.includes(p)) : undefined;
+    const limits = {};
+    if (opts.discoveryWorkers) limits.discovery = opts.discoveryWorkers;
+    if (opts.applyWorkers) limits.apply = opts.applyWorkers;
+    if (opts.applyWorkersMax) limits.applyMax = opts.applyWorkersMax;
+    if (opts.atsWorkers) limits.ats = opts.atsWorkers;
+    await runParallel({
+      dryRun: opts.dryRun,
+      resume: opts.resume,
+      adaptive: opts.adaptive,
+      dashboard: opts.dashboard,
+      limits,
+      ...(Number.isFinite(opts.retries) ? { portalRetries: opts.retries } : {}),
+      ...(portals && portals.length ? { portals } : {}),
+    });
+  });
+
+program
   .command('run <portal>')
   .description('run a single portal: google | careers | instahyre | naukri | linkedin | talent | foundit | indeed | wellfound | yourstory')
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)

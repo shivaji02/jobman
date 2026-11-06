@@ -50,6 +50,33 @@ function rangesOverlap(a, b) {
 }
 
 /**
+ * Generic engineering titles ("Software Engineer II", "SDE 1", "Product Engineer",
+ * "Founding Engineer") carry no stack in the title. Audit 2026-11-07: they all
+ * capped at 30 and were rejected even when the description was a React/Node job
+ * (Swiggy SDE I: React + React Native + TypeScript, nothing else). They earn the
+ * title points only when the description is *dominated* by our stack: at least
+ * two distinct JS-stack signals, and more JS-stack mentions than competing stacks
+ * (Java, Go, Python, C++, Ruby, PHP, Angular, Vue, Flutter…). Seniority, .NET,
+ * Java-only, native-only and experience hard rejects still apply unchanged.
+ */
+const GENERIC_ENG_TITLE = /\b(software|product|application|founding|web)\s+(development\s+)?(engineer|developer)\b|\bsde\b|\bswe\b|\bsoftware\s+dev(eloper)?\s+engineer\b|\bsoftware\s+development\s+engineer\b/;
+const JS_SIGNALS = [/react\s*native/g, /react(?!\s*native)(?:\.?js)?\b/g, /node(?:\.?js)?\b/g, /typescript/g, /next\.?js\b/g, /\bexpo\b/g, /\bmern\b/g];
+const COMPETING = /\bjava\b(?!script)|\bgolang\b|\bgo\b(?=\s*(?:lang|,|\/|\)|and|or|developer|engineer|services|microservices))|\bpython\b|\bdjango\b|c\+\+|\bruby\b|\brails\b|\bphp\b|\blaravel\b|\bscala\b|\brust\b|\bangular\b|\bvue(?:\.?js)?\b|\bflutter\b|\bdart\b|\bswift\b|\bkotlin\b|\bc#/g;
+
+function jsStackDominant(titleLc, blob) {
+  if (!GENERIC_ENG_TITLE.test(titleLc)) return false;
+  let distinct = 0;
+  let js = 0;
+  for (const re of JS_SIGNALS) {
+    const n = (blob.match(re) || []).length;
+    if (n) distinct++;
+    js += n;
+  }
+  const competing = (blob.match(COMPETING) || []).length;
+  return distinct >= 2 && js > competing;
+}
+
+/**
  * Score a job 0-100. Returns a negative number on hard reject so callers can
  * distinguish "rejected outright" from "didn't score enough".
  */
@@ -68,11 +95,14 @@ function scoreJob({ title = '', description = '', experienceText = '', skills = 
   // numerals III+ for any engineer/developer title. Levels 1-2 stay eligible.
   if (/\b(?:sde|swe)\s*[-.]?\s*(?:iii|iv|v|[3-9])\b/.test(titleLc)) return -100;
   if (/\b(?:engineer|developer)\s+(?:iii|iv|v)\b/.test(titleLc)) return -100;
+  // Spelled-out "Software Development Engineer 3" / "Software Dev Engineer III" (not "… 3-5 yrs").
+  if (/\bsoftware\s+dev(?:elopment|eloper)?\s+engineer\s*[-,]?\s*(?:iii|iv|v|[3-9])\b(?!\s*(?:[-–+.]|to\b|yrs?|years?))/.test(titleLc)) return -100;
   if (/\.net\b|dotnet|c#|\basp\s?net\b/.test(blob)) return -100;
   // ".NET" often loses its dot in titles: "NET Full Stack Developer", "Net Core Developer"
   if (/(^|[^a-z])net\s+(full\s*stack|developer|engineer|core|mvc)\b/.test(titleLc)) return -100;
 
-  const mentionsOurStack = /react\s*native|react(?:\.?js)?\b|node(?:\.?js)?\b|typescript|javascript/.test(blob);
+  // MERN = Mongo/Express/React/Node; Next.js and Expo are React frameworks.
+  const mentionsOurStack = /react\s*native|react(?:\.?js)?\b|node(?:\.?js)?\b|typescript|javascript|\bmern\b|next\.?js\b|\bexpo\b/.test(blob);
   // pure native mobile (Swift/Kotlin/Objective-C) with none of our stack
   if (/\b(swift|kotlin|objective-?c)\b/.test(blob) && !mentionsOurStack) return -100;
   // Java-only roles
@@ -88,12 +118,17 @@ function scoreJob({ title = '', description = '', experienceText = '', skills = 
   // ---- positive scoring ---------------------------------------------------
   let score = 0;
 
-  if (/react\s*native|mobile\s*(app\s*)?(developer|engineer)/.test(titleLc)) {
+  if (
+    /react\s*native|mobile\s*(app\s*)?(developer|engineer)/.test(titleLc) ||
+    // "Product Engineer (Mobile)", "Mobile Product Engineer": mobile role whose JD is React Native
+    (/\bmobile\b/.test(titleLc) && /\b(engineer|developer|sde)\b/.test(titleLc) && /react\s*native/.test(blob))
+  ) {
     score += 40;
   } else if (
     /react/.test(titleLc) || // "React JS Developer", "ReactJS developer", ...
-    (/front[- ]?end/.test(titleLc) && /react/.test(blob)) ||
-    (/full[- ]?stack/.test(titleLc) && /(node|react)/.test(blob))
+    (/front[- ]?end/.test(titleLc) && /react|next\.?js/.test(blob)) ||
+    (/full[- ]?stack/.test(titleLc) && /(node|react|\bmern\b)/.test(blob)) ||
+    jsStackDominant(titleLc, blob)
   ) {
     score += 25;
   }

@@ -23,7 +23,7 @@ const { classifyLocation, byLocationPreference, SEARCH_CITIES } = require('../co
 const { selectResume, RESUME_RN, RESUME_FS } = require('./wellfound');
 const logger = require('../core/logger');
 const { capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate } = require('../core/disposition');
 
 const QUERIES = [
   'react native developer',
@@ -190,6 +190,9 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           if (!/cap reached/.test(skipReason)) log(dedup, dryRun, card, 'skipped', skipReason);
           continue;
         }
+
+        // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+        if (!(await claimGate(results, dedup, key, job))) continue;
 
         if (dryRun) {
           job.resume = selectResume(card.title, card.text);

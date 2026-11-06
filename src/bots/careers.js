@@ -19,6 +19,14 @@ const { emptyResults } = require('../core/disposition');
 const { withRetry } = require('../core/retry');
 const { AGGREGATOR_ATS_TOKENS } = require('../core/discovery');
 const { growDirectory } = require('../core/directoryGrowth');
+const { mapLimit, mapLimitLazy } = require('../core/concurrency');
+
+/** Board API reads in flight at once (was unbounded: ~110 simultaneous requests). */
+const BOARD_CONCURRENCY = Number(process.env.JOBMAN_HTTP_CONCURRENCY) || 24;
+/** Posting-detail reads that run ahead of the (sequential) apply step. */
+const POSTING_PREFETCH = Number(process.env.JOBMAN_ATS_PREFETCH) || 8;
+/** Employer postings screened/applied concurrently (JOBMAN_ATS_WORKERS, default 1 = old behaviour). */
+const ATS_WORKERS = Number(process.env.JOBMAN_ATS_WORKERS) || 1;
 
 /**
  * Discovery pre-filter. On 2026-11-05, 3,334 of 3,624 board postings were
@@ -48,18 +56,16 @@ async function run({ dedup, dryRun, profile, newPage }) {
     .list()
     .filter((c) => FETCHERS[c.ats] && c.token && !AGGREGATOR_ATS_TOKENS.has(String(c.token).toLowerCase()) && (c.ats !== 'workday' || (c.host && c.site)));
 
-  const boards = await Promise.all(
-    companies.map(async (c) => {
-      try {
-        // Board APIs time out under load (Paytm/Palantir on 2026-11-05) — retry transient errors once.
-        return { c, jobs: await withRetry(() => FETCHERS[c.ats](c), { maxAttempts: 2, backoffMs: 1500 }) };
-      } catch (err) {
-        logger.debug(`[careers] ${c.name} (${c.ats}/${c.token}): ${err.message}`);
-        directory.markChecked(c, { error: err.message.slice(0, 120) });
-        return { c, jobs: [] };
-      }
-    })
-  );
+  const boards = await mapLimit(companies, BOARD_CONCURRENCY, async (c) => {
+    try {
+      // Board APIs time out under load (Paytm/Palantir on 2026-11-05) — retry transient errors once.
+      return { c, jobs: await withRetry(() => FETCHERS[c.ats](c), { maxAttempts: 2, backoffMs: 1500 }) };
+    } catch (err) {
+      logger.debug(`[careers] ${c.name} (${c.ats}/${c.token}): ${err.message}`);
+      directory.markChecked(c, { error: err.message.slice(0, 120) });
+      return { c, jobs: [] };
+    }
+  });
 
   const candidates = [];
   for (const { c, jobs } of boards) {
@@ -82,19 +88,33 @@ async function run({ dedup, dryRun, profile, newPage }) {
   logger.info(`[careers] ${companies.length} boards, ${results.discovered} openings, ${candidates.length} in India`);
 
   const seen = new Set();
-  for (const { c, job } of candidates) {
-    let posting = job;
+  // Pipelined: posting descriptions are fetched POSTING_PREFETCH at a time ahead of
+  // the sequential screen/apply step, which starts as soon as the first one lands
+  // (was: one HTTP round-trip per posting, strictly in series).
+  const enriched = mapLimitLazy(candidates, POSTING_PREFETCH, async ({ c, job }) => {
     // Full description from the posting itself (Greenhouse lists omit it; Workday lists never have it).
     // Titles that are a hard reject (senior, .NET, Java-only…) don't need one.
     if ((!job.text || job.text.length < 200) && scoreJob({ title: job.title }) >= 0) {
       try {
-        posting = { ...job, ...(await fetchPosting({ ...c, id: job.id, name: c.name })), company: c.name || job.company };
+        return { ...job, ...(await fetchPosting({ ...c, id: job.id, name: c.name })), company: c.name || job.company };
       } catch (err) {
         if (!err.closed) logger.debug(`[careers] could not read ${job.url}: ${err.message}`);
       }
     }
-    await processPosting(posting, { results, seen, dedup, dryRun, profile, newPage, site: SITE, source: `careers board: ${c.name} (${c.ats})` });
-  }
+    return job;
+  });
+  // ATS workers: up to ATS_WORKERS postings screened/applied at once, in priority
+  // order (different employers; the global application-slot limit still applies).
+  let next = 0;
+  const worker = async () => {
+    while (next < candidates.length) {
+      const i = next++;
+      const { c } = candidates[i];
+      const posting = await enriched[i];
+      await processPosting(posting, { results, seen, dedup, dryRun, profile, newPage, site: SITE, source: `careers board: ${c.name} (${c.ats})` });
+    }
+  };
+  await Promise.all(Array.from({ length: Math.max(1, Math.min(ATS_WORKERS, candidates.length || 1)) }, worker));
   return results;
 }
 

@@ -111,7 +111,16 @@ function emptyResults(note) {
  *   - else returns 'new' — the caller MUST then put the job in exactly one bucket.
  * Callers add raw card counts to results.discovered themselves.
  */
-function admit(results, { key, seen, dedup, job, site, dryRun = false }) {
+function admit(results, opts) {
+  // Graceful shutdown: stop the bot *before* this card is counted, so the funnel still reconciles.
+  if (typeof opts.dedup?.assertRunning === 'function') opts.dedup.assertRunning();
+  const gate = admitInner(results, opts);
+  // Parallel runs hand bots a job-store view (core/jobdb) that tracks every listing.
+  if (typeof opts.dedup?.onAdmit === 'function') opts.dedup.onAdmit(gate, opts.key, opts.job || {});
+  return gate;
+}
+
+function admitInner(results, { key, seen, dedup, job, site, dryRun = false }) {
   if (seen.has(key)) {
     results.duplicates++;
     return 'duplicate';
@@ -171,3 +180,20 @@ function blockersFrom(reason = '') {
 }
 
 module.exports = { blockersFrom, DISPOSITIONS, KEYS, BUCKETS, classify, reconcile, reconcileAll, emptyResults, admit };
+
+/**
+ * Parallel-run claim gate, called by a bot right before it would apply (or, in a
+ * dry run, record "would apply"). With the plain dedup module it is a no-op.
+ * With a job-store view it atomically claims the job across all portal workers
+ * and waits for an application slot. Returns false (job recorded as already
+ * handled) when another worker holds the same job or role.
+ */
+async function claimGate(results, dedup, key, job) {
+  if (typeof dedup?.claimForApply !== 'function') return true;
+  const c = await dedup.claimForApply(key, job);
+  if (c.ok) return true;
+  results.alreadyApplied.push({ ...job, reason: c.reason });
+  return false;
+}
+
+module.exports.claimGate = claimGate;

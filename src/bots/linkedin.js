@@ -11,7 +11,7 @@ const { classifyLocation, byLocationPreference, SEARCH_CITIES } = require('../co
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const { planAnswers } = require('../core/screening');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate } = require('../core/disposition');
 
 // Nov 2026 UI: Easy Apply renders in a native <dialog data-testid="dialog">.
 const DIALOG_SELECTOR = 'dialog[open], [data-testid="dialog"], [role="dialog"]';
@@ -775,6 +775,9 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           log(card, 'skipped', job.reason);
           continue;
         }
+
+        // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+        if (!(await claimGate(results, dedup, card.url, job))) continue;
 
         if (dryRun) {
           job.reason = `would apply (score ${score})`;

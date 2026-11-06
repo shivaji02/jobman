@@ -18,6 +18,8 @@ class Logger {
 
     if (level === 'DEBUG' && !process.env.JOBMAN_VERBOSE) {
       // file only — keep the terminal feed readable
+    } else if (this.sink) {
+      this.sink(level, entry); // live dashboard owns the terminal
     } else if (level === 'ERROR') console.error(entry);
     else if (level === 'WARN') console.warn(entry);
     else console.log(entry);
@@ -27,6 +29,11 @@ class Logger {
     } catch {
       // never let logging crash the bot
     }
+  }
+
+  /** Route terminal output elsewhere (the parallel dashboard); null restores console. */
+  setSink(fn) {
+    this.sink = typeof fn === 'function' ? fn : null;
   }
 
   info(msg, data) {

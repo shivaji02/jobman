@@ -119,3 +119,40 @@ test('internships / apprenticeships are hard rejects (2.7-year profile)', () => 
   assert.equal(scoreJob({ title: 'Frontend Intern', description: 'React' }), -100);
   assert.equal(scoreJob({ title: 'Frontend - Apprentice', description: 'React' }), -100);
 });
+
+// ---- audit 2026-11-07: false negatives on generic titles (career-board replay) ----
+const { scoreJob: score2, shouldApply: pass2 } = require('../src/core/filter');
+
+test('generic SDE title with a React/React Native/TypeScript JD is a match (Swiggy SDE I)', () => {
+  const d = 'Build consumer features in React and React Native with TypeScript. Own the web and app experience.';
+  assert.ok(pass2(score2({ title: 'Software Dev Engineer I', description: d })));
+  assert.ok(pass2(score2({ title: 'Software Development Engineer II', description: `${d} Node.js services.` })));
+});
+
+test('generic title stays rejected when the JD is not dominated by our stack', () => {
+  // AiPrise SE I: React/Node/TS once each, but Java, Go and Python as much → not a JS role
+  const d = 'Stack: React, Node, TypeScript, Java, Go, Python. Microservices in Go and Java, data in Python.';
+  assert.equal(pass2(score2({ title: 'Software Engineer I', description: d })), false);
+  // a single JS signal is not enough
+  assert.equal(pass2(score2({ title: 'Software Engineer', description: 'We use React for dashboards.' })), false);
+});
+
+test('mobile title + React Native JD counts as a mobile role', () => {
+  assert.ok(pass2(score2({ title: 'Product Engineer (Mobile)', description: 'Ship our React Native app to iOS and Android.' })));
+});
+
+test('MERN / Next.js count as our stack', () => {
+  assert.ok(pass2(score2({ title: 'Full Stack Developer (MERN)', description: 'MERN stack, MongoDB, Express' })));
+  assert.ok(pass2(score2({ title: 'Frontend Engineer', description: 'Next.js, Tailwind, SSR' })));
+});
+
+test('spelled-out level 3+ titles are hard rejects; experience ranges in titles are not levels', () => {
+  assert.equal(score2({ title: 'Software Development Engineer 3, Samvaad', description: 'React, Node, TypeScript' }), -100);
+  assert.equal(score2({ title: 'Software Dev Engineer III', description: 'React, Node' }), -100);
+  assert.ok(score2({ title: 'Software Development Engineer 2-4 yrs', description: 'React, Node, TypeScript' }) >= 0);
+});
+
+test('hard rejects still win over the generic-title rule', () => {
+  assert.equal(score2({ title: 'Senior Software Engineer', description: 'React, React Native, TypeScript, Node' }), -100);
+  assert.equal(score2({ title: 'Software Engineer', description: '.NET Core, C#, React, TypeScript' }), -100);
+});

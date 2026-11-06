@@ -6,6 +6,9 @@
   "scripts": {
     "apply": "node src/index.js run-all",
     "apply:dry": "node src/index.js run-all --dry-run",
+    "parallel": "node src/index.js parallel",
+    "parallel:dry": "node src/index.js parallel --dry-run",
+    "bench": "node scripts/bench-parallel.js",
     "test:linkedin:dry": "node src/index.js run linkedin --dry-run",
     "schedule": "node src/index.js schedule",
     "report": "node src/index.js report",

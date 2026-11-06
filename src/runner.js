@@ -285,4 +285,4 @@ async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER, con
   return results;
 }
 
-module.exports = { runAll, runPortal, loadProfile, PORTALS_IN_PRIORITY_ORDER, ALL_PORTALS };
+module.exports = { runAll, runPortal, loadProfile, keepBrowserOpen, BOTS, KEEP_TABS_PORTALS, PORTALS_IN_PRIORITY_ORDER, ALL_PORTALS };

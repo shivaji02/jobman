@@ -9,3 +9,9 @@ reports/*.md
 
 # submission evidence screenshots (personal data)
 data/evidence/
+data/run-state/
+
+.data
+./data/run-state/
+./data/evidence/
+    .DS_Store   
