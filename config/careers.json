@@ -1,0 +1,27 @@
+{
+  "_comment": "Company career boards on public ATS APIs (no login, no scraping). Add { name, ats: greenhouse|lever|ashby, token } — token is the slug in the company's jobs URL, e.g. boards.greenhouse.io/<token>, jobs.lever.co/<token>, jobs.ashbyhq.com/<token>. `npm run apply -- ` discovery (SERPER_API_KEY) appends to data/careers_discovered.json.",
+  "companies": [
+    { "name": "Groww", "ats": "greenhouse", "token": "groww" },
+    { "name": "Slice", "ats": "greenhouse", "token": "slice" },
+    { "name": "Databricks", "ats": "greenhouse", "token": "databricks" },
+    { "name": "Coinbase", "ats": "greenhouse", "token": "coinbase" },
+    { "name": "Figma", "ats": "greenhouse", "token": "figma" },
+    { "name": "Discord", "ats": "greenhouse", "token": "discord" },
+    { "name": "Vercel", "ats": "greenhouse", "token": "vercel" },
+    { "name": "Samsara", "ats": "greenhouse", "token": "samsara" },
+    { "name": "Cloudflare", "ats": "greenhouse", "token": "cloudflare" },
+    { "name": "Stripe", "ats": "greenhouse", "token": "stripe" },
+    { "name": "CRED", "ats": "lever", "token": "cred" },
+    { "name": "Meesho", "ats": "lever", "token": "meesho" },
+    { "name": "Paytm", "ats": "lever", "token": "paytm" },
+    { "name": "Zeta", "ats": "lever", "token": "zeta" },
+    { "name": "Palantir", "ats": "lever", "token": "palantir" },
+    { "name": "Ramp", "ats": "ashby", "token": "ramp" },
+    { "name": "Notion", "ats": "ashby", "token": "notion" },
+    { "name": "Linear", "ats": "ashby", "token": "linear" },
+    { "name": "Deel", "ats": "ashby", "token": "deel" },
+    { "name": "Replit", "ats": "ashby", "token": "replit" },
+    { "name": "Sarvam", "ats": "ashby", "token": "sarvam" },
+    { "name": "Supabase", "ats": "ashby", "token": "supabase" }
+  ]
+}

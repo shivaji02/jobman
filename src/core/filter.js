@@ -60,13 +60,17 @@ function scoreJob({ title = '', description = '', experienceText = '', skills = 
     .toLowerCase();
 
   // ---- hard rejects -------------------------------------------------------
-  if (/\b(senior|sr\.?|staff|lead|principal|architect)\b/.test(titleLc)) return -100;
+  if (/\b(senior|sr\.?|staff|lead|principal|architect|manager|director|head)\b/.test(titleLc)) return -100;
+  // Entry programmes don't fit a 2.7-year profile.
+  if (/\b(intern|internship|apprentice|apprenticeship|trainee)\b/.test(titleLc)) return -100;
   // Level-numbered senior titles: "SDE 3", "SDE-III", "Engineer III". Digit form
   // only for sde/swe (so "Developer 3-5 yrs" style titles aren't hit); roman
   // numerals III+ for any engineer/developer title. Levels 1-2 stay eligible.
   if (/\b(?:sde|swe)\s*[-.]?\s*(?:iii|iv|v|[3-9])\b/.test(titleLc)) return -100;
   if (/\b(?:engineer|developer)\s+(?:iii|iv|v)\b/.test(titleLc)) return -100;
-  if (/\.net\b|dotnet|c#/.test(blob)) return -100;
+  if (/\.net\b|dotnet|c#|\basp\s?net\b/.test(blob)) return -100;
+  // ".NET" often loses its dot in titles: "NET Full Stack Developer", "Net Core Developer"
+  if (/(^|[^a-z])net\s+(full\s*stack|developer|engineer|core|mvc)\b/.test(titleLc)) return -100;
 
   const mentionsOurStack = /react\s*native|react(?:\.?js)?\b|node(?:\.?js)?\b|typescript|javascript/.test(blob);
   // pure native mobile (Swift/Kotlin/Objective-C) with none of our stack
@@ -104,6 +108,38 @@ function scoreJob({ title = '', description = '', experienceText = '', skills = 
   return Math.min(score, 100);
 }
 
+/**
+ * Required experience stated in a job description, e.g. "5 to 8 years of
+ * experience", "3+ years of professional experience", "minimum 4 years",
+ * "Experience: 2-4 years". The first stated requirement wins. Returns
+ * { min, max } (max Infinity for "N+") or null.
+ */
+function experienceFromText(text) {
+  const t = String(text || '')
+    .replace(/&#x?[0-9a-f]+;|&nbsp;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+  const num = '(\\d+(?:\\.\\d+)?)';
+  const patterns = [
+    // "5 to 8 years of experience", "3+ yrs relevant experience", "2-4 years' experience"
+    new RegExp(`${num}\\s*(\\+|plus)?\\s*(?:(?:-|–|to)\\s*${num}\\s*\\+?)?\\s*(?:yrs?|years?)(?:['’]s?)?\\s*(?:of\\s+)?(?:[a-z/.+#&-]+\\s+){0,5}?(?:experience|exp\\b)`),
+    // "minimum (of) 4 years", "at least 3 years"
+    new RegExp(`(?:minimum(?: of)?|at least|min\\.?)\\s*${num}\\s*(\\+)?\\s*(?:yrs?|years?)`),
+    // "Experience: 2-4 years", "experience required 3+ years"
+    new RegExp(`experience\\s*(?:required|level)?\\s*[:\\-–]?\\s*${num}\\s*(\\+)?\\s*(?:(?:-|–|to)\\s*${num})?\\s*(?:yrs?|years?)`),
+  ];
+  let best = null;
+  for (const re of patterns) {
+    const m = t.match(re);
+    if (!m) continue;
+    const min = parseFloat(m[1]);
+    const max = m[3] ? parseFloat(m[3]) : m[2] ? Infinity : min;
+    if (min > 25) continue; // "25 years in business", not a requirement
+    if (!best || m.index < best.index) best = { min: Math.min(min, max), max: Math.max(min, max), index: m.index };
+  }
+  return best ? { min: best.min, max: best.max } : null;
+}
+
 function shouldApply(score, threshold = DEFAULT_THRESHOLD) {
   return score >= threshold;
 }
@@ -112,6 +148,7 @@ module.exports = {
   scoreJob,
   shouldApply,
   parseExperienceRange,
+  experienceFromText,
   TARGET_EXP,
   DEFAULT_THRESHOLD,
 };

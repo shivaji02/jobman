@@ -104,7 +104,45 @@ function assertProfileInitialized() {
   }
 }
 
+/**
+ * If a jobman Chrome from an earlier run is still open (manual-apply tabs the
+ * user hasn't finished), attach to it instead of killing it. Chrome writes its
+ * DevTools port to <profile>/DevToolsActivePort.
+ */
+async function attachToRunningProfile() {
+  const file = path.join(PROFILE_DIR, 'DevToolsActivePort');
+  if (!fs.existsSync(file)) return null;
+  const [port, wsPath] = fs.readFileSync(file, 'utf8').split('\n').map((l) => l.trim());
+  if (!port || !wsPath) return null;
+  try {
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: `ws://127.0.0.1:${port}${wsPath}`,
+      defaultViewport: { width: 1366, height: 850 },
+      protocolTimeout: 60_000,
+    });
+    browser.__jobmanAttached = true;
+    logger.info(`[browser] attached to the already-open jobman Chrome (port ${port}) — existing tabs kept`);
+    return browser;
+  } catch {
+    return null; // stale port file — fall through to a fresh launch
+  }
+}
+
 async function launch(opts = {}) {
+  if (!opts.fresh && process.env.JOBMAN_FRESH_BROWSER !== 'true') {
+    const attached = await attachToRunningProfile();
+    if (attached) {
+      return {
+        browser: attached,
+        newPage: async () => {
+          const page = await attached.newPage();
+          page.setDefaultNavigationTimeout(45_000);
+          page.setDefaultTimeout(30_000);
+          return page;
+        },
+      };
+    }
+  }
   cleanupStrayChromeProcesses();
   if (!opts.skipProfileCheck) {
     assertProfileInitialized();
@@ -114,6 +152,10 @@ async function launch(opts = {}) {
     '--no-first-run',
     '--no-default-browser-check',
     '--disable-blink-features=AutomationControlled',
+    // Several portals run in background tabs at once — don't let Chrome throttle them.
+    '--disable-background-timer-throttling',
+    '--disable-renderer-backgrounding',
+    '--disable-backgrounding-occluded-windows',
   ];
   // Chromium sandbox often blocks headless/CI on Linux
   if (platform === 'linux') args.push('--no-sandbox', '--disable-setuid-sandbox');
@@ -147,6 +189,24 @@ async function launch(opts = {}) {
   }
 
   return { browser, newPage };
+}
+
+/**
+ * Skip images/fonts/media on a page — job pages load much faster and the apply
+ * flow never needs them. Scripts, XHR and iframes (incl. CAPTCHA) are untouched.
+ */
+async function blockHeavyAssets(page) {
+  try {
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+      if (req.isInterceptResolutionHandled()) return;
+      const type = req.resourceType();
+      if (type === 'image' || type === 'font' || type === 'media') req.abort().catch(() => {});
+      else req.continue().catch(() => {});
+    });
+  } catch {
+    // page already closed — nothing to speed up
+  }
 }
 
 /** Randomized human-ish delay (rate-limit protection between applications). */
@@ -225,6 +285,8 @@ function createTabTracker(portal) {
   }
 
   function printSummary() {
+    // Per-portal block is redundant with the end-of-run tables (core/summary.js).
+    if (!process.env.JOBMAN_VERBOSE) return;
     const openCount = manualApply.length + failed.length;
     console.log(`\n${'='.repeat(60)}`);
     console.log(`[${portal}] OPEN TABS SUMMARY`);
@@ -274,7 +336,9 @@ function createTabTracker(portal) {
 
 module.exports = {
   launch,
+  attachToRunningProfile,
   humanDelay,
+  blockHeavyAssets,
   checkForCaptcha,
   SkipPortalError,
   closePageQuietly,

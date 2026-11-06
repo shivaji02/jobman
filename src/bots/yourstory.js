@@ -14,6 +14,8 @@ const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browse
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
+const { emptyResults, admit } = require('../core/disposition');
+const { classifyLocation, byLocationPreference } = require('../core/location');
 
 const QUERIES = [
   'react native developer',
@@ -132,8 +134,9 @@ async function applyToJob(browser, job) {
 }
 
 async function run({ dedup, dryRun, newPage, browser }) {
-  const results = { reviewed: 0, applied: [], skipped: [], failed: [] };
+  const results = emptyResults();
   const page = await newPage();
+  const seen = new Set();
 
   try {
     // Search params are ignored by the site — one careers page covers all queries.
@@ -144,7 +147,7 @@ async function run({ dedup, dryRun, newPage, browser }) {
     await checkForCaptcha(page);
 
     const cards = await extractCards(page);
-    results.reviewed = cards.length;
+    results.discovered = cards.length;
     logger.info(`[yourstory] careers page: ${cards.length} openings (startup job board no longer exists)`);
 
     if (cards.length === 0) {
@@ -154,8 +157,19 @@ async function run({ dedup, dryRun, newPage, browser }) {
     }
 
     for (const card of cards) {
-      if (results.applied.length >= MAX_APPS_PER_RUN) break;
-      if (dedup.has(card.url)) continue;
+      if (admit(results, { key: card.url, seen, dedup, job: { title: card.title, company: card.company, url: card.url }, site: 'YourStory', dryRun }) !== 'new') continue;
+      if (results.applied.length >= MAX_APPS_PER_RUN) {
+        results.skipped.push({ title: card.title, company: card.company, url: card.url, reason: 'per-run cap reached' });
+        continue;
+      }
+
+      const loc = classifyLocation(`${card.location || ''} ${card.text || ''}`, card.company);
+      if (!loc.allowed) {
+        const skip = { title: card.title, company: card.company, url: card.url, reason: loc.reason };
+        results.skipped.push(skip);
+        if (!dryRun) dedup.append({ site: 'YourStory', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: loc.reason });
+        continue;
+      }
 
       const score = scoreJob({ title: card.title, description: card.text, experienceText: card.experienceText });
       const job = { title: card.title, company: card.company, url: card.url };

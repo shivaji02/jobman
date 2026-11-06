@@ -14,34 +14,49 @@ const dedup = require('./core/dedup');
 const reporter = require('./core/reporter');
 const browserCore = require('./core/browser');
 const logger = require('./core/logger');
+const { formatRunSummary } = require('./core/summary');
+const { emptyResults } = require('./core/disposition');
 
-// Priority: proven portals first, then newer boards. YourStory remains last —
-// its public startup board is gone (media careers only).
+// Priority: portals with a native apply flow first (direct postings), then
+// aggregators. Talent.com mostly redirects to other boards / company ATSs, so it
+// runs after the boards it syndicates — their applications are then already in
+// the log and the cross-portal fingerprint dedups the aggregator copy.
+// YourStory remains last — its public startup board is gone (media careers only).
+// Direct employer applications come first (2026-11-05 brief): Google discovery,
+// then the known-company career boards — they run back to back in one worker so
+// boards Google just found are read in the same run and no job is done twice.
 const PORTALS_IN_PRIORITY_ORDER = [
+  'google',
+  'careers',
   'instahyre',
   'naukri',
   'linkedin',
+  'indeed',
+  'foundit',
   'wellfound',
+  'talent',
   'yourstory',
 ];
 const ALL_PORTALS = [...PORTALS_IN_PRIORITY_ORDER];
 const BOTS = {
+  google: require('./bots/google'),
   instahyre: require('./bots/instahyre'),
   naukri: require('./bots/naukri'),
   linkedin: require('./bots/linkedin'),
+  talent: require('./bots/talent'),
+  foundit: require('./bots/foundit'),
+  indeed: require('./bots/indeed'),
   wellfound: require('./bots/wellfound'),
+  careers: require('./bots/careers'),
   yourstory: require('./bots/yourstory'),
 };
 
 /** Portals that leave manual-apply / failed tabs open for user review. */
-const KEEP_TABS_PORTALS = new Set(['naukri', 'linkedin', 'wellfound']);
+const KEEP_TABS_PORTALS = new Set(['google', 'careers', 'naukri', 'linkedin', 'talent', 'foundit', 'indeed', 'wellfound']);
 
 let activeKeepBrowser = null;
 let sigintHookInstalled = false;
 
-function emptyResults(note) {
-  return { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [], note };
-}
 
 function loadProfile() {
   const file = path.join(__dirname, '..', 'config', 'candidate.json');
@@ -146,7 +161,7 @@ async function runPortal(portalName, { dryRun = false, browser, newPage } = {}) 
   if (!bot) throw new Error(`unknown portal: ${portalName}`);
 
   const profile = loadProfile();
-  dedup.load();
+  if (!browser) dedup.load(); // runAll loads once up front and shares the log across portals
 
   let ownedBrowser = false;
   let activeBrowser = browser;
@@ -175,18 +190,21 @@ async function runPortal(portalName, { dryRun = false, browser, newPage } = {}) 
       browser: activeBrowser,
     });
   } catch (err) {
+    // Bots attach what they finished before the stop (err.partialResults) so the
+    // report still accounts for every listing already dispositioned and logged.
+    const partial = (note) => (err.partialResults ? { ...err.partialResults, note } : emptyResults(note));
     if (err instanceof browserCore.SkipPortalError) {
-      logger.warn(`[${portalName}] skipped: ${err.message}`);
-      return emptyResults(`skipped — ${err.message}`);
+      logger.warn(`[${portalName}] stopped: ${err.message}`);
+      return partial(`stopped early — ${err.message}`);
     }
     logger.error(`[${portalName}] crashed: ${err.message}`);
-    return emptyResults(`crashed — ${err.message}`);
+    return partial(`crashed — ${err.message}`);
   } finally {
     // Shared browser: leave open for other portals / user review.
     // Solo run of a keep-tabs portal: disconnect (don't close) so tabs survive.
     // Solo run of other portals: close as before.
     if (ownedBrowser) {
-      if (KEEP_TABS_PORTALS.has(portalName) && !dryRun) {
+      if ((KEEP_TABS_PORTALS.has(portalName) && !dryRun) || activeBrowser.__jobmanAttached) {
         await keepBrowserOpen(activeBrowser);
       } else {
         await activeBrowser.close().catch(() => {});
@@ -195,7 +213,13 @@ async function runPortal(portalName, { dryRun = false, browser, newPage } = {}) 
   }
 }
 
-async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER } = {}) {
+/** Portals run side by side in one Chrome; JOBMAN_CONCURRENCY=1 restores one-at-a-time. */
+function defaultConcurrency() {
+  const env = parseInt(process.env.JOBMAN_CONCURRENCY, 10);
+  return Number.isFinite(env) && env > 0 ? env : 4;
+}
+
+async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER, concurrency: concurrencyOpt } = {}) {
   const results = {};
   const needsKeepTabs = !dryRun && portals.some((p) => KEEP_TABS_PORTALS.has(p));
 
@@ -215,19 +239,38 @@ async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER } = 
     return results;
   }
 
+  dedup.load();
+  const concurrency = Math.max(1, Math.min(portals.length, concurrencyOpt ?? defaultConcurrency()));
+  logger.info(`running ${portals.length} portals, ${concurrency} at a time`);
+
   try {
-    for (const portalName of portals) {
-      logger.info(`\n=== ${portalName} ===`);
-      try {
-        results[portalName] = await runPortal(portalName, { dryRun, browser, newPage });
-      } catch (err) {
-        // Defensive: runPortal already catches, but never let one portal abort the run
-        logger.error(`[${portalName}] crashed: ${err.message}`);
-        results[portalName] = emptyResults(`crashed — ${err.message}`);
+    // Worker pool: each worker takes the next portal in priority order, so the
+    // proven portals start first and slow ones overlap instead of queueing.
+    // Portals are independent (own tabs, shared dedup log is synchronous).
+    // google + careers form one queue item (run in that order by one worker).
+    const DIRECT = ['google', 'careers'];
+    const direct = portals.filter((p) => DIRECT.includes(p));
+    const queue = [...(direct.length ? [direct] : []), ...portals.filter((p) => !DIRECT.includes(p))];
+    const settled = {};
+    const worker = async () => {
+      while (queue.length) {
+        const item = queue.shift();
+        for (const portalName of [].concat(item)) {
+          logger.info(`\n=== ${portalName} ===`);
+          try {
+            settled[portalName] = await runPortal(portalName, { dryRun, browser, newPage });
+          } catch (err) {
+            // Defensive: runPortal already catches, but never let one portal abort the run
+            logger.error(`[${portalName}] crashed: ${err.message}`);
+            settled[portalName] = emptyResults(`crashed — ${err.message}`);
+          }
+        }
       }
-    }
+    };
+    await Promise.all(Array.from({ length: concurrency }, worker));
+    for (const p of portals) results[p] = settled[p]; // keep priority order in reports
   } finally {
-    if (needsKeepTabs) {
+    if (needsKeepTabs || browser.__jobmanAttached) {
       await keepBrowserOpen(browser);
     } else {
       await browser.close().catch(() => {});
@@ -237,7 +280,7 @@ async function runAll({ dryRun = false, portals = PORTALS_IN_PRIORITY_ORDER } = 
   const date = dedup.istDate();
   const reportFile = reporter.write(date, results, { dryRun });
   logger.info(`\nReport written to ${reportFile}`);
-  printRunTabSummary(results);
+  console.log(formatRunSummary(results, { dryRun }));
 
   return results;
 }

@@ -7,23 +7,24 @@
  * experience, notice, CTC) — never skipped when an answer is known.
  * Job URLs are stable and used directly as the dedup key.
  */
-const { humanDelay, checkForCaptcha, SkipPortalError, createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/browser');
+const { humanDelay, blockHeavyAssets, checkForCaptcha, SkipPortalError, createTabTracker, settleAttemptPages, closePageQuietly } = require('../core/browser');
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const logger = require('../core/logger');
+const { classifyLocation, SEARCH_CITIES } = require('../core/location');
+const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
+const { emptyResults, admit } = require('../core/disposition');
+const { planAnswers } = require('../core/screening');
 
 const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
-const MAX_APPS_PER_RUN = 10;
+const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 30;
 const MAX_SCREENING_ROUNDS = 10;
 
-const RESUME_RN = '/Users/neosoft/Downloads/Resumes/shivajirn02.pdf';
-const RESUME_FS = '/Users/neosoft/Downloads/Resumes/ShivajiPresidio.pdf';
+const { RESUME_RN, RESUME_FS, selectResume: pickResume } = require('../core/resume');
 
 /** Pick resume path from job title keywords. Default: Full Stack. */
-function selectResume(jobTitle = '') {
-  const t = String(jobTitle).toLowerCase();
-  if (/react[\s-]?native|\bnative\b|\bmobile\b/.test(t)) return RESUME_RN;
-  return RESUME_FS;
+function selectResume(jobTitle = '', jobText = '') {
+  return pickResume(jobTitle, jobText);
 }
 
 /** Pull company/ATS URL from an ExternalAtsError or error message. */
@@ -80,19 +81,26 @@ function pickExperienceYears(jobText = '') {
 
 /** Build canonical screening answers for a job + profile. */
 function buildScreeningAnswers(job = {}, profile = {}) {
-  const blob = [job.title, job.experienceText, job.text, job.description].filter(Boolean).join(' ');
-  const experience = pickExperienceYears(blob);
-  const ctc = profile.expected_ctc || profile.current_ctc || '15-20 LPA';
+  // Audit 2026-11-05: experience used to be bumped to "3" for mid/senior postings
+  // (pickExperienceYears), "current CTC" got the *expected* CTC (or a hard-coded
+  // 15-20 LPA), and "current location" got Hyderabad. All answers now come
+  // straight from candidate.json; anything missing is left for the user.
+  const years = Number(profile.experience_years);
+  const experience = Number.isFinite(years) ? String(years) : '';
   return {
-    relocate: 'Yes',
+    relocate: profile.willing_to_relocate === false ? 'No' : 'Yes',
     experience,
+    currentCtc: profile.current_ctc || '',
+    expectedCtc: profile.expected_ctc || '',
+    currentLocation: profile.current_location || '',
+    yesToWillingness: profile.screening_defaults?.answer_yes_to_willingness === true,
     notice: 'Immediate',
     noticeFallback: '15 days',
-    ctc,
+    ctc: profile.expected_ctc || '',
     startup: 'Yes',
     availability: 'Immediate',
     employmentStatus: 'Available for immediate joining',
-    location: 'Open to relocation',
+    location: 'Hyderabad',
   };
 }
 
@@ -109,9 +117,20 @@ function formatScreeningLog(answers, filled) {
   ].join('\n');
 }
 
-function searchUrl(query) {
+/**
+ * Naukri's `experience=N` returns only postings whose range contains N years.
+ * Pushing this into discovery removed most of the 149 "experience out of range"
+ * rejections per run (4-8, 5-10, 6-11 yrs …). N = candidate's whole years
+ * rounded (2.7 → 3), which still covers 1-3, 2-4, 2-5, 3-5 ranges.
+ */
+const SEARCH_EXPERIENCE_YEARS = Number(process.env.JOBMAN_NAUKRI_EXPERIENCE) || 3;
+
+function searchUrl(query, city) {
   const slug = query.trim().toLowerCase().replace(/\s+/g, '-');
-  return `https://www.naukri.com/${slug}-jobs?k=${encodeURIComponent(query)}`;
+  // jobAge=3 → posted in the last 3 days; sort=r → most recent first
+  const recent = `jobAge=3&sort=r&experience=${SEARCH_EXPERIENCE_YEARS}`;
+  if (!city) return `https://www.naukri.com/${slug}-jobs?k=${encodeURIComponent(query)}&${recent}`;
+  return `https://www.naukri.com/${slug}-jobs-in-${city}?k=${encodeURIComponent(query)}&l=${encodeURIComponent(city)}&${recent}`;
 }
 
 /**
@@ -168,7 +187,9 @@ async function extractCards(page) {
       const titleEl = card.querySelector('.title, a.title');
       const companyEl = card.querySelector('.comp-name, [class*="company"]');
       const expEl = card.querySelector('.exp, [class*="experience"]');
+      const locEl = card.querySelector('.locWraper, .loc, [class*="location"], [class*="locWraper"]');
       return {
+        location: (locEl?.textContent || '').trim(),
         title: (titleEl?.textContent || '').trim(),
         url: titleEl?.href || '',
         company: (companyEl?.textContent || '').trim(),
@@ -223,6 +244,7 @@ async function resolveExternalCompanyUrl(page, browser) {
     }, 8000);
     async function onTarget(target) {
       if (target.type() !== 'page') return;
+      if (target.opener() !== page.target()) return; // another portal's tab (parallel run)
       clearTimeout(timer);
       browser.off('targetcreated', onTarget);
       try {
@@ -383,13 +405,16 @@ function answerOneScreeningRound(page, answers) {
       if (!answer && fillText(answers.relocate)) answer = answers.relocate;
     } else if (/total experience|years? of experience|how many years|experience in years|relevant experience/i.test(q)) {
       key = 'experience';
-      answer = pickOption(answers.experience, [String(Math.round(Number(answers.experience))), '2.7', '3', '2']);
+      // exact years first, then whole years rounded DOWN (never overstated)
+      answer = answers.experience && pickOption(answers.experience, [answers.experience, String(Math.floor(Number(answers.experience)))]);
       if (!answer && fillText(answers.experience)) answer = answers.experience;
     } else if (/notice period|serving notice|how soon can you join|availability|available to join|joining/i.test(q)) {
       key = 'notice';
       answer = pickOption(answers.notice, [
         'Immediate',
         'Immediately',
+        'Available now',
+        'Immediate joiner',
         '0 days',
         '0',
         answers.noticeFallback,
@@ -399,9 +424,14 @@ function answerOneScreeningRound(page, answers) {
       if (!answer && fillText(answers.notice)) answer = answers.notice;
     } else if (/current ctc|expected ctc|current salary|expected salary|ctc|compensation|package/i.test(q)) {
       key = 'ctc';
-      answer = pickOption(answers.ctc, ['15-20 LPA', '15 - 20 LPA', '15 to 20', '15', '20']);
-      if (!answer && fillText(answers.ctc)) answer = answers.ctc;
-      if (!answer) optionalSkip = true; // CTC optional — skip only this question
+      const isCurrent = /current|present|existing|last drawn/i.test(q);
+      const value = isCurrent ? answers.currentCtc : answers.expectedCtc;
+      if (value) {
+        const lakhs = (String(value).match(/\d+(?:\.\d+)?/) || [])[0] || '';
+        answer = pickOption(value, [value, lakhs]);
+        if (!answer && fillText(value)) answer = value;
+      }
+      if (!answer) optionalSkip = true; // skip only if Naukri marks it optional; else unanswered → user
     } else if (/startup/i.test(q)) {
       key = 'startup';
       answer = pickOption(answers.startup, ['Yes', 'Y']);
@@ -416,11 +446,18 @@ function answerOneScreeningRound(page, answers) {
         answers.availability,
       ]);
       if (!answer && fillText(answers.employmentStatus)) answer = answers.employmentStatus;
-    } else if (/preferred location|current location|location/i.test(q)) {
+    } else if (/current location|currently (based|located|residing)|where are you (based|located)/i.test(q)) {
       key = 'location';
-      answer = pickOption(answers.location, ['Anywhere', 'Open to relocation', 'Remote', 'India']);
+      if (answers.currentLocation) {
+        answer = pickOption(answers.currentLocation, [answers.currentLocation]);
+        if (!answer && fillText(answers.currentLocation)) answer = answers.currentLocation;
+      }
+    } else if (/preferred location|location/i.test(q)) {
+      key = 'location';
+      answer = pickOption(answers.location, ['Hyderabad', 'Bangalore', 'Bengaluru', 'Chennai', 'Open to relocation', 'Anywhere', 'India']);
       if (!answer && fillText(answers.location)) answer = answers.location;
-    } else if (/willing|agree|comfortable|okay with/i.test(q)) {
+    } else if (answers.yesToWillingness && /willing|agree|comfortable|okay with/i.test(q)) {
+      // Blanket "Yes" (bonds, shifts, travel…) only with explicit opt-in in candidate.json.
       key = 'other';
       answer = pickOption('Yes', ['Yes', 'Y']);
       if (!answer && fillText('Yes')) answer = 'Yes';
@@ -447,6 +484,7 @@ function answerOneScreeningRound(page, answers) {
 async function handleScreeningDrawer(page, job, profile) {
   const answers = buildScreeningAnswers(job, profile);
   const filled = [];
+  let unanswered = '';
 
   for (let round = 0; round < MAX_SCREENING_ROUNDS; round++) {
     const result = await answerOneScreeningRound(page, answers);
@@ -457,18 +495,97 @@ async function handleScreeningDrawer(page, job, profile) {
         question: result.question,
         answer: result.answer,
       });
-      await new Promise((r) => setTimeout(r, 900));
+      await new Promise((r) => setTimeout(r, 400));
       continue;
     }
     if (result.status === 'unanswered') {
       logger.warn(`[naukri] unanswered screening: ${result.question}`);
+      unanswered = result.question || 'unknown question';
       break;
     }
     break;
   }
 
   logger.info(`[naukri] screening answers for "${job.title}":\n${formatScreeningLog(answers, filled)}`);
-  return { answers, filled };
+  return { answers, filled, unanswered };
+}
+
+/**
+ * Click Apply and read Naukri's own apply-API response.
+ *
+ * Audit 2026-11-05: clicks fired as soon as #apply-button rendered landed before
+ * React attached its handlers and were silently ignored ("verified not applied").
+ * We now wait for hydration, and use the apply-workflow API reply as proof:
+ *   { jobs: [{ status: 200, message: "You have successfully applied to this job." }],
+ *     quotaDetails: { dailyApplied, dailyQuota } }
+ * No API call at all = nothing was submitted, so one re-click is safe.
+ * Returns { api: {status, message, quota} | null, clicks }.
+ */
+async function clickApplyForReal(page) {
+  let api = null;
+  const onResponse = async (res) => {
+    if (!/apply-workflow\/v\d+\/apply/.test(res.url()) || res.request().method() !== 'POST') return;
+    try {
+      const body = JSON.parse(await res.text());
+      const j = (body.jobs || [])[0] || {};
+      const typeOf = (t) => (/radio/i.test(t) ? 'radio' : /list|check|drop/i.test(t) ? 'select' : 'text');
+      const questions = (j.questionnaire || []).map((q) => ({
+        id: String(q.questionId),
+        question: q.questionName || '',
+        type: typeOf(q.questionType || ''),
+        options: Object.values(q.answerOption || {}).map(String),
+        required: q.isMandatory !== false,
+      }));
+      api = { status: j.status, message: j.message || '', quota: body.quotaDetails || null, httpStatus: res.status(), questions };
+    } catch {
+      api = { status: res.status(), message: '', quota: null, httpStatus: res.status() };
+    }
+  };
+  page.on('response', onResponse);
+  try {
+    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 15000 }).catch(() => {});
+    await new Promise((r) => setTimeout(r, 1500)); // hydration settle
+    let clicks = 0;
+    for (let attempt = 1; attempt <= 2 && !api; attempt++) {
+      await page.bringToFront().catch(() => {});
+      try {
+        await page.click('[data-jm-apply="1"]', { delay: 60 });
+      } catch {
+        await page.evaluate(() => document.querySelector('[data-jm-apply="1"]')?.click()).catch(() => {});
+      }
+      clicks++;
+      const deadline = Date.now() + 8000;
+      while (!api && Date.now() < deadline) await new Promise((r) => setTimeout(r, 250));
+      // A visible screening drawer means the click registered even before any API reply.
+      const drawer = await page
+        .evaluate(() => Array.from(document.querySelectorAll('[class*="chatbot"], [class*="Chatbot"]')).some((el) => el.offsetWidth || el.offsetHeight))
+        .catch(() => false);
+      if (api || drawer) break;
+      if (attempt === 1) logger.warn('[naukri] Apply click produced no apply request — re-clicking once (nothing was submitted)');
+    }
+    return { api, clicks };
+  } finally {
+    page.off('response', onResponse);
+  }
+}
+
+/**
+ * Re-open a Naukri job page and read its apply state.
+ * Returns { state: 'applied'|'not-applied'|'unknown', signal }.
+ */
+async function verifyNaukriJobState(page, url) {
+  try {
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const signal = await waitForSuccess(page, { selector: '#already-applied, .already-applied', text: [], timeoutMs: 10000 });
+    if (signal) return { state: 'applied', signal };
+    const applyVisible = await page.evaluate(() => {
+      const b = document.querySelector('#apply-button');
+      return !!(b && (b.offsetWidth || b.offsetHeight) && /^apply$/i.test(b.textContent.trim()));
+    });
+    return { state: applyVisible ? 'not-applied' : 'unknown', signal: '' };
+  } catch {
+    return { state: 'unknown', signal: '' };
+  }
 }
 
 /**
@@ -479,22 +596,23 @@ async function handleScreeningDrawer(page, job, profile) {
  */
 async function applyToJob(browser, job, profile = {}) {
   const page = await browser.newPage();
+  await blockHeavyAssets(page);
   const resume = selectResume(job.title);
+  let clicked = false;
   try {
     await withRetry(
       () => page.goto(job.url, { waitUntil: 'domcontentloaded' }),
       { maxAttempts: 2 }
     );
-    await new Promise((r) => setTimeout(r, 2000));
-    await checkForCaptcha(page);
 
-    // Apply / Applied controls hydrate late — wait before deciding.
+    // Apply / Applied controls hydrate late — wait for them (replaces a fixed 2s sleep).
     await page
       .waitForSelector(
         '#apply-button, #company-site-button, [class*="apply-button"], [id*="apply"], [class*="already-applied"], [id*="already-applied"]',
         { timeout: 10000 }
       )
       .catch(() => {});
+    await checkForCaptcha(page);
 
     const outcome = await page.evaluate(() => {
       const visible = (el) => {
@@ -506,13 +624,18 @@ async function applyToJob(browser, job, profile = {}) {
       };
       const labelOf = (el) => (el.textContent || '').replace(/\s+/g, ' ').trim();
 
+      // Applied jobs render <span id="already-applied">Applied</span> (no button) —
+      // missing this produced ~450 false "Apply button not found" failures.
+      const appliedEl = document.querySelector('#already-applied, .already-applied, [class*="already-applied"]');
+      if (appliedEl && visible(appliedEl)) return 'already-applied';
+
       const applyEl = document.querySelector('#apply-button');
       if (applyEl && visible(applyEl)) {
         const t = labelOf(applyEl);
         // After a prior apply Naukri keeps #apply-button but relabels it Applied.
         if (/^applied$/i.test(t) || applyEl.disabled) return 'already-applied';
         if (/^apply$/i.test(t)) {
-          applyEl.click();
+          applyEl.setAttribute('data-jm-apply', '1');
           return 'clicked';
         }
       }
@@ -528,7 +651,7 @@ async function applyToJob(browser, job, profile = {}) {
       // On-site apply: exact "Apply". Must NOT match "Apply on company site".
       const onSite = controls.find((b) => /^apply$/i.test(labelOf(b)));
       if (onSite) {
-        onSite.click();
+        onSite.setAttribute('data-jm-apply', '1');
         return 'clicked';
       }
       const external =
@@ -572,6 +695,31 @@ async function applyToJob(browser, job, profile = {}) {
         reason: 'login required — session logged out on job page',
       };
     }
+    let applyApi = null;
+    if (outcome === 'clicked') {
+      clicked = true;
+      ({ api: applyApi } = await clickApplyForReal(page));
+      if (applyApi?.quota) logger.info(`[naukri] apply quota: ${applyApi.quota.dailyApplied}/${applyApi.quota.dailyQuota} today`);
+      if (applyApi?.status === 200 || /successfully applied/i.test(applyApi?.message || '')) {
+        const quota = applyApi.quota ? ` (daily ${applyApi.quota.dailyApplied}/${applyApi.quota.dailyQuota})` : '';
+        await new Promise((r) => setTimeout(r, 1500));
+        const evidence = await capture(page, { portal: 'naukri', jobKey: job.url, signal: `apply API: "${applyApi.message || 'status 200'}"${quota}` });
+        return { status: 'applied', page, resume, evidence, submitted: true };
+      }
+      if (applyApi?.questions?.length) {
+        // Naukri returned the exact questionnaire — decide up front from candidate.json.
+        const { missing } = planAnswers(applyApi.questions, profile);
+        if (missing.length) {
+          return { status: 'manual-apply', page, companyUrl: page.url(), resume, submitted: false, reason: `needs your answer: ${missing.join('; ')}` };
+        }
+      }
+      if (/already applied/i.test(applyApi?.message || '')) {
+        return { status: 'already-applied', page, resume, reason: 'already applied on Naukri (apply API)' };
+      }
+      if (/quota|limit/i.test(applyApi?.message || '') || (applyApi?.quota && applyApi.quota.dailyApplied >= applyApi.quota.dailyQuota)) {
+        throw new SkipPortalError(`Naukri daily apply quota reached (${applyApi.message || 'quota'})`);
+      }
+    }
     if (outcome !== 'clicked') {
       return {
         status: 'failed',
@@ -581,7 +729,7 @@ async function applyToJob(browser, job, profile = {}) {
       };
     }
 
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 700));
 
     // Clicking Apply sometimes redirects straight to an external ATS.
     const afterClickUrl = page.url();
@@ -596,10 +744,31 @@ async function applyToJob(browser, job, profile = {}) {
     }
 
     // Answer screening questions (relocate / experience / notice / CTC / etc.)
-    await handleScreeningDrawer(page, job, profile);
+    const screening = await handleScreeningDrawer(page, job, profile);
+    if (screening.unanswered) {
+      // Apply was clicked but Naukri holds the application until the drawer is
+      // completed — the user must answer; the tab stays open.
+      return { status: 'manual-apply', page, companyUrl: page.url(), resume, submitted: true, reason: `needs your answer: ${screening.unanswered}` };
+    }
 
-    // Optimistic: form filled + apply clicked — caller closes this tab.
-    return { status: 'applied', page, resume };
+    // Previously this returned 'applied' optimistically. Now require proof.
+    let signal = await waitForSuccess(page, {
+      selector: '#already-applied, .already-applied',
+      text: ['you have successfully applied', 'successfully applied', 'application (?:has been )?sent'],
+      timeoutMs: 8000,
+    });
+    if (!signal) {
+      // Naukri often moves to a post-apply page — re-open the JOB page and read its state.
+      const verdict = await verifyNaukriJobState(page, job.url);
+      if (verdict.state === 'applied') signal = `job page re-opened: ${verdict.signal}`;
+      else if (verdict.state === 'not-applied') {
+        // Verified: the Apply click did not register. Safe to retry in a later run (bounded).
+        return { status: 'failed', page, resume, submitted: false, reason: 'verified not applied — Apply click did not register' };
+      }
+    }
+    if (!signal) return { status: 'unconfirmed', page, resume, submitted: true, reason: 'Apply clicked; Naukri never showed Applied' };
+    const evidence = await capture(page, { portal: 'naukri', jobKey: job.url, signal });
+    return { status: 'applied', page, resume, evidence, submitted: true };
   } catch (err) {
     if (err instanceof ExternalAtsError) {
       const companyUrl = err.companyUrl || page.url() || job.url;
@@ -608,24 +777,34 @@ async function applyToJob(browser, job, profile = {}) {
       }
       return { status: 'manual-apply', page, companyUrl, resume, error: err };
     }
+    if (err instanceof SkipPortalError) throw err; // quota / login — stop the portal cleanly
+    if (clicked) return { status: 'unconfirmed', page, resume, submitted: true, reason: `error after Apply click: ${err.message}` };
     return { status: 'failed', page, resume, reason: err.message, error: err };
   }
 }
 
 async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
-  const results = { reviewed: 0, applied: [], skipped: [], failed: [], manualApply: [] };
+  const results = emptyResults();
+  const seenThisRun = new Set(); // same job shows up under several city/query searches
   const tabs = createTabTracker('naukri');
   const page = await newPage();
+  await blockHeavyAssets(page);
+  const log = (card, status, notes) => {
+    if (!dryRun) dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status, notes });
+  };
+  const attempted = () => results.applied.length + results.unconfirmed.length;
 
   try {
-    for (const query of QUERIES) {
-      if (results.applied.length >= MAX_APPS_PER_RUN) break;
+    // Hyderabad first, then the other southern cities; each city x each query.
+    const searches = SEARCH_CITIES.flatMap((city) => QUERIES.map((query) => ({ city, query })));
+    for (const { city, query } of searches) {
+      if (attempted() >= MAX_APPS_PER_RUN) break;
 
       // networkidle2 never resolves on Naukri (continuous background XHR/analytics)
       // and leaves the page on an interim state that looks like a CAPTCHA — use
       // domcontentloaded + an explicit wait for job cards instead.
       await withRetry(
-        () => page.goto(searchUrl(query), { waitUntil: 'domcontentloaded' }),
+        () => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }),
         { maxAttempts: 2 }
       );
 
@@ -636,33 +815,39 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
       await checkForCaptcha(page);
 
       const cards = await extractCards(page);
-      results.reviewed += cards.length;
-      logger.info(`[naukri] "${query}": ${cards.length} cards`);
+      results.discovered += cards.length;
+      logger.info(`[naukri] "${query}" in ${city}: ${cards.length} cards`);
 
       for (const card of cards) {
-        if (results.applied.length >= MAX_APPS_PER_RUN) break;
+        const job = { title: card.title, company: card.company, url: card.url };
+        if (admit(results, { key: card.url, seen: seenThisRun, dedup, job, site: 'Naukri', dryRun }) !== 'new') continue;
 
-        // Persistent log (any day): applied / manual-apply → never open a tab.
-        if (typeof dedup.isApplied === 'function' && dedup.isApplied(card.url)) {
-          logger.info(`[naukri] skip already applied (log): ${card.title} @ ${card.company}`);
+        const loc = classifyLocation(card.location || '', card.company);
+        if (!loc.allowed) {
+          job.reason = loc.reason;
+          results.skipped.push(job);
+          log(card, 'skipped', loc.reason);
           continue;
         }
-        if (dedup.has(card.url)) continue;
 
         const range = parseExperienceRange(card.experienceText);
         if (range && (range.min > 3.5 || range.max < 1.5)) {
-          const job = { title: card.title, company: card.company, url: card.url, reason: `experience ${card.experienceText} out of range` };
+          job.reason = `experience ${card.experienceText} out of range`;
           results.skipped.push(job);
-          if (!dryRun) dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: job.reason });
+          log(card, 'skipped', job.reason);
           continue;
         }
 
         const score = scoreJob({ title: card.title, description: card.text, experienceText: card.experienceText });
-        const job = { title: card.title, company: card.company, url: card.url };
         if (!shouldApply(score)) {
           job.reason = `score ${score} below threshold`;
           results.skipped.push(job);
-          if (!dryRun) dedup.append({ site: 'Naukri', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: job.reason });
+          log(card, 'skipped', job.reason);
+          continue;
+        }
+        if (attempted() >= MAX_APPS_PER_RUN) {
+          job.reason = 'per-run cap reached';
+          results.skipped.push(job);
           continue;
         }
 
@@ -673,7 +858,6 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           job.resume = resume;
           results.applied.push(job);
           logger.info(`[naukri] DRY RUN would apply: ${card.title} @ ${card.company} (score ${score})`);
-          logger.info(`[naukri] DRY RUN screening:\n${formatScreeningLog(preview, [])}`);
           continue;
         }
 
@@ -682,41 +866,17 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         for (let attempt = 1; attempt <= 2; attempt++) {
           outcome = await applyToJob(browser, card, profile);
           if (outcome.page) attemptPages.push(outcome.page);
-          if (outcome.status === 'applied' || outcome.status === 'manual-apply' || outcome.status === 'already-applied') break;
-          // Retry transient failures only (fresh tab on retry; prior tab closed below)
-          if (attempt < 2 && outcome.reason && !/Apply button not found|login required/i.test(outcome.reason)) {
-            logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${outcome.reason}`);
-            await humanDelay(1500, 2500);
-            continue;
-          }
-          break;
+          // Retry only technical failures where Apply was never clicked —
+          // a second click after an uncertain submit could double-apply.
+          if (outcome.status !== 'failed' || outcome.submitted || attempt === 2) break;
+          if (/Apply button not found|login required/i.test(outcome.reason || '')) break;
+          logger.warn(`[naukri] attempt ${attempt} failed for "${card.title}": ${outcome.reason}`);
+          await humanDelay(1500, 2500);
         }
 
-        const alreadyAppliedInLog = typeof dedup.isApplied === 'function' && dedup.isApplied(card.url);
-        const treatAsAlreadyApplied = outcome.status === 'already-applied' || alreadyAppliedInLog;
-
-        const keepOpen = !treatAsAlreadyApplied && shouldKeepNaukriTab(outcome.status, { alreadyAppliedInLog });
+        const keepOpen = ['manual-apply', 'failed', 'unconfirmed'].includes(outcome.status);
         const keepPage = keepOpen ? outcome.page : null;
         await settleAttemptPages(attemptPages, keepPage);
-
-        if (treatAsAlreadyApplied) {
-          job.reason = alreadyAppliedInLog ? 'already applied (logged)' : 'already applied on Naukri';
-          results.skipped.push(job);
-          logger.info(`[naukri] skip already applied: ${card.title} @ ${card.company} → tab closed`);
-          if (!dedup.has(card.url)) {
-            dedup.append({
-              site: 'Naukri',
-              job_title: card.title,
-              company: card.company,
-              job_url: card.url,
-              status: 'applied',
-              notes: 'already applied on Naukri (Apply hidden / Applied state)',
-            });
-          }
-          await humanDelay();
-          continue;
-        }
-
         const pageUrl = (() => {
           try {
             return keepPage?.url?.() || outcome.companyUrl || '';
@@ -725,48 +885,40 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           }
         })();
 
-        if (outcome.status === 'manual-apply') {
-          const entry = handleExternalATS(job, outcome.error || new ExternalAtsError(outcome.companyUrl));
+        if (outcome.status === 'already-applied') {
+          job.reason = 'already applied on Naukri';
+          results.alreadyApplied.push(job);
+          log(card, 'applied', 'already applied on Naukri (page shows Applied)');
+          continue; // nothing was submitted — no rate-limit delay needed
+        }
+
+        if (outcome.status === 'applied') {
+          job.resume = outcome.resume || selectResume(card.title);
+          job.evidence = outcome.evidence;
+          results.applied.push(job);
+          log(card, 'applied', `auto-applied (score ${score}; resume=${job.resume}) | ${evidenceNote(outcome.evidence)}`);
+          console.log(`✅ Applied (confirmed): ${card.title} @ ${card.company}`);
+        } else if (outcome.status === 'unconfirmed') {
+          job.reason = outcome.reason;
+          results.unconfirmed.push(job);
+          tabs.trackFailed(job, pageUrl || job.url);
+          log(card, 'unconfirmed', outcome.reason);
+          logger.warn(`[naukri] UNCONFIRMED (will not resubmit): ${card.title} — ${outcome.reason}`);
+        } else if (outcome.status === 'manual-apply') {
+          const entry = outcome.reason
+            ? { ...job, resume: outcome.resume, companyUrl: outcome.companyUrl || pageUrl, reason: outcome.reason }
+            : handleExternalATS(job, outcome.error || new ExternalAtsError(outcome.companyUrl));
           entry.companyUrl = outcome.companyUrl || entry.companyUrl || pageUrl;
           results.manualApply.push(entry);
           tabs.trackManualApply(entry, entry.companyUrl);
-          logger.info(`[naukri] → Tab OPEN and ready for manual apply`);
-          dedup.append({
-            site: 'Naukri',
-            job_title: card.title,
-            company: card.company,
-            job_url: card.url,
-            status: 'manual-apply',
-            notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
-          });
-        } else if (outcome.status === 'failed') {
+          logger.info(`[naukri] → needs you: ${card.title} — ${entry.reason}`);
+          log(card, 'manual-apply', `URL: ${entry.companyUrl} | ${entry.reason} | Resume: ${entry.resume}`);
+        } else {
           job.reason = outcome.reason || 'apply failed';
           results.failed.push(job);
           tabs.trackFailed(job, pageUrl || job.url);
-          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
           logger.warn(`[naukri] [failed] ${card.title} — ${job.reason} → Tab OPEN for inspection`);
-          dedup.append({
-            site: 'Naukri',
-            job_title: card.title,
-            company: card.company,
-            job_url: card.url,
-            status: 'failed',
-            notes: job.reason,
-          });
-        } else {
-          const resume = outcome.resume || selectResume(card.title);
-          job.resume = resume;
-          results.applied.push(job);
-          dedup.append({
-            site: 'Naukri',
-            job_title: card.title,
-            company: card.company,
-            job_url: card.url,
-            status: 'applied',
-            notes: `auto-applied (score ${score}; resume=${resume})`,
-          });
-          console.log(`✅ Applied: ${card.title} @ ${card.company}`);
-          logger.info(`[naukri] applied: ${card.title} @ ${card.company} → tab closed`);
+          log(card, 'failed', job.reason);
         }
 
         await humanDelay();
@@ -774,6 +926,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
     }
   } catch (err) {
     tabs.printSummary();
+    err.partialResults = results;
     throw err;
   } finally {
     await closePageQuietly(page);
@@ -785,6 +938,9 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
 
 module.exports = {
   run,
+  searchUrl,
+  verifyNaukriJobState,
+  applyToJob,
   pickExperienceYears,
   buildScreeningAnswers,
   formatScreeningLog,

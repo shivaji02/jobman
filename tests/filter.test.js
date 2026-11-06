@@ -105,3 +105,17 @@ test('shouldApply accepts a custom threshold', () => {
 test('TARGET_EXP matches candidate profile range', () => {
   assert.deepEqual(TARGET_EXP, { min: 1.5, max: 3.5 });
 });
+
+test('audit 2026-11-05: ".NET" without the dot is still rejected; "Network" is not', () => {
+  const { scoreJob } = require('../src/core/filter');
+  assert.equal(scoreJob({ title: 'NET Full Stack Developer' }), -100);
+  assert.equal(scoreJob({ title: 'Net Core Developer' }), -100);
+  assert.equal(scoreJob({ title: 'ASP NET Developer' }), -100);
+  assert.notEqual(scoreJob({ title: 'Network Engineer' }), -100);
+});
+
+test('internships / apprenticeships are hard rejects (2.7-year profile)', () => {
+  const { scoreJob } = require('../src/core/filter');
+  assert.equal(scoreJob({ title: 'Frontend Intern', description: 'React' }), -100);
+  assert.equal(scoreJob({ title: 'Frontend - Apprentice', description: 'React' }), -100);
+});

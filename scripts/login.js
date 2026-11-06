@@ -10,6 +10,8 @@ const PORTAL_URLS = {
   instahyre: 'https://www.instahyre.com/login/',
   naukri: 'https://www.naukri.com/nlogin/login',
   linkedin: 'https://www.linkedin.com/login',
+  foundit: 'https://www.foundit.in/seeker/login',
+  indeed: 'https://secure.indeed.com/auth?hl=en_IN&co=IN',
   wellfound: 'https://wellfound.com/login',
   cutshort: 'https://cutshort.io/login',
   yourstory: 'https://yourstory.com/login',

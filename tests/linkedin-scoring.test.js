@@ -32,10 +32,11 @@ test('linkedin keyword scoring rewards relevant stack and clamps negatives', () 
   assert.equal(calculateKeywordScore('senior lead architect principal 10+ years 8+ years'), 0);
 });
 
-test('linkedin location scoring rewards remote and India matches', () => {
-  assert.equal(calculateLocationScore('Remote - India'), 50);
+test('linkedin location scoring ranks Hyderabad first and ignores Mumbai', () => {
+  assert.equal(calculateLocationScore('Hyderabad, Telangana, India'), 50);
   assert.equal(calculateLocationScore('Bengaluru, Karnataka, India'), 40);
-  assert.equal(calculateLocationScore('On-site, Pune'), 10);
+  assert.equal(calculateLocationScore('Chennai, Tamil Nadu, India'), 40);
+  assert.equal(calculateLocationScore('Mumbai, Maharashtra, India'), 0);
   assert.equal(calculateLocationScore('Unknown'), 0);
 });
 
@@ -43,7 +44,7 @@ test('linkedin aggregate scoring varies by job quality', () => {
   const rnJob = calculateLinkedinScore({
     title: 'React Native Developer',
     company: 'Acme',
-    location: 'Remote - India',
+    location: 'Hyderabad, India',
     text: 'Build mobile apps with React Native, TypeScript, JavaScript, Node in a startup',
   });
   const seniorBackend = calculateLinkedinScore({

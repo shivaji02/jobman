@@ -16,7 +16,9 @@ class Logger {
         ? `${entry} ${JSON.stringify(data)}`
         : entry;
 
-    if (level === 'ERROR') console.error(entry);
+    if (level === 'DEBUG' && !process.env.JOBMAN_VERBOSE) {
+      // file only — keep the terminal feed readable
+    } else if (level === 'ERROR') console.error(entry);
     else if (level === 'WARN') console.warn(entry);
     else console.log(entry);
 

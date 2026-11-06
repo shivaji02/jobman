@@ -7,8 +7,8 @@ test('reporter.write includes Manual Apply summary', () => {
   const date = `test-${Date.now()}`;
   const file = write(date, {
     naukri: {
-      reviewed: 5,
-      applied: [{ title: 'Full Stack Dev', company: 'Acme', url: 'https://naukri.com/1' }],
+      reviewed: 3,
+      applied: [{ title: 'Full Stack Dev', company: 'Acme', url: 'https://naukri.com/1', evidence: { signal: 'selector #already-applied: Applied', screenshot: '' } }],
       manualApply: [
         {
           title: 'React Native Developer',
@@ -32,6 +32,8 @@ test('reporter.write includes Manual Apply summary', () => {
     assert.match(md, /\*\*Failed:\*\* 1/);
     assert.match(md, /boards\.greenhouse\.io\/beta/);
     assert.match(md, /shivajirn02\.pdf/);
+    assert.match(md, /0 unaccounted/);
+    assert.match(md, /#already-applied/); // evidence is printed next to the applied job
   } finally {
     fs.unlinkSync(file);
   }

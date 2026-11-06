@@ -127,3 +127,9 @@ test('append() appends immediately — one call, one row, no batching', () => {
   const lines = fs.readFileSync(file, 'utf8').trim().split('\n');
   assert.equal(lines.length, 3); // header + 2 rows
 });
+
+test('normalizeJobUrl keeps the id param for Talent.com job links', () => {
+  const { normalizeJobUrl } = require('../src/core/dedup');
+  assert.equal(normalizeJobUrl('https://in.talent.com/view?id=abc123&utm=x'), 'https://in.talent.com/view?id=abc123');
+  assert.notEqual(normalizeJobUrl('https://in.talent.com/view?id=1'), normalizeJobUrl('https://in.talent.com/view?id=2'));
+});

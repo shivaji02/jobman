@@ -11,7 +11,9 @@
     "report": "node src/index.js report",
     "login": "node scripts/login.js",
     "debug:tmp": "node /Users/neosoft/.claude/jobs/3f24e2d1/tmp/debug_wellfound1.js",
-    "test": "node --test \"tests/**/*.test.js\""
+    "test": "node --test \"tests/**/*.test.js\"",
+    "apply:direct": "node src/index.js run-all --portals=google,careers",
+    "directory:grow": "node scripts/grow-directory.js"
   },
   "dependencies": {
     "commander": "^12.0.0",
@@ -19,5 +21,7 @@
     "node-cron": "^3.0.3",
     "puppeteer": "^22.0.0"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }

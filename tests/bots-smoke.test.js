@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-for (const name of ['instahyre', 'naukri', 'linkedin', 'yourstory', 'wellfound']) {
+for (const name of ['google', 'instahyre', 'naukri', 'linkedin', 'yourstory', 'wellfound', 'talent', 'foundit', 'indeed', 'careers']) {
   test(`bots/${name} loads and exports run()`, () => {
     const bot = require(`../src/bots/${name}`);
     assert.equal(typeof bot.run, 'function');
@@ -18,14 +18,18 @@ test('bots/naukri pickExperienceYears follows junior vs mid rules', () => {
   assert.equal(pickExperienceYears('Senior React Native Developer'), '3');
   assert.equal(pickExperienceYears('React Native Developer'), '2.7');
 
+  // Screening answers no longer follow the posting: a "2-4 Yrs" job still gets the
+  // candidate's real 2.7 years, and current CTC is never filled from expected CTC.
   const answers = buildScreeningAnswers(
     { title: 'React Native Developer', experienceText: '2-4 Yrs' },
-    { expected_ctc: '15-20 LPA' }
+    { expected_ctc: '15-20 LPA', experience_years: 2.7, current_ctc: '' }
   );
   assert.equal(answers.relocate, 'Yes');
-  assert.equal(answers.experience, '3');
+  assert.equal(answers.experience, '2.7');
   assert.equal(answers.notice, 'Immediate');
-  assert.equal(answers.ctc, '15-20 LPA');
+  assert.equal(answers.expectedCtc, '15-20 LPA');
+  assert.equal(answers.currentCtc, '');
+  assert.equal(answers.yesToWillingness, false);
 });
 
 test('bots/naukri selectResume picks RN vs Full Stack by title keywords', () => {
@@ -35,7 +39,7 @@ test('bots/naukri selectResume picks RN vs Full Stack by title keywords', () => 
   assert.equal(selectResume('Mobile Developer'), RESUME_RN);
   assert.equal(selectResume('iOS Native Engineer'), RESUME_RN);
   assert.equal(selectResume('Full Stack Developer (React + Node)'), RESUME_FS);
-  assert.equal(selectResume('Frontend Engineer (React)'), RESUME_FS);
+  assert.equal(selectResume('Frontend Engineer (React)'), require('../src/core/resume').RESUME_FE);
 });
 
 test('bots/naukri already-applied log/page never keeps a tab open', () => {
@@ -105,7 +109,7 @@ test('bots/instahyre selectResume picks RN resume for React Native / mobile', ()
   assert.equal(SEARCH_SKILL, 'React Native');
   assert.equal(selectResume('React Native Developer'), RESUME_RN);
   assert.equal(selectResume('Mobile Engineer'), RESUME_RN);
-  assert.equal(selectResume('Frontend Engineer (React)'), RESUME_FS);
+  assert.equal(selectResume('Frontend Engineer (React)'), require('../src/core/resume').RESUME_FE);
   assert.match(RESUME_RN, /shivajirn02\.pdf$/);
 });
 
@@ -116,8 +120,8 @@ test('bots/yourstory searchUrl encodes query', () => {
 
 test('bots/wellfound searchUrl uses role slug path', () => {
   const { searchUrl } = require('../src/bots/wellfound');
-  assert.equal(searchUrl('react native developer'), 'https://wellfound.com/role/l/react-native/india');
-  assert.equal(searchUrl('frontend engineer react'), 'https://wellfound.com/role/l/frontend-engineer/india');
+  assert.equal(searchUrl('react native developer'), 'https://wellfound.com/role/l/react-native/hyderabad');
+  assert.equal(searchUrl('frontend engineer react'), 'https://wellfound.com/role/l/frontend-engineer/hyderabad');
 });
 
 test('bots/wellfound selectResume picks RN vs general resume', () => {
@@ -125,7 +129,7 @@ test('bots/wellfound selectResume picks RN vs general resume', () => {
   assert.equal(selectResume('React Native Developer'), RESUME_RN);
   assert.equal(selectResume('Mobile Engineer'), RESUME_RN);
   assert.equal(selectResume('Software Engineer', 'Work on native mobile experiences'), RESUME_RN);
-  assert.equal(selectResume('Frontend Engineer (React)'), RESUME_FS);
+  assert.equal(selectResume('Frontend Engineer (React)'), require('../src/core/resume').RESUME_FE);
 });
 
 test('bots/wellfound extractCompanyUrl + buildManualApplyEntry', () => {
@@ -168,5 +172,30 @@ test('bots/wellfound extractCompanyUrl + buildManualApplyEntry', () => {
     ''
   );
   assert.equal(fallback.companyUrl, 'https://wellfound.com/jobs/2');
-  assert.equal(fallback.resume, RESUME_FS);
+  assert.equal(fallback.resume, require('../src/core/resume').RESUME_FE); // frontend title → frontend resume
+});
+
+test('bots/talent searchUrl encodes query and city', () => {
+  const { searchUrl } = require('../src/bots/talent');
+  assert.equal(searchUrl('react native developer', 'Hyderabad'), 'https://in.talent.com/jobs?k=react%20native%20developer&l=Hyderabad');
+});
+
+test('bots/foundit searchUrl and jobKey', () => {
+  const { searchUrl, jobKey } = require('../src/bots/foundit');
+  assert.equal(searchUrl('react native developer', 'Hyderabad'), 'https://www.foundit.in/srp/results?query=react%20native%20developer&locations=hyderabad');
+  assert.equal(jobKey('69463249'), 'https://www.foundit.in/job/69463249');
+});
+
+test('core/ats parseAtsUrl extracts board tokens', () => {
+  const { parseAtsUrl } = require('../src/core/ats');
+  assert.deepEqual(parseAtsUrl('https://jobs.lever.co/cred/abc-123'), { ats: 'lever', token: 'cred' });
+  assert.deepEqual(parseAtsUrl('https://boards.greenhouse.io/groww/jobs/1'), { ats: 'greenhouse', token: 'groww', jobId: '1' });
+  assert.deepEqual(parseAtsUrl('https://jobs.ashbyhq.com/ramp/xyz'), { ats: 'ashby', token: 'ramp' });
+  assert.equal(parseAtsUrl('https://example.com/careers'), null);
+});
+
+test('bots/indeed searchUrl and jobKey', () => {
+  const { searchUrl, jobKey } = require('../src/bots/indeed');
+  assert.equal(searchUrl('react native developer', 'Hyderabad'), 'https://in.indeed.com/jobs?q=react%20native%20developer&l=Hyderabad&fromage=3&sort=date');
+  assert.equal(jobKey('abc123'), 'https://in.indeed.com/viewjob?jk=abc123');
 });

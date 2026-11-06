@@ -6,3 +6,6 @@ logs/
 *.log
 .DS_Store
 reports/*.md
+
+# submission evidence screenshots (personal data)
+data/evidence/

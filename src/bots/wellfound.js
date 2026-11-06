@@ -13,6 +13,9 @@ const { humanDelay, checkForCaptcha, SkipPortalError, createTabTracker, settleAt
 const { withRetry, isUiError } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
+const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
+const { emptyResults, admit } = require('../core/disposition');
+const { classifyLocation, byLocationPreference } = require('../core/location');
 
 const QUERIES = [
   'react native developer',
@@ -20,9 +23,8 @@ const QUERIES = [
   'frontend engineer react',
   'full stack developer node react',
 ];
-const MAX_APPS_PER_RUN = 10;
-const RESUME_RN = '/Users/neosoft/Downloads/Resumes/shivajirn02.pdf';
-const RESUME_FS = '/Users/neosoft/Downloads/Resumes/ShivajiPresidio.pdf';
+const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 30;
+const { RESUME_RN, RESUME_FS, selectResume: pickResume } = require('../core/resume');
 
 class ExternalAtsError extends Error {
   constructor(companyUrl = '') {
@@ -34,9 +36,7 @@ class ExternalAtsError extends Error {
 }
 
 function selectResume(jobTitle = '', jobText = '') {
-  const blob = `${jobTitle} ${jobText}`.toLowerCase();
-  if (/react[\s-]?native|\bnative\b|\bmobile\b/.test(blob)) return RESUME_RN;
-  return RESUME_FS;
+  return pickResume(jobTitle, jobText);
 }
 
 function normalizeExternalUrl(url, currentUrl = '') {
@@ -127,10 +127,10 @@ function roleSlugForQuery(query) {
     .replace(/^-|-$/g, '');
 }
 
-function searchUrl(query) {
+function searchUrl(query, city = 'hyderabad') {
   const slug = roleSlugForQuery(query);
   // Role+location pages render real results; ?query= often lands on a marketing shell.
-  return `https://wellfound.com/role/l/${slug}/india`;
+  return `https://wellfound.com/role/l/${slug}/${city}`;
 }
 
 async function extractCards(page) {
@@ -194,7 +194,8 @@ function fillWellfoundForm(page, profile) {
 
     const name = profile.name || '';
     const email = profile.email || '';
-    const years = profile.experience_years != null ? String(Math.round(Number(profile.experience_years))) : '';
+    // Whole years rounded DOWN (2.7 → 2): Math.round overstated experience.
+    const years = profile.experience_years != null ? String(Math.floor(Number(profile.experience_years))) : '';
     const desired =
       profile.expected_ctc || profile.salary_expected || profile.desired_salary || '';
     const note = (profile.summary || '').split(/(?<=\.)\s+/).slice(0, 3).join(' ').slice(0, 600);
@@ -207,8 +208,10 @@ function fillWellfoundForm(page, profile) {
       if (!el.value) {
         if (/full name|name/.test(label) && name) setNativeValue(el, name);
         else if (/email/.test(label) && email) setNativeValue(el, email);
-        else if (/years? of experience|yearsofexperience|experience/.test(label) && years) setNativeValue(el, years);
-        else if (/desired salary|salary|compensation|ctc/.test(label)) {
+        // total experience only — "experience with <skill>" is left for the user
+        else if (/years? of experience|yearsofexperience|experience/.test(label) && !/\b(with|in|using)\s+\w/.test(label) && years) setNativeValue(el, years);
+        else if (/current (salary|ctc|compensation)/.test(label)) continue; // never fill current pay from expected
+        else if (/desired salary|expected|salary|compensation|ctc/.test(label)) {
           if (!desired) continue;
           setNativeValue(el, desired);
         } else if (/note|message|cover|why|tell us|additional/.test(label) && note) {
@@ -366,18 +369,12 @@ async function applyToJob(browser, job, profile) {
       return { status: 'failed', page, resume, reason: 'Submit application button not found' };
     }
 
-    await new Promise((r) => setTimeout(r, 2500));
-    const confirmed = await page.evaluate(() => {
-      const text = (document.body?.innerText || '').toLowerCase();
-      return /application (sent|submitted)|thanks for applying|successfully applied|we.?ve received your application/i.test(
-        text
-      );
-    });
-    if (!confirmed) {
-      return { status: 'failed', page, resume, reason: 'no application-sent confirmation' };
+    const signal = await waitForSuccess(page, { timeoutMs: 10000 });
+    if (!signal) {
+      // Submit was clicked — retrying could send a second application.
+      return { status: 'unconfirmed', page, resume, reason: 'Submit clicked; no application-sent confirmation' };
     }
-
-    return { status: 'applied', page, resume };
+    return { status: 'applied', page, resume, evidence: await capture(page, { portal: 'wellfound', jobKey: job.url, signal }) };
   } catch (err) {
     if (err instanceof ExternalAtsError) {
       const companyUrl = err.companyUrl || job.url;
@@ -394,15 +391,17 @@ async function applyToJob(browser, job, profile) {
 }
 
 async function run({ profile, dedup, dryRun, newPage, browser }) {
-  const results = { reviewed: 0, applied: [], manualApply: [], skipped: [], failed: [] };
+  const results = emptyResults();
+  const seenThisRun = new Set(); // same job shows up under several city/query searches
   const tabs = createTabTracker('wellfound');
   const page = await newPage();
 
   try {
-    for (const query of QUERIES) {
-      if (results.applied.length >= MAX_APPS_PER_RUN) break;
+    const searches = ['hyderabad', 'bangalore', 'chennai'].flatMap((city) => QUERIES.map((query) => ({ city, query })));
+    for (const { city, query } of searches) {
+      if (results.applied.length + results.unconfirmed.length >= MAX_APPS_PER_RUN) break;
 
-      await withRetry(() => page.goto(searchUrl(query), { waitUntil: 'domcontentloaded' }), {
+      await withRetry(() => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }), {
         maxAttempts: 2,
       });
 
@@ -430,12 +429,19 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
       }
 
       const cards = await extractCards(page);
-      results.reviewed += cards.length;
+      results.discovered += cards.length;
       logger.info(`[wellfound] "${query}": ${cards.length} cards`);
 
       for (const card of cards) {
-        if (results.applied.length >= MAX_APPS_PER_RUN) break;
-        if (dedup.has(card.url)) continue;
+        if (admit(results, { key: card.url, seen: seenThisRun, dedup, job: { title: card.title, company: card.company, url: card.url }, site: 'Wellfound', dryRun }) !== 'new') continue;
+
+        const loc = classifyLocation(`${card.location || ''} ${card.text || ''}`, card.company);
+        if (!loc.allowed) {
+          const skip = { title: card.title, company: card.company, url: card.url, reason: loc.reason };
+          results.skipped.push(skip);
+          if (!dryRun) dedup.append({ site: 'Wellfound', job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: loc.reason });
+          continue;
+        }
 
         const score = scoreJob({
           title: card.title,
@@ -465,6 +471,12 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           continue;
         }
 
+        if (results.applied.length + results.unconfirmed.length >= MAX_APPS_PER_RUN) {
+          job.reason = 'per-run cap reached';
+          results.skipped.push(job);
+          continue;
+        }
+
         if (dryRun) {
           job.reason = `would apply (score ${score})`;
           results.applied.push(job);
@@ -479,6 +491,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           if (outcome.page) attemptPages.push(outcome.page);
           if (
             outcome.status === 'applied' ||
+            outcome.status === 'unconfirmed' ||
             outcome.status === 'manual-apply' ||
             outcome.skipPortal ||
             outcome.skipAsScreening ||
@@ -527,18 +540,23 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
             status: 'manual-apply',
             notes: `URL: ${entry.companyUrl} | Resume: ${entry.resume}`,
           });
-        } else if (outcome.skipAsScreening || /unanswered required/i.test(outcome.reason || '')) {
+        } else if (outcome.status === 'unconfirmed') {
           job.reason = outcome.reason;
-          results.skipped.push(job);
-          tabs.trackFailed({ ...job, reason: job.reason }, pageUrl || job.url);
-          console.log(`\n❌ FAILED (inspect & retry):\n   Job: ${card.title} @ ${card.company}\n   Error: ${job.reason}\n   → Tab is OPEN for inspection\n`);
+          results.unconfirmed.push(job);
+          tabs.trackFailed(job, pageUrl || job.url);
+          dedup.append({ site: 'Wellfound', job_title: card.title, company: card.company, job_url: card.url, status: 'unconfirmed', notes: outcome.reason });
+        } else if (outcome.skipAsScreening || /unanswered required/i.test(outcome.reason || '')) {
+          // A required question the profile can't answer — the user finishes it on the open tab.
+          const entry = { ...job, companyUrl: pageUrl || job.url, reason: `needs your answer: ${String(outcome.reason).replace(/^unanswered required fields:\s*/i, '')}` };
+          results.manualApply.push(entry);
+          tabs.trackManualApply(entry, entry.companyUrl);
           dedup.append({
             site: 'Wellfound',
             job_title: card.title,
             company: card.company,
             job_url: card.url,
-            status: 'skipped',
-            notes: outcome.reason,
+            status: 'manual-apply',
+            notes: entry.reason,
           });
           logger.info(`[wellfound] skipped: ${card.title} — ${outcome.reason}`);
         } else if (outcome.status === 'failed') {
@@ -555,6 +573,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
             notes: job.reason,
           });
         } else {
+          job.evidence = outcome.evidence;
           results.applied.push(job);
           dedup.append({
             site: 'Wellfound',
@@ -562,9 +581,9 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
             company: card.company,
             job_url: card.url,
             status: 'applied',
-            notes: `auto-applied (score ${score})`,
+            notes: `auto-applied (score ${score}) | ${evidenceNote(outcome.evidence)}`,
           });
-          console.log(`✅ Applied: ${card.title} @ ${card.company}`);
+          console.log(`✅ Applied (confirmed): ${card.title} @ ${card.company}`);
           logger.info(`[wellfound] applied: ${card.title} @ ${card.company} → tab closed`);
         }
 
@@ -573,6 +592,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
     }
   } catch (err) {
     tabs.printSummary();
+    err.partialResults = results;
     throw err;
   } finally {
     await closePageQuietly(page);

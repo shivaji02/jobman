@@ -12,15 +12,17 @@ program.name('jobman').description('Automated job application bot');
 
 program
   .command('run-all')
-  .description('run every portal in priority order (instahyre, naukri, linkedin, wellfound, yourstory)')
+  .description(`run every portal in priority order (${ALL_PORTALS.join(', ')})`)
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)
+  .option('--portals <list>', 'comma-separated subset, e.g. linkedin,indeed')
   .action(async (opts) => {
-    await runAll({ dryRun: opts.dryRun });
+    const portals = opts.portals ? opts.portals.split(',').map((p) => p.trim()).filter((p) => ALL_PORTALS.includes(p)) : undefined;
+    await runAll({ dryRun: opts.dryRun, ...(portals && portals.length ? { portals } : {}) });
   });
 
 program
   .command('run <portal>')
-  .description('run a single portal: instahyre | naukri | linkedin | wellfound | yourstory')
+  .description('run a single portal: google | careers | instahyre | naukri | linkedin | talent | foundit | indeed | wellfound | yourstory')
   .option('--dry-run', 'do everything except click Apply; log what would happen', false)
   .action(async (portal, opts) => {
     if (!ALL_PORTALS.includes(portal)) {
@@ -32,6 +34,7 @@ program
     const date = dedup.istDate();
     const reportFile = reporter.write(date, { [portal]: result }, { dryRun: opts.dryRun });
     logger.info(`Report written to ${reportFile}`);
+    console.log(require('./core/summary').formatRunSummary({ [portal]: result }, { dryRun: opts.dryRun }));
   });
 
 program
