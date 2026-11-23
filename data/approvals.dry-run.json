@@ -1,0 +1,3297 @@
+{
+ "events": [],
+ "version": 1,
+ "jobs": {
+  "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-hyderabad-1-to-5-years-061126919039": {
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-hyderabad-1-to-5-years-061126919039",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Full Stack Engineer (Freelancer)",
+   "company": "Soul Ai",
+   "location": "Hyderabad",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop responsive, interactive user interfaces using modern frontend technologies (React, Angular, Vue).",
+    "Build and maintain server-side logic and APIs using frameworks such as Node.js, Django, Flask, or Ruby on Rails and optimize scalable APIs and databases to support application functionality.",
+    "Required Skills: Proficiency in HTML, CSS, Java Script, SQL and NoSQL databases and modern frontend frameworks such as React, Angular, or Vue with strong experience with backend frameworks such as Node.js, Django, Flask, or Ruby on Rails."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly angular / vue / django (13 mentions vs 7 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "1eac0a3",
+   "key": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-hyderabad-1-to-5-years-061126919039",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:08.969Z",
+   "lastSeenAt": "2026-11-09T19:39:27.219Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-web-developer-react-node-aws-infosys-hyderabad-chennai-bengaluru-1-to-3-years-091126006595": {
+   "url": "https://www.naukri.com/job-listings-fullstack-web-developer-react-node-aws-infosys-hyderabad-chennai-bengaluru-1-to-3-years-091126006595",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Fullstack Web Developer(React+Node+AWS)",
+   "company": "Infosys",
+   "location": "Hybrid - Hyderabad, Bengaluru, Chennai",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "74c9de3",
+   "key": "https://www.naukri.com/job-listings-fullstack-web-developer-react-node-aws-infosys-hyderabad-chennai-bengaluru-1-to-3-years-091126006595",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:10.099Z",
+   "lastSeenAt": "2026-11-12T05:24:30.602Z"
+  },
+  "https://in.talent.com/view?id=643473013036095354": {
+   "url": "https://in.talent.com/view?id=643473013036095354",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Mobile Developer (Android & iOS)",
+   "company": "turium ai",
+   "location": "Hyderabad / Secunderabad, Telangana, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "We are looking for a talented, hands-on Mobile Developer (Android & iOS) to join our engineering team and help build high-performance, intuitive and scalable mobile applications.",
+    "You will take ownership of developing and enhancing mobile applications across Android and iOS , using React Native and modern JavaScript/TypeScript technologies.",
+    "We need someone who combines strong frontend engineering capabilities with an understanding of mobile architecture, real-time communication, advanced UI/UX implementation and production application delivery."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "6b3f52a",
+   "key": "https://in.talent.com/view?id=643473013036095354",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:10.213Z",
+   "lastSeenAt": "2026-11-09T19:39:27.466Z"
+  },
+  "https://www.instahyre.com/#job/tata-elxsi/react-native-node-js-developer": {
+   "url": "https://www.instahyre.com/#job/tata-elxsi/react-native-node-js-developer",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "React Native/Node.js Developer",
+   "company": "Tata Elxsi",
+   "location": "",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "1a71b00",
+   "key": "https://www.instahyre.com/#job/tata-elxsi/react-native-node-js-developer",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:12.597Z",
+   "lastSeenAt": "2026-11-17T16:59:45.631Z"
+  },
+  "https://in.talent.com/view?id=644735701610864615": {
+   "url": "https://in.talent.com/view?id=644735701610864615",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "Insight Global",
+   "location": "Hyderabad / Secunderabad, Telangana, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "You'll work across the full stack, leveraging technologies like Python, Django REST API, GraphQL, ReactJS, Typescript, Elasticsearch, OpenShift, ArgoCD, and Tekton.",
+    "Developing front-end components using ReactJs, Typescript and system libraries like PatternFly",
+    "Experience in application development with Python and/or ReactJs"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "f41855e",
+   "key": "https://in.talent.com/view?id=644735701610864615",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:13.316Z",
+   "lastSeenAt": "2026-11-17T16:59:48.158Z"
+  },
+  "https://in.talent.com/view?id=534433793813841894": {
+   "url": "https://in.talent.com/view?id=534433793813841894",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "The People's Corp",
+   "location": "Hyderabad, Telangana, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Flutter, React, Angular, SQL, Flask/Django, API development, RDBMS, Data Structures, and Algorithms"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly flutter / angular / django (3 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "8b6f965",
+   "key": "https://in.talent.com/view?id=534433793813841894",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:14.319Z",
+   "lastSeenAt": "2026-11-09T19:39:29.317Z"
+  },
+  "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-hyderabad-2-to-4-years-061126918517": {
+   "url": "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-hyderabad-2-to-4-years-061126918517",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Frontend Engineer – Modern JS Frameworks",
+   "company": "Soul Ai",
+   "location": "Hyderabad",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly angular / vue (2 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "18c0826",
+   "key": "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-hyderabad-2-to-4-years-061126918517",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:14.321Z",
+   "lastSeenAt": "2026-11-09T19:39:33.905Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-hyderabad-2-to-5-years-061126918695": {
+   "url": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-hyderabad-2-to-5-years-061126918695",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "FullStack Engineer",
+   "company": "Soul Ai",
+   "location": "Hyderabad",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Proficient in HTML, CSS, JavaScript.",
+    "Hands-on experience with React, or Angular.",
+    "Proficient in at least one backend language/frameworkNode.js, Express, Django, Flask, Java Spring, etc."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "dd12097",
+   "key": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-hyderabad-2-to-5-years-061126918695",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:14.329Z",
+   "lastSeenAt": "2026-11-09T19:39:33.909Z"
+  },
+  "https://www.instahyre.com/#job/iqvia/software-engineer-react": {
+   "url": "https://www.instahyre.com/#job/iqvia/software-engineer-react",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "Software Engineer - React",
+   "company": "IQVIA",
+   "location": "",
+   "score": 55,
+   "evidence": "card",
+   "why": "score 55 (listing card); full description unavailable (description not found on page)",
+   "snippets": [
+    "IQVIA - Software Engineer - React Bangalore Founded in 2016 1000+ employees View job » Not interested Headquartered in North Carolina, USA, IQVIA focuses on using data and science to help healthcare clients find better solutions for their patients.",
+    "React.jsFrontendReactUIUX React.jsFrontendReactUIUX"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "b6346e6",
+   "key": "https://www.instahyre.com/#job/iqvia/software-engineer-react",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:14.982Z",
+   "lastSeenAt": "2026-11-12T05:24:32.103Z"
+  },
+  "https://www.naukri.com/job-listings-full-stack-developer-ai-native-engineering-salesforce-bengaluru-2-to-7-years-061126502236": {
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-ai-native-engineering-salesforce-bengaluru-2-to-7-years-061126502236",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Full-Stack Developer - AI-Native Engineering",
+   "company": "Salesforce",
+   "location": "Bengaluru",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Design Execution Modular Coding: Take ownership of Low-Level Designs (LLDs), converting software specifications into clean, maintainable, and highly modular code blocks utilizing modern JavaScript frameworks.",
+    "Advanced Web Framework Proficiency: Exceptional capability in Advanced JavaScript / TypeScript combined with operational mastery of web environments like Node.js, React, or AngularJS."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "037da5e",
+   "key": "https://www.naukri.com/job-listings-full-stack-developer-ai-native-engineering-salesforce-bengaluru-2-to-7-years-061126502236",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:16.219Z",
+   "lastSeenAt": "2026-11-09T19:39:36.642Z"
+  },
+  "https://in.talent.com/view?id=640658611881313062": {
+   "url": "https://in.talent.com/view?id=640658611881313062",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full-Stack Mobile/Web App Developer",
+   "company": "anx labs (formerly antariksha labs)",
+   "location": "Bengaluru / Bangalore, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "You will own delivery across a Flutter mobile app and a React-based web console.",
+    "Developer: build screens, APIs and data flows across mobile, web and backend.",
+    "Build and maintain a cross-platform mobile app in Flutter/Dart (state management, navigation, offline caching, push notifications via FCM/APNs, deep links, app-store releases)."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "fcdaf7b",
+   "key": "https://in.talent.com/view?id=640658611881313062",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:16.483Z",
+   "lastSeenAt": "2026-11-17T16:59:52.452Z"
+  },
+  "https://in.talent.com/view?id=612955709488045872": {
+   "url": "https://in.talent.com/view?id=612955709488045872",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Mobile Application Developer",
+   "company": "Flipkart Leap",
+   "location": "Bengaluru / Bangalore, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Work on native Android as well as React Native tech stack while keeping performance goals in mind",
+    "B.E or B.Tech or equivalent with at least 3-year experience and hands on with mobile technologies",
+    "Experience with coding in mobile coding languages like Kotlin, Swift etc"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly kotlin / swift (4 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "42afbed",
+   "key": "https://in.talent.com/view?id=612955709488045872",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:16.484Z",
+   "lastSeenAt": "2026-11-12T05:24:31.648Z"
+  },
+  "https://www.instahyre.com/#job/photon/frontend-developer-react": {
+   "url": "https://www.instahyre.com/#job/photon/frontend-developer-react",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "Frontend Developer (React)",
+   "company": "Photon",
+   "location": "",
+   "score": 55,
+   "evidence": "card",
+   "why": "score 55 (listing card); full description unavailable (description not found on page)",
+   "snippets": [
+    "Photon - Frontend Developer (React) Bangalore Founded in 2007 1000+ employees View job » Not interested Photon builds mobile-first digital products and omnichannel experiences for large enterprises across retail, finance, automotive and restaurants.",
+    "React.jsJestReactRedux React.jsJestReactRedux"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "9ced67a",
+   "key": "https://www.instahyre.com/#job/photon/frontend-developer-react",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:16.619Z",
+   "lastSeenAt": "2026-11-17T16:59:45.634Z"
+  },
+  "https://www.naukri.com/job-listings-middle-software-engineer-java-full-stack-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025957": {
+   "url": "https://www.naukri.com/job-listings-middle-software-engineer-java-full-stack-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025957",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Middle Software Engineer - Java Full Stack ReactJS",
+   "company": "Epam Systems",
+   "location": "Bengaluru, Pune",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are seeking a Middle Software Engineer - Java Full Stack ReactJS to build scalable Java and ReactJS solutions with strong quality standards."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "5ce18fa",
+   "key": "https://www.naukri.com/job-listings-middle-software-engineer-java-full-stack-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025957",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:17.081Z",
+   "lastSeenAt": "2026-11-09T19:39:36.644Z"
+  },
+  "https://www.linkedin.com/jobs/view/4487115796": {
+   "url": "https://www.linkedin.com/jobs/view/4487115796/",
+   "portal": "linkedin",
+   "site": "LinkedIn",
+   "title": "Software Development Engineer (SDE) – Mobile (iOS & Android) with Web",
+   "company": "Niti Aide",
+   "location": "Hyderabad (On-site)",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Our work includes portals, case management systems, real-time dashboards for senior officials, and citizen-facing mobile apps.",
+    "We're hiring a full stack engineer who can own features across frontend, backend, and database, and who can also build and ship our mobile apps.",
+    "Mobile App Development (~25%)"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "LinkedIn Easy Apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "e7f82cc",
+   "key": "https://www.linkedin.com/jobs/view/4487115796",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:19.739Z",
+   "lastSeenAt": "2026-11-09T19:39:36.151Z"
+  },
+  "https://www.naukri.com/job-listings-middle-java-full-stack-software-engineer-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025947": {
+   "url": "https://www.naukri.com/job-listings-middle-java-full-stack-software-engineer-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025947",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Middle Java Full Stack Software Engineer (ReactJS)",
+   "company": "Epam Systems",
+   "location": "Bengaluru, Pune",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are hiring a Middle Java Full Stack Software Engineer (ReactJS) to deliver resilient Java services and ReactJS web experiences at enterprise scale."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "bc3dcf3",
+   "key": "https://www.naukri.com/job-listings-middle-java-full-stack-software-engineer-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025947",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:19.923Z",
+   "lastSeenAt": "2026-11-09T19:39:36.646Z"
+  },
+  "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-5-years-061126920851": {
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-5-years-061126920851",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "location": "Bengaluru",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a3fd2e0",
+   "key": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-5-years-061126920851",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:20.481Z",
+   "lastSeenAt": "2026-11-09T19:39:40.297Z"
+  },
+  "https://in.talent.com/view?id=643400678782805712": {
+   "url": "https://in.talent.com/view?id=643400678782805712",
+   "portal": "talent",
+   "site": "talent",
+   "title": "Hybrid Mobile Application Developer",
+   "company": "HCL TechBee",
+   "location": "Chennai, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Provide Technical Guidance And Solutions By Defining, Advocating, And Implementing Best Practices And Coding Standards In Hybrid Mobile App Development Using Javascript, Angular, And Ionic.",
+    "Develop And Enhance Team Capabilities Through Mentoring Sessions Focused On Typescript And Hybrid Mobile Frameworks, Boosting Overall Productivity And Technical Proficiency.",
+    "Prepare And Submit Comprehensive Status Reports To Minimize Project Exposure And Risks, Addressing Potential Issues Proactively And Facilitating The Closure Of Escalations."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "29f4d95",
+   "key": "https://in.talent.com/view?id=643400678782805712",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:21.322Z",
+   "lastSeenAt": "2026-11-12T05:24:37.414Z"
+  },
+  "https://in.talent.com/view?id=615158906897962500": {
+   "url": "https://in.talent.com/view?id=615158906897962500",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Mobile Application Developer",
+   "company": "swipe fit",
+   "location": "Chennai, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "This is a Part-time/full-time online role for a Mobile Application Developer.",
+    "The Mobile Application Developer will be responsible for designing, developing, and maintaining mobile applications.",
+    "Design, build, and maintain mobile applications for Android and iOS platforms."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / flutter / python (17 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "0a6a30a",
+   "key": "https://in.talent.com/view?id=615158906897962500",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:21.323Z",
+   "lastSeenAt": "2026-11-17T16:59:58.700Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-6-years-061126921453": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-6-years-061126921453",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Fullstack Developer",
+   "company": "Leading Client",
+   "location": "Bengaluru",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are hiring a highly skilled Full Stack Developer with expertise in Python, React, and cloud platforms such as AWS, Azure, or GCP."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "b93ac26",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-6-years-061126921453",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:21.783Z",
+   "lastSeenAt": "2026-11-09T19:39:41.446Z"
+  },
+  "https://www.instahyre.com/#job/birlasoft/react-developer-opcenter": {
+   "url": "https://www.instahyre.com/#job/birlasoft/react-developer-opcenter",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "React Developer Opcenter",
+   "company": "Birlasoft",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "964afba",
+   "key": "https://www.instahyre.com/#job/birlasoft/react-developer-opcenter",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:22.285Z",
+   "lastSeenAt": "2026-11-17T16:59:45.640Z"
+  },
+  "https://www.naukri.com/job-listings-java-fullstack-developer-immediate-joiners-preferred-athenahealth-chennai-2-to-3-years-070826013728": {
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-immediate-joiners-preferred-athenahealth-chennai-2-to-3-years-070826013728",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Java Fullstack Developer (Immediate Joiners Preferred)",
+   "company": "athenahealth",
+   "location": "Hybrid - Chennai",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Typical Qualifications: 2 -3 years of software engineering experience in backend development, distributed systems, or related application development work."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / ruby / rails (4 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "2b0b199",
+   "key": "https://www.naukri.com/job-listings-java-fullstack-developer-immediate-joiners-preferred-athenahealth-chennai-2-to-3-years-070826013728",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:23.557Z",
+   "lastSeenAt": "2026-11-09T19:39:42.616Z"
+  },
+  "https://wellfound.com/jobs/5008587": {
+   "url": "https://wellfound.com/jobs/5008587",
+   "detailUrl": "https://wellfound.com/jobs/5008587-frontend-engineer-octavolab",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Frontend Engineer - OctavoLab",
+   "company": "OCTAVOLAB",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop responsive web applications using React, TypeScript and Vue.js.",
+    "3–5 years of frontend development experience.",
+    "Strong JavaScript, TypeScript, HTML and CSS."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "bcae941",
+   "key": "https://wellfound.com/jobs/5008587",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:24.245Z",
+   "lastSeenAt": "2026-11-17T17:00:03.003Z"
+  },
+  "https://www.naukri.com/job-listings-junior-software-engineer-ai-native-development-perfecter-ai-chennai-0-to-4-years-061126025131": {
+   "url": "https://www.naukri.com/job-listings-junior-software-engineer-ai-native-development-perfecter-ai-chennai-0-to-4-years-061126025131",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Junior Software Engineer, AI-Native Development",
+   "company": "Perfecter.ai",
+   "location": "Chennai",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "That often means working directly with CXOs, explaining what you built and changing it based on what they tell you.The role is junior only in years.",
+    "Much of it is still being worked out.What we look forRequired Less than 4 years of professional experience, internships included.",
+    "Strong programming in Python, TypeScript, or both."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "6db8b6a",
+   "key": "https://www.naukri.com/job-listings-junior-software-engineer-ai-native-development-perfecter-ai-chennai-0-to-4-years-061126025131",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:24.411Z",
+   "lastSeenAt": "2026-11-12T05:24:43.652Z"
+  },
+  "https://in.talent.com/view?id=643001461773172893": {
+   "url": "https://in.talent.com/view?id=643001461773172893",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "innoppl it services",
+   "location": "Chennai, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Full Stack Development: Build dynamic, responsive user interfaces using React and design robust, scalable backend services using FastAPI and Node.js.",
+    "Frontend: Strong proficiency in React and modern JavaScript/TypeScript ecosystem.",
+    "Backend: Hands-on experience building RESTful APIs using FastAPI (Python) and Node.js."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "1650812",
+   "key": "https://in.talent.com/view?id=643001461773172893",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:27.425Z",
+   "lastSeenAt": "2026-11-17T17:00:01.398Z"
+  },
+  "https://in.talent.com/view?id=641708826048791334": {
+   "url": "https://in.talent.com/view?id=641708826048791334",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full-Stack Developer",
+   "company": "Jayanthi Aparna (Proprietor of Craft Your Career)",
+   "location": "Chennai",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "The company offers an exciting opportunity to gain exposure to the evolving entertainment ecosystem, digital platforms, audience engagement, and technology-driven talent discovery.",
+    "Basic knowledge of web development concepts, including HTML, CSS, JavaScript, or equivalent technologies.",
+    "Familiarity with programming languages such as JavaScript, Python, Java, or TypeScript."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / java / angular (5 mentions vs 3 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "d734f94",
+   "key": "https://in.talent.com/view?id=641708826048791334",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:27.428Z",
+   "lastSeenAt": "2026-11-17T17:00:01.403Z"
+  },
+  "https://in.talent.com/view?id=643146477373105872": {
+   "url": "https://in.talent.com/view?id=643146477373105872",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Mobile Application Developer",
+   "company": "xencia technology solutions",
+   "location": "Cochin / Kochi / Ernakulam, India",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Job description Mobile Application Developer (iOS / Android / Cross-Platform)",
+    "We are looking for mobile developers to join our development team building AI-driven products.",
+    "You will design, build and ship high-quality mobile applications, working closely with web, data & AI, UX and cloud teams."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly flutter / swift / kotlin (12 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "3647d88",
+   "key": "https://in.talent.com/view?id=643146477373105872",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:30.668Z",
+   "lastSeenAt": "2026-11-17T17:00:02.993Z"
+  },
+  "https://in.talent.com/view?id=628544477029272364": {
+   "url": "https://in.talent.com/view?id=628544477029272364",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Web Developer",
+   "company": "lascade",
+   "location": "Cochin / Kochi / Ernakulam, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Ensure websites are fast, mobile-friendly, and optimized for user experience.",
+    "2–5 years of experience in Web Development.",
+    "Strong knowledge of HTML, CSS, JavaScript, and TypeScript."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "aaf162a",
+   "key": "https://in.talent.com/view?id=628544477029272364",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:31.896Z",
+   "lastSeenAt": "2026-11-17T17:00:02.991Z"
+  },
+  "https://in.talent.com/view?id=645021083448379060": {
+   "url": "https://in.talent.com/view?id=645021083448379060",
+   "portal": "talent",
+   "site": "talent",
+   "title": "Frontend Developer/Engineer -Male or Female-JOB CODE-N/07/11/26-Kakkanad",
+   "company": "IT COMPANY",
+   "location": "Kakkanad",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Job description JOB TITLE Frontend Developer/Engineer (React/Next.js & Native Mobile)-Male or Female-JOB CODE-N/07/11/ 26-Kakkanad GENDER Male or Female EXPERIENCE REQUIRED",
+    "Web Stacks: 3+ years of professional experience with React.js , Next.js , TypeScript, and modern state management (Redux Toolkit, Zustand, or Context API).",
+    "Mobile Stacks: Proven experience building native apps with Swift (iOS) and Kotlin (Android)."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "5ef175d",
+   "key": "https://in.talent.com/view?id=645021083448379060",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:32.285Z",
+   "lastSeenAt": "2026-11-17T17:00:02.994Z"
+  },
+  "https://wellfound.com/jobs/4803708": {
+   "url": "https://wellfound.com/jobs/4803708",
+   "detailUrl": "https://wellfound.com/jobs/4803708-product-engineer-mobile",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Product Engineer (Mobile)",
+   "company": "cardboard.ai",
+   "location": "",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Most footage is shot on phones, and we don't have a mobile app yet.",
+    "We're hiring a Product Engineer (Mobile) to build v1 from scratch, and to decide what Cardboard on a phone should be.",
+    "You've shipped mobile apps people use every day, and you sweat how they feel."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly swift / kotlin (2 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "869f9a9",
+   "key": "https://wellfound.com/jobs/4803708",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:32.916Z",
+   "lastSeenAt": "2026-11-17T17:00:12.268Z"
+  },
+  "https://in.talent.com/view?id=640923372766691860": {
+   "url": "https://in.talent.com/view?id=640923372766691860",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "mantle solutions",
+   "location": "Cochin / Kochi / Ernakulam, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are looking for a skilled and motivated Full Stack Developer with 3+ years of professional experience in Angular and Node.js to join our development team.",
+    "Design and develop robust, scalable web applications using Angular (latest versions) and Node.js.",
+    "3+ years of hands-on experience with Angular (v10 or above) and Node.js."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "0eb6eeb",
+   "key": "https://in.talent.com/view?id=640923372766691860",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:33.289Z",
+   "lastSeenAt": "2026-11-17T17:00:10.581Z"
+  },
+  "https://in.talent.com/view?id=639522483262330278": {
+   "url": "https://in.talent.com/view?id=639522483262330278",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full-Stack Web Developer WordPress & Modern Technologies",
+   "company": "Web India Solutions",
+   "location": "Cochin / Kochi / Ernakulam, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience: 2+ Years",
+    "The ideal candidate should be capable of developing premium, modern, responsive websites and web applications using technologies such as WordPress, PHP, React, Node.js, JavaScript, APIs, databases, and other modern frameworks and tools .",
+    "- Strong knowledge of HTML5, CSS3, JavaScript, PHP, MySQL and REST APIs."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "b1d26b4",
+   "key": "https://in.talent.com/view?id=639522483262330278",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:33.290Z",
+   "lastSeenAt": "2026-11-12T05:24:44.745Z"
+  },
+  "https://in.talent.com/view?id=623407573577704334": {
+   "url": "https://in.talent.com/view?id=623407573577704334",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Fullstack Developer",
+   "company": "Turing",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience with Node.js or NestJS plus a modern frontend framework (React/Angular/Vue).",
+    "Angular, React, Tdd, Vue, Nestjs, Node.js, Python"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / angular / vue (8 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "172d681",
+   "key": "https://in.talent.com/view?id=623407573577704334",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:34.635Z",
+   "lastSeenAt": "2026-11-17T17:00:13.893Z"
+  },
+  "https://wellfound.com/jobs/4867199": {
+   "url": "https://wellfound.com/jobs/4867199",
+   "detailUrl": "https://wellfound.com/jobs/4867199-founding-full-stack-engineering-equity-first-clone",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Founding Full Stack Engineering (Equity-First) (Clone)",
+   "company": "Vantrix Ventures",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "3+ years of hands-on software engineering experience.",
+    "Someone who wants to look back in five years and say, “I helped build this from the beginning.”"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "061eeb1",
+   "key": "https://wellfound.com/jobs/4867199",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:35.331Z",
+   "lastSeenAt": "2026-11-09T19:39:50.068Z"
+  },
+  "https://in.talent.com/view?id=615158903048508307": {
+   "url": "https://in.talent.com/view?id=615158903048508307",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "superlabs india",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Job description Experience: 3+ Years",
+    "We are looking for a highly skilled and motivated Full Stack Developer with strong proficiency in React.js and Node.js to join our dynamic IT team.",
+    "Design, develop, and maintain scalable web applications using React.js (frontend) and Node.js (backend)."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a93224c",
+   "key": "https://in.talent.com/view?id=615158903048508307",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:43.693Z",
+   "lastSeenAt": "2026-11-17T17:00:16.335Z"
+  },
+  "https://in.talent.com/view?id=644735752451203047": {
+   "url": "https://in.talent.com/view?id=644735752451203047",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer and Instructor",
+   "company": "better tomorrow training institute",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Note : This job is applicable only for 1-2 years of experience",
+    "Responsibilities include designing, developing, and maintaining web applications using technologies like React.js, Nest.js, QraphQL and Nest.js.",
+    "Spring Boot, MERN, react.js , C, Java, Django, Python"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / python / django (6 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "07f0bd6",
+   "key": "https://in.talent.com/view?id=644735752451203047",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:43.694Z",
+   "lastSeenAt": "2026-11-17T17:00:16.337Z"
+  },
+  "https://in.talent.com/view?id=612336101227634480": {
+   "url": "https://in.talent.com/view?id=612336101227634480",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Django Full Stack Developer",
+   "company": "codevantage inc",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience: 1–3 Years",
+    "Using Python, Django, JavaScript, this candidate will be able to translate user and business needs into functional products.",
+    "Experience with React, Vue, or Svelte."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly django / python / vue (9 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "a63cd1e",
+   "key": "https://in.talent.com/view?id=612336101227634480",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:43.696Z",
+   "lastSeenAt": "2026-11-17T17:00:13.152Z"
+  },
+  "https://in.talent.com/view?id=605410726404107628": {
+   "url": "https://in.talent.com/view?id=605410726404107628",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Remote Full Stack Developer",
+   "company": "Turing",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience with Node.js or NestJS plus a modern frontend framework (React/Angular/Vue).",
+    "Angular, React, Tdd, Vue, Nestjs, Node.js, Python"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / angular / vue (8 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "5bc4baf",
+   "key": "https://in.talent.com/view?id=605410726404107628",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:43.697Z",
+   "lastSeenAt": "2026-11-17T17:00:16.344Z"
+  },
+  "https://in.talent.com/view?id=615901703685154665": {
+   "url": "https://in.talent.com/view?id=615901703685154665",
+   "portal": "talent",
+   "site": "talent",
+   "title": "Java Fullstack Developer",
+   "company": "KGiSL Institute of Technology",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Job description Job Title: Java Fullstack Developer (Java + Angular/React)",
+    "Experience: 2 to 5 years",
+    "We are seeking a talented Fullstack Developer to design and build scalable web applications using Java 8 (Spring Boot, Hibernate) on the backend and Angular or React on the frontend."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (10 mentions vs 5 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "c984acd",
+   "key": "https://in.talent.com/view?id=615901703685154665",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:44.857Z",
+   "lastSeenAt": "2026-11-17T17:00:13.157Z"
+  },
+  "https://wellfound.com/jobs/4897418": {
+   "url": "https://wellfound.com/jobs/4897418",
+   "detailUrl": "https://wellfound.com/jobs/4897418-fullstack-engineer",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Fullstack Engineer",
+   "company": "GreedyGame",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We’ve built a sustainable, profitable business for over 7 years without chasing vanity metrics.",
+    "That covers the React screens, the Go APIs, and the data model behind them.",
+    "4–5 years building production web applications, with most of that time in React."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "9c97a50",
+   "key": "https://wellfound.com/jobs/4897418",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:45.727Z",
+   "lastSeenAt": "2026-11-17T17:00:12.271Z"
+  },
+  "https://in.talent.com/view?id=534433959831144422": {
+   "url": "https://in.talent.com/view?id=534433959831144422",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Mobile Developer",
+   "company": "CONNECTING 2 WORK",
+   "location": "India, Kerala, Trivandrum",
+   "score": 70,
+   "evidence": "full",
+   "why": "score 70 (full description)",
+   "snippets": [
+    "3-5 years of Mobile app development (IOS, Android)",
+    "Familiarity with the latest mobile app UI UX standards",
+    "Experience in working with hybrid frameworks such as React Native / Flutter a plus"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly swift / java / flutter (3 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "5cab705",
+   "key": "https://in.talent.com/view?id=534433959831144422",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:46.910Z",
+   "lastSeenAt": "2026-11-17T17:00:19.971Z"
+  },
+  "https://in.talent.com/view?id=618511123259071384": {
+   "url": "https://in.talent.com/view?id=618511123259071384",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "a business studio",
+   "location": "Thiruvananthapuram / Trivandrum, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Design,develop,andmaintainnodejsandJava-basedbackendservices, APIs, and data models.",
+    "Buildresponsive,modernfrontendsusingReact/Angularframeworks.",
+    "Full Stack Software Developer (Java + Node.js)"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (16 mentions vs 15 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "8ecd3c2",
+   "key": "https://in.talent.com/view?id=618511123259071384",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:47.509Z",
+   "lastSeenAt": "2026-11-17T17:00:19.409Z"
+  },
+  "https://in.talent.com/view?id=534434059415980006": {
+   "url": "https://in.talent.com/view?id=534434059415980006",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "CONNECTING 2 WORK",
+   "location": "India, Kerala, Trivandrum",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "You’ll collaborate closely with our engineering team, contribute to architectural decisions, and deliver clean, maintainable code using modern technologies such as Node.js, TypeScript, React, and monorepo tooling.",
+    "● Design, develop, and maintain backend services using Node.js and TypeScript.",
+    "● Build and maintain user interfaces using React.js and TypeScript."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "f415254",
+   "key": "https://in.talent.com/view?id=534434059415980006",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:18:48.686Z",
+   "lastSeenAt": "2026-11-17T17:00:23.054Z"
+  },
+  "https://wellfound.com/jobs/4748771": {
+   "url": "https://wellfound.com/jobs/4748771",
+   "detailUrl": "https://wellfound.com/jobs/4748771-frontend-engineer",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Frontend Engineer",
+   "company": "Confidential Company",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We're looking for a strong React and Next.js engineer who is comfortable reading and safely modifying PHP.",
+    "This is a migration-focused role: you will move screens off legacy PHP onto our modern React/Next.js stack, shrinking our PHP footprint one screen at a time rather than maintaining it long-term.",
+    "Core Tools & Stack: React, Next.js, PHP, AWS deploy pipelines, CloudWatch, AI-assisted code"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "5ae6c39",
+   "key": "https://wellfound.com/jobs/4748771",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:01.655Z",
+   "lastSeenAt": "2026-11-09T19:40:24.585Z"
+  },
+  "https://wellfound.com/jobs/4781700": {
+   "url": "https://wellfound.com/jobs/4781700",
+   "detailUrl": "https://wellfound.com/jobs/4781700-backend-database-engineer-clone",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "FRONTEND ENGINEER",
+   "company": "REcollab",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "The Frontend Engineer is a web development professional with years of experience in building responsive and beautiful frontend applications.",
+    "Exposure to backend systems"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "de8725a",
+   "key": "https://wellfound.com/jobs/4781700",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:03.393Z",
+   "lastSeenAt": "2026-11-12T05:25:32.218Z"
+  },
+  "https://in.talent.com/view?id=605332554900186036": {
+   "url": "https://in.talent.com/view?id=605332554900186036",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "Persistent Systems",
+   "location": "Pune, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are looking for a Full Stack Developer who is a skilled professional with exposure to cloud platforms, DevOps, and data visualization, preferably with networking domain (Cisco) product exposure.",
+    "Design, develop, deploy, and maintain software applications at scale using Java / J2EE, JavaScript frameworks (Angular or React) and associated technologies",
+    "Angular, Jenkins, Docker, Microservices, React, Javascript Frameworks, Apache Spark, Kubernetes, Apache Hadoop, Java, Spring, J2ee, Python"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular / python (7 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "6170319",
+   "key": "https://in.talent.com/view?id=605332554900186036",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:03.398Z",
+   "lastSeenAt": "2026-11-09T19:40:27.012Z"
+  },
+  "https://www.linkedin.com/jobs/view/4488719774": {
+   "url": "https://www.linkedin.com/jobs/view/4488719774/",
+   "portal": "linkedin",
+   "site": "linkedin",
+   "title": "Frontend Developer – React / TypeScript",
+   "company": "SRM360 Consulting Services Pvt Ltd",
+   "location": "Hyderabad (Hybrid)",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop the WCS operator interface using React and TypeScript.",
+    "React, TypeScript, JavaScript, HTML and CSS."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "LinkedIn Easy Apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "8e94f6b",
+   "key": "https://www.linkedin.com/jobs/view/4488719774",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:03.850Z",
+   "lastSeenAt": "2026-11-12T05:24:36.917Z",
+   "decidedAt": "2026-11-09T19:39:23.611Z"
+  },
+  "https://wellfound.com/jobs/4040744": {
+   "url": "https://wellfound.com/jobs/4040744",
+   "detailUrl": "https://wellfound.com/jobs/4040744-full-stack-engineer",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Full Stack Engineer",
+   "company": "Feathery",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Implement user interfaces using modern frameworks (e.g., React)",
+    "3–6+ years of experience building full stack applications",
+    "Strong proficiency in JavaScript/TypeScript and modern frontend frameworks (e.g., React)"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "fa990db",
+   "key": "https://wellfound.com/jobs/4040744",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:05.509Z",
+   "lastSeenAt": "2026-11-17T17:01:00.534Z"
+  },
+  "https://wellfound.com/jobs/4118950": {
+   "url": "https://wellfound.com/jobs/4118950",
+   "detailUrl": "https://wellfound.com/jobs/4118950-full-stack-engineer-early-career",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Full Stack Engineer, Early Career",
+   "company": "Feathery",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Implement user interfaces using modern frameworks (e.g., React)",
+    "Strong proficiency in JavaScript/TypeScript and modern frontend frameworks (e.g., React)",
+    "Familiarity with backend frameworks such as Node.js, Django, or similar"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "65b1212",
+   "key": "https://wellfound.com/jobs/4118950",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:07.078Z",
+   "lastSeenAt": "2026-11-17T17:01:00.536Z"
+  },
+  "https://wellfound.com/jobs/1550818": {
+   "url": "https://wellfound.com/jobs/1550818",
+   "detailUrl": "https://wellfound.com/jobs/1550818-frontend-engineer",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Frontend Engineer",
+   "company": "Feathery",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "If you’ve spent a couple years working with React or other modern frontend frameworks, and you’re excited about solving UX challenges and contributing to a fast-moving product team, this role is a great fit.",
+    "You have 1–3+ years of experience building frontend applications in React or a similar framework.",
+    "You write clean, maintainable code and have a solid grasp of JavaScript/TypeScript fundamentals."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a9465f5",
+   "key": "https://wellfound.com/jobs/1550818",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:09.978Z",
+   "lastSeenAt": "2026-11-17T17:01:00.537Z"
+  },
+  "https://wellfound.com/jobs/3934791": {
+   "url": "https://wellfound.com/jobs/3934791",
+   "detailUrl": "https://wellfound.com/jobs/3934791-full-stack-engineer-ai-platform",
+   "portal": "wellfound",
+   "site": "Wellfound",
+   "title": "Full-Stack Engineer, AI Platform",
+   "company": "Confidential Company",
+   "location": "",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We raised $14M in seed funding, spent two years in stealth building the right thing, and we're now launching publicly.",
+    "Build and ship features end-to-end — backend in Go/Python, frontend in React/TypeScript",
+    "You have 3+ years of engineering experience with meaningful work across frontend and backend"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Wellfound apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "fc1d66e",
+   "key": "https://wellfound.com/jobs/3934791",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:12.027Z",
+   "lastSeenAt": "2026-11-09T19:40:24.606Z"
+  },
+  "https://www.linkedin.com/jobs/view/4486265519": {
+   "url": "https://www.linkedin.com/jobs/view/4486265519/",
+   "portal": "linkedin",
+   "site": "linkedin",
+   "title": "Full Stack Engineer",
+   "company": "AmberFlux EdgeAI",
+   "location": "Hyderabad (On-site)",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "3 to 6 years of relevant experience",
+    "React, TypeScript, Python/FastAPI or Node.js"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "LinkedIn Easy Apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "5a013b8",
+   "key": "https://www.linkedin.com/jobs/view/4486265519",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:39.671Z",
+   "lastSeenAt": "2026-11-12T05:24:43.141Z"
+  },
+  "https://www.linkedin.com/jobs/view/4486302098": {
+   "url": "https://www.linkedin.com/jobs/view/4486302098/",
+   "portal": "linkedin",
+   "site": "linkedin",
+   "title": "Full Stack Engineer",
+   "company": "ALTCloudAI",
+   "location": "Hyderabad (Hybrid)",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "🎯 Experience: 3 - 5 years",
+    "⚡ Build production-grade applications — develop scalable, serverless solutions using Node.js, AWS Lambda, DynamoDB and modern frontend technologies.",
+    "⚡ Modernise and automate — drive AWS SDK migrations, build infrastructure using CDK and TypeScript, and implement automated testing."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "LinkedIn Easy Apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "bcacd8d",
+   "key": "https://www.linkedin.com/jobs/view/4486302098",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:19:40.375Z",
+   "lastSeenAt": "2026-11-09T19:40:07.293Z"
+  },
+  "https://in.talent.com/view?id=623407037657974853": {
+   "url": "https://in.talent.com/view?id=623407037657974853",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Developer",
+   "company": "Turing",
+   "location": "Hyderabad / Secunderabad, Telangana, India",
+   "score": 55,
+   "evidence": "full",
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience with Node.js or NestJS plus a modern frontend framework (React/Angular/Vue).",
+    "Angular, React, Tdd, Vue, Nestjs, Node.js, Python"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / angular / vue (8 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "f24c29c",
+   "key": "https://in.talent.com/view?id=623407037657974853",
+   "status": "pending",
+   "preparedAt": "2026-11-09T19:39:30.310Z",
+   "lastSeenAt": "2026-11-17T16:59:48.156Z"
+  },
+  "https://jobs.smartrecruiters.com/boschgroup/744000160794268": {
+   "url": "https://jobs.smartrecruiters.com/BoschGroup/744000160794268-full-stack-engineer",
+   "portal": "careers",
+   "site": "Careers",
+   "title": "Full stack Engineer",
+   "company": "Bosch Group",
+   "location": "bengaluru, India",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 6
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "JavaScript",
+    "React",
+    "Java",
+    "Python"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3628,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Build and maintain user-friendly and responsive front-end interfaces using modern JavaScript frameworks (e.g., React, Angular, Vue.js).Write clean, well-documented, and testable code.",
+    "Experience:3 - 6 years of professional software development experience",
+    "3+ years of experience with Java 8+ / Python and related web frameworks (Springboot, SpringMVC, Django, Flask, FastAPI)."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "employer ATS form",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / python / django (14 mentions vs 3 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / python / django (14 mentions vs 3 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "a619099",
+   "key": "https://jobs.smartrecruiters.com/boschgroup/744000160794268",
+   "status": "pending",
+   "preparedAt": "2026-11-11T05:19:22.407Z",
+   "lastSeenAt": "2026-11-17T17:12:55.476Z"
+  },
+  "https://www.naukri.com/job-listings-react-native-professional-mahasos-info-private-ltd-hyderabad-1-to-4-years-111126506724": {
+   "url": "https://www.naukri.com/job-listings-react-native-professional-mahasos-info-private-ltd-hyderabad-1-to-4-years-111126506724",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "React Native Professional",
+   "company": "Maha Software Solutions",
+   "location": "Hyderabad",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 4
+   },
+   "experienceText": "1-4 Yrs",
+   "technologyMatch": [
+    "React",
+    "React Native",
+    "Typescript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 902,
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Knowledge Skills: ReactJS React Native Typescript Android/iOS platform REST API Redux and redux-saga Responsibilities: Turn current web app into a mobile app Write high-quality, pragmatic code as part of a multidisciplinary agile team."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "bb7fc81",
+   "key": "https://www.naukri.com/job-listings-react-native-professional-mahasos-info-private-ltd-hyderabad-1-to-4-years-111126506724",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.160Z",
+   "lastSeenAt": "2026-11-12T04:54:36.342Z"
+  },
+  "https://www.naukri.com/job-listings-java-developer-react-infosys-hyderabad-pune-chennai-2-to-3-years-170826025516": {
+   "url": "https://www.naukri.com/job-listings-java-developer-react-infosys-hyderabad-pune-chennai-2-to-3-years-170826025516",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Java Developer + React",
+   "company": "Infosys",
+   "location": "Hybrid - Hyderabad, Pune, Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 3
+   },
+   "experienceText": "2-3 Yrs",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2083,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience: 2 to 3 years of hands-on experience in Java Full Stack Development.",
+    "Practical experience with React and/or Angular for building modern, responsive web interfaces."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (6 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (6 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "d712fa3",
+   "key": "https://www.naukri.com/job-listings-java-developer-react-infosys-hyderabad-pune-chennai-2-to-3-years-170826025516",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.162Z",
+   "lastSeenAt": "2026-11-17T16:59:41.932Z"
+  },
+  "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-5-years-111126913798": {
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-5-years-111126913798",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "2-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1429,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "7e6523f",
+   "key": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-5-years-111126913798",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.166Z",
+   "lastSeenAt": "2026-11-12T05:24:21.323Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-vivenns-management-services-hyderabad-3-to-8-years-101126014261": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-vivenns-management-services-hyderabad-3-to-8-years-101126014261",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Fullstack Developer",
+   "company": "Vivenns Global Private Limited",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 8
+   },
+   "experienceText": "3-8 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1753,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "4944a74",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-vivenns-management-services-hyderabad-3-to-8-years-101126014261",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.166Z",
+   "lastSeenAt": "2026-11-12T05:24:21.325Z"
+  },
+  "https://www.naukri.com/job-listings-full-stack-developer-techally-labs-hyderabad-3-to-4-years-111126506686": {
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-techally-labs-hyderabad-3-to-4-years-111126506686",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Full Stack Developer",
+   "company": "Techally Labs",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 4
+   },
+   "experienceText": "3-4 Yrs",
+   "technologyMatch": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Python",
+    "Java"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2448,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Roles Responsibility Develop Front-End Applications: Create responsive and user-friendly interfaces using HTML, CSS, JavaScript, and modern libraries/frameworks like React or Angular.",
+    "Design and Manage Back-End Services: Build and maintain robust back-end systems and databases using technologies such as Node.js, PHP, Python, or Java.",
+    "Technical Proficiency: Expertise in front-end technologies like HTML, CSS, and JavaScript, with experience using frameworks such as React, Angular, or Vue.js."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly angular / php / python (8 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly angular / php / python (8 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "db836eb",
+   "key": "https://www.naukri.com/job-listings-full-stack-developer-techally-labs-hyderabad-3-to-4-years-111126506686",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.168Z",
+   "lastSeenAt": "2026-11-12T05:24:21.328Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-peoplelink-unified-communications-hyderabad-2-to-4-years-101126012439": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-peoplelink-unified-communications-hyderabad-2-to-4-years-101126012439",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Walk-in || Fullstack Developer",
+   "company": "Peoplelink Unified Communications",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 4
+   },
+   "experienceText": "21 Nov",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1425,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "c816ccf",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-peoplelink-unified-communications-hyderabad-2-to-4-years-101126012439",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.170Z",
+   "lastSeenAt": "2026-11-12T05:24:21.331Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-6-years-111126913007": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-6-years-111126913007",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Fullstack Developer",
+   "company": "Leading Client",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 6
+   },
+   "experienceText": "2-6 Yrs",
+   "technologyMatch": [
+    "Python",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 1101,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "We are hiring a highly skilled Full Stack Developer with expertise in Python, React, and cloud platforms such as AWS, Azure, or GCP."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "79276e4",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-6-years-111126913007",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.171Z",
+   "lastSeenAt": "2026-11-12T05:24:21.337Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-zenwork-digital-hyderabad-3-to-6-years-101126011500": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-zenwork-digital-hyderabad-3-to-6-years-101126011500",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Fullstack Developer",
+   "company": "Zenwork Digital",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 6
+   },
+   "experienceText": "3-6 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 4531,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Magazine and a multi-year recipient of the prestigious Accountex award."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a29f467",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-zenwork-digital-hyderabad-3-to-6-years-101126011500",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.172Z",
+   "lastSeenAt": "2026-11-12T05:24:21.344Z"
+  },
+  "https://www.naukri.com/job-listings-full-stack-developer-zenwork-digital-india-hyderabad-zenwork-digital-hyderabad-3-to-5-years-101126011355": {
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-zenwork-digital-india-hyderabad-zenwork-digital-hyderabad-3-to-5-years-101126011355",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Job -Full Stack Developer | Zenwork Digital India | Hyderabad.",
+   "company": "Zenwork Digital",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "3-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 4531,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Magazine and a multi-year recipient of the prestigious Accountex award."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "3162e1c",
+   "key": "https://www.naukri.com/job-listings-full-stack-developer-zenwork-digital-india-hyderabad-zenwork-digital-hyderabad-3-to-5-years-101126011355",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:42.173Z",
+   "lastSeenAt": "2026-11-12T05:24:21.347Z"
+  },
+  "https://www.naukri.com/job-listings-java-full-stack-developer-adp-private-limited-hyderabad-3-to-6-years-101126011663": {
+   "url": "https://www.naukri.com/job-listings-java-full-stack-developer-adp-private-limited-hyderabad-3-to-6-years-101126011663",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Java Full Stack Developer",
+   "company": "ADP Private Limited",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 6
+   },
+   "experienceText": "3-6 Yrs",
+   "technologyMatch": [
+    "Java",
+    "JavaScript",
+    "TypeScript",
+    "expo",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3434,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Java Full Stack Developer Experience Level: 36 years Key Responsibilities Design, develop, test, and maintain full-stack applications using Java, Spring Boot, and modern JavaScript/TypeScript frameworks.",
+    "Build and maintain backend microservices exposing secure REST APIs, contribute to gRPC and Protocol Buffer service contracts under guidance.",
+    "Develop responsive front-end features for desktop, tablet, and mobile experiences using React, Angular, Stencil, or a similar framework."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (5 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (5 mentions vs 4 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "6f99d9e",
+   "key": "https://www.naukri.com/job-listings-java-full-stack-developer-adp-private-limited-hyderabad-3-to-6-years-101126011663",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:44.942Z",
+   "lastSeenAt": "2026-11-17T16:59:49.228Z"
+  },
+  "https://www.naukri.com/job-listings-java-fullstack-developer-infosys-hyderabad-3-to-5-years-290926934472": {
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-infosys-hyderabad-3-to-5-years-290926934472",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Java Fullstack Developer",
+   "company": "Infosys",
+   "location": "Hyderabad",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "3-5 Yrs",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3172,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "This role is ideal for someone with 2-3 years of experience who enjoys solving problems end-to-end, learning fast, and contributing to a supportive team culture that values ownership, clarity, and continuous improvement.",
+    "2-3 years of hands-on experience in full-stack development using Java and Angular.",
+    "Preferred Qualifications: Experience building UI features using React and integrating them with backend services."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (6 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (6 mentions vs 1 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "54966d4",
+   "key": "https://www.naukri.com/job-listings-java-fullstack-developer-infosys-hyderabad-3-to-5-years-290926934472",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:46.324Z",
+   "lastSeenAt": "2026-11-17T16:59:50.654Z"
+  },
+  "https://www.naukri.com/job-listings-java-fullstack-developer-java-angular-reactjs-capgemini-technology-services-india-limited-hyderabad-chennai-bengaluru-1-to-5-years-111126908447": {
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-java-angular-reactjs-capgemini-technology-services-india-limited-hyderabad-chennai-bengaluru-1-to-5-years-111126908447",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Java Fullstack Developer (Java + Angular/ ReactJS)",
+   "company": "Capgemini",
+   "location": "Hyderabad, Bengaluru, Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 5
+   },
+   "experienceText": "1-5 Yrs",
+   "technologyMatch": [
+    "Java",
+    "React",
+    "Expo"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 1062,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Your Role We are seeking a highly skilled Java Fullstack Developer with 5-12 years of experience to join our dynamic team in Pune, Bangalore, Hyderabad Chennai.",
+    "The ideal candidate will have strong expertise in back-end development using Java technologies, Frontend: Angular/ ReactJS along with AWS.",
+    "Exposure to treasury and capital markets will be considered a significant advantage."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (5 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (5 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "55592a4",
+   "key": "https://www.naukri.com/job-listings-java-fullstack-developer-java-angular-reactjs-capgemini-technology-services-india-limited-hyderabad-chennai-bengaluru-1-to-5-years-111126908447",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:46.326Z",
+   "lastSeenAt": "2026-11-17T17:00:12.783Z"
+  },
+  "https://www.naukri.com/job-listings-react-native-developer-websenor-udaipur-bengaluru-0-to-3-years-111126504474": {
+   "url": "https://www.naukri.com/job-listings-react-native-developer-websenor-udaipur-bengaluru-0-to-3-years-111126504474",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "React Native Developer",
+   "company": "WebSenor",
+   "location": "Bengaluru, Udaipur",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 0,
+    "max": 3
+   },
+   "experienceText": "0-3 Yrs",
+   "technologyMatch": [
+    "expo"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3291,
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Growth through mentoring, project ownership and exposure to global clients."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "7acb5f2",
+   "key": "https://www.naukri.com/job-listings-react-native-developer-websenor-udaipur-bengaluru-0-to-3-years-111126504474",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.087Z",
+   "lastSeenAt": "2026-11-12T05:24:31.861Z"
+  },
+  "https://www.naukri.com/job-listings-full-stack-developer-react-native-with-java-golang-nodejs-seikor-group-bengaluru-3-to-8-years-101126006021": {
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-react-native-with-java-golang-nodejs-seikor-group-bengaluru-3-to-8-years-101126006021",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Full Stack Developer React Native with Java Golang Nodejs",
+   "company": "Seikor Group",
+   "location": "Hybrid - Bengaluru",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 8
+   },
+   "experienceText": "3-8 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 2712,
+   "why": "score 70 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "0ebe624",
+   "key": "https://www.naukri.com/job-listings-full-stack-developer-react-native-with-java-golang-nodejs-seikor-group-bengaluru-3-to-8-years-101126006021",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.089Z",
+   "lastSeenAt": "2026-11-17T16:59:53.947Z"
+  },
+  "https://www.naukri.com/job-listings-python-full-stack-developer-bangalore-only-immediate-joiners-infiniti-research-bengaluru-3-to-7-years-271026019117": {
+   "url": "https://www.naukri.com/job-listings-python-full-stack-developer-bangalore-only-immediate-joiners-infiniti-research-bengaluru-3-to-7-years-271026019117",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Walk-in || Python Full stack Developer - Bangalore - Only Immediate Joiners",
+   "company": "Infiniti Research",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 7
+   },
+   "experienceText": "11 Nov - 13 Nov",
+   "technologyMatch": [
+    "Python",
+    "React",
+    "TypeScript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 5715,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Design, develop, and maintain scalable full-stack applications end-to-end (frontend and backend integration) using Python (Fast API), React, TypeScript, PostgreSQL, and Databricks.",
+    "Develop automated unit and integration tests using Jest and React Testing Library.",
+    "57 years of experience in full-stack application development."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a8109b2",
+   "key": "https://www.naukri.com/job-listings-python-full-stack-developer-bangalore-only-immediate-joiners-infiniti-research-bengaluru-3-to-7-years-271026019117",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.091Z",
+   "lastSeenAt": "2026-11-12T05:24:31.863Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-developer-tekshapers-software-solutions-bengaluru-3-to-5-years-101126009626": {
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-tekshapers-software-solutions-bengaluru-3-to-5-years-101126009626",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Fullstack Developer",
+   "company": "Monde Nissin Corporation (MNC)",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "3-5 Yrs",
+   "technologyMatch": [
+    "JavaScript",
+    "React",
+    "Node",
+    "expo"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2041,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "PROFESSIONAL EXPERIENCE AND QUALIFICATIONShould have 3-5 years of Web development experience & at least 2+ years of experience on projects involving JavaScript, JS frameworks (ReactJS /NextJS, Nodejs), UI frameworks, and Databases (e.g.",
+    "Understands Load model creation, OWASP top 10 and other related conceptsAmple knowledge and exposure in Frontend techs to drive discussions and recommend options based on business needs."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "1500956",
+   "key": "https://www.naukri.com/job-listings-fullstack-developer-tekshapers-software-solutions-bengaluru-3-to-5-years-101126009626",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.092Z",
+   "lastSeenAt": "2026-11-12T05:24:31.864Z"
+  },
+  "https://www.naukri.com/job-listings-java-reactjs-developer-websenor-udaipur-bengaluru-3-to-8-years-111126502184": {
+   "url": "https://www.naukri.com/job-listings-java-reactjs-developer-websenor-udaipur-bengaluru-3-to-8-years-111126502184",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Java + ReactJS Developer",
+   "company": "WebSenor",
+   "location": "Bengaluru, Udaipur",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 8
+   },
+   "experienceText": "3-8 Yrs",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 4238,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Job Summary Job Overview Java + ReactJS Developer: We are seeking a talented and dynamic Java + ReactJS Developer to join our team.",
+    "In this role, you will be responsible for developing, enhancing, and maintaining web applications using Java for the backend and React for the frontend.",
+    "The ideal candidate will have experience in both front-end and back-end development, with strong knowledge of Java and React."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java (9 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java (9 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "33bdad5",
+   "key": "https://www.naukri.com/job-listings-java-reactjs-developer-websenor-udaipur-bengaluru-3-to-8-years-111126502184",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.094Z",
+   "lastSeenAt": "2026-11-12T05:24:31.867Z"
+  },
+  "https://www.naukri.com/job-listings-frontend-developer-nextwebi-it-solutions-bengaluru-2-to-7-years-111126501745": {
+   "url": "https://www.naukri.com/job-listings-frontend-developer-nextwebi-it-solutions-bengaluru-2-to-7-years-111126501745",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Frontend Developer",
+   "company": "Nextwebi IT solutions Pvt ltd",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 7
+   },
+   "experienceText": "2-7 Yrs",
+   "technologyMatch": [
+    "React",
+    "JavaScript",
+    "TypeScript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 4304,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop responsive and high-performance applications using React.js and Next.js.",
+    "Write clean, maintainable, and reusable code using HTML5, CSS3, JavaScript, and TypeScript.",
+    "Ensure websites work consistently across desktop, tablet, mobile, and major browsers."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "b7dfcf4",
+   "key": "https://www.naukri.com/job-listings-frontend-developer-nextwebi-it-solutions-bengaluru-2-to-7-years-111126501745",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:49.095Z",
+   "lastSeenAt": "2026-11-12T05:24:31.868Z"
+  },
+  "https://www.naukri.com/job-listings-software-developer-for-web-based-saas-application-websenor-udaipur-bengaluru-2-to-5-years-111126504250": {
+   "url": "https://www.naukri.com/job-listings-software-developer-for-web-based-saas-application-websenor-udaipur-bengaluru-2-to-5-years-111126504250",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Software Developer For web based SaaS application",
+   "company": "WebSenor",
+   "location": "Bengaluru, Udaipur",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "2-5 Yrs",
+   "technologyMatch": [
+    "javascript",
+    "Typescript",
+    "React",
+    "expo"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3617,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experiences below are mandatory: CI/CD: Cypress, Bamboo, javascript/Typescript, certificate management(ISTQB) FrontEnd: React, Kendo, Redux, MathJs, Moment, Highcharts, Axios.",
+    "Growth through mentoring, project ownership and exposure to global clients."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "7c17ac1",
+   "key": "https://www.naukri.com/job-listings-software-developer-for-web-based-saas-application-websenor-udaipur-bengaluru-2-to-5-years-111126504250",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:52.209Z",
+   "lastSeenAt": "2026-11-12T05:24:37.981Z"
+  },
+  "https://www.naukri.com/job-listings-software-development-engineer-frontend-hp-bengaluru-3-to-8-years-111126501401": {
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-frontend-hp-bengaluru-3-to-8-years-111126501401",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Software Development Engineer- Frontend",
+   "company": "HP",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 8
+   },
+   "experienceText": "3-8 Yrs",
+   "technologyMatch": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3966,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "3-8 years of software development experience, with a strong focus on frontend engineering.",
+    "Strong proficiency in JavaScript/TypeScript and React, with experience building responsive, accessible, and maintainable web applications.",
+    "Working knowledge of Node.js and backend development, including REST APIs, microservices, authentication, and authorization."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a7cf245",
+   "key": "https://www.naukri.com/job-listings-software-development-engineer-frontend-hp-bengaluru-3-to-8-years-111126501401",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:53.525Z",
+   "lastSeenAt": "2026-11-12T05:24:39.275Z"
+  },
+  "https://www.naukri.com/job-listings-java-fullstack-developer-globallogic-bengaluru-3-to-5-years-101126004369": {
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-globallogic-bengaluru-3-to-5-years-101126004369",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Java Fullstack Developer",
+   "company": "Globallogic",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "3-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 5076,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "6840dbf",
+   "key": "https://www.naukri.com/job-listings-java-fullstack-developer-globallogic-bengaluru-3-to-5-years-101126004369",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:53.527Z",
+   "lastSeenAt": "2026-11-12T05:24:39.277Z"
+  },
+  "https://www.naukri.com/job-listings-software-engineer-ii-frontend-engineer-wayfair-technologies-bengaluru-3-to-8-years-111126502061": {
+   "url": "https://www.naukri.com/job-listings-software-engineer-ii-frontend-engineer-wayfair-technologies-bengaluru-3-to-8-years-111126502061",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Software Engineer II - Frontend Engineer",
+   "company": "Wayfair",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 8
+   },
+   "experienceText": "3-8 Yrs",
+   "technologyMatch": [
+    "JavaScript",
+    "TypeScript",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2727,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Requirements Must have a minimum of 3+ years of work experience in Web development.",
+    "Must have strong hands-on development experience in front-end technologies including HTML5 JavaScript, TypeScript React.",
+    "Proficiency in working on React based tools such as Webpack, Enzyme, Redux, Flux and Web Components."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "cb9c8e9",
+   "key": "https://www.naukri.com/job-listings-software-engineer-ii-frontend-engineer-wayfair-technologies-bengaluru-3-to-8-years-111126502061",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:53.530Z",
+   "lastSeenAt": "2026-11-12T05:24:39.279Z"
+  },
+  "https://www.naukri.com/job-listings-fullstack-software-developer-digispoc-technology-chennai-2-to-5-years-101126009634": {
+   "url": "https://www.naukri.com/job-listings-fullstack-software-developer-digispoc-technology-chennai-2-to-5-years-101126009634",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Fullstack Software Developer",
+   "company": "Digispoc Technology",
+   "location": "Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "2-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 2451,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "3e27f3b",
+   "key": "https://www.naukri.com/job-listings-fullstack-software-developer-digispoc-technology-chennai-2-to-5-years-101126009634",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:56.033Z",
+   "lastSeenAt": "2026-11-17T17:00:05.107Z"
+  },
+  "https://www.naukri.com/job-listings-full-stack-trainer-developer-galtech-chengalpattu-thrissur-chennai-1-to-6-years-111126504784": {
+   "url": "https://www.naukri.com/job-listings-full-stack-trainer-developer-galtech-chengalpattu-thrissur-chennai-1-to-6-years-111126504784",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Full Stack Trainer Cum Developer",
+   "company": "Galtech",
+   "location": "Chennai, Chengalpattu, Thrissur",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 6
+   },
+   "experienceText": "1-6 Yrs",
+   "technologyMatch": [
+    "JavaScript",
+    "React",
+    "Node.js"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2404,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Train students in Full Stack Development, including HTML, CSS, JavaScript, React.js, Node.js, and backend technologies.",
+    "Good knowledge of Full Stack Development, including HTML, CSS, JavaScript, React.js, Node.js, and database management.",
+    "Candidates with minimum 1 year of relevant industry experience are encouraged to apply."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "a2bdebc",
+   "key": "https://www.naukri.com/job-listings-full-stack-trainer-developer-galtech-chengalpattu-thrissur-chennai-1-to-6-years-111126504784",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:56.036Z",
+   "lastSeenAt": "2026-11-12T05:24:42.009Z"
+  },
+  "https://www.naukri.com/job-listings-ai-full-stack-engineer-avix-labs-chennai-1-to-5-years-111126503625": {
+   "url": "https://www.naukri.com/job-listings-ai-full-stack-engineer-avix-labs-chennai-1-to-5-years-111126503625",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "AI Full Stack Engineer",
+   "company": "Avix Labs",
+   "location": "Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 5
+   },
+   "experienceText": "1-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 999,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "ae0a179",
+   "key": "https://www.naukri.com/job-listings-ai-full-stack-engineer-avix-labs-chennai-1-to-5-years-111126503625",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:56.038Z",
+   "lastSeenAt": "2026-11-17T17:00:12.782Z"
+  },
+  "https://www.naukri.com/job-listings-python-full-stack-developer-django-india-filings-pvt-ltd-chennai-1-to-3-years-111126034059": {
+   "url": "https://www.naukri.com/job-listings-python-full-stack-developer-django-india-filings-pvt-ltd-chennai-1-to-3-years-111126034059",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Python Full Stack Developer (Django)",
+   "company": "India Filings Pvt Ltd",
+   "location": "Chennai(Chetpet)",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 3
+   },
+   "experienceText": "1-3 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1617,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / django (7 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly python / django (7 mentions vs 6 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "905d7dd",
+   "key": "https://www.naukri.com/job-listings-python-full-stack-developer-django-india-filings-pvt-ltd-chennai-1-to-3-years-111126034059",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:37:56.040Z",
+   "lastSeenAt": "2026-11-17T17:00:12.786Z"
+  },
+  "https://www.naukri.com/job-listings-frontend-developer-react-js-enqos-chennai-2-to-5-years-111126502164": {
+   "url": "https://www.naukri.com/job-listings-frontend-developer-react-js-enqos-chennai-2-to-5-years-111126502164",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Frontend Developer ( React JS )",
+   "company": "Enqos Software Technologies",
+   "location": "Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "2-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 722,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "d785a22",
+   "key": "https://www.naukri.com/job-listings-frontend-developer-react-js-enqos-chennai-2-to-5-years-111126502164",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:38:52.806Z",
+   "lastSeenAt": "2026-11-17T17:00:12.788Z"
+  },
+  "https://www.naukri.com/job-listings-software-development-engineer-fresher-enqos-chennai-2-to-4-years-111126504456": {
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-fresher-enqos-chennai-2-to-4-years-111126504456",
+   "portal": "naukri",
+   "site": "Naukri",
+   "title": "Software Development Engineer - Fresher",
+   "company": "Enqos Software Technologies",
+   "location": "Chennai",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 4
+   },
+   "experienceText": "2-4 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 749,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "9415dd7",
+   "key": "https://www.naukri.com/job-listings-software-development-engineer-fresher-enqos-chennai-2-to-4-years-111126504456",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:38:54.283Z",
+   "lastSeenAt": "2026-11-17T17:00:14.147Z"
+  },
+  "https://www.linkedin.com/jobs/view/4486586299": {
+   "url": "https://www.linkedin.com/jobs/view/4486586299/",
+   "portal": "linkedin",
+   "site": "LinkedIn",
+   "title": "Java full stack developer",
+   "company": "Quess Corp Limited",
+   "location": "Hyderabad (Hybrid)",
+   "score": 55,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 1167,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "The candidate should have strong hands-on experience in Java, Spring Boot, React.js, MongoDB, Kafka, and SQL .",
+    "Build responsive and reusable UI components using React.js ."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "LinkedIn Easy Apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java (3 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java (3 mentions vs 2 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "351f953",
+   "key": "https://www.linkedin.com/jobs/view/4486586299",
+   "status": "pending",
+   "preparedAt": "2026-11-12T04:38:55.911Z",
+   "lastSeenAt": "2026-11-12T04:38:55.911Z"
+  },
+  "https://in.indeed.com/viewjob?jk=9ba5cc5725acf4f0": {
+   "url": "https://in.indeed.com/viewjob?jk=9ba5cc5725acf4f0",
+   "portal": "indeed",
+   "site": "indeed",
+   "title": "React Developer",
+   "company": "Sunseaz Technologies",
+   "location": "Hyderabad, Telangana",
+   "score": 55,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "React",
+    "JavaScript",
+    "TypeScript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2261,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop high-quality, scalable frontend components using React and Next.js.",
+    "Proven experience with modern React (Hooks, Context API).",
+    "Strong proficiency in JavaScript/TypeScript and CSS."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Indeed apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "b1ce9d7",
+   "key": "https://in.indeed.com/viewjob?jk=9ba5cc5725acf4f0",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:23:35.434Z",
+   "lastSeenAt": "2026-11-12T05:24:21.609Z"
+  },
+  "https://in.indeed.com/viewjob?jk=5d223912d6e34dd7": {
+   "url": "https://in.indeed.com/viewjob?jk=5d223912d6e34dd7",
+   "portal": "indeed",
+   "site": "Indeed",
+   "title": "Front-end developer",
+   "company": "Turnkey Learning",
+   "location": "Hyderabad, Telangana",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2402,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "As a Front-End Developer, you will be responsible for designing and implementing user interfaces for our web applications and mobile applications using React.",
+    "This position requires a strong background in React development, proficiency in building responsive and user-friendly interfaces, and knowledge of cloud services and APIs.",
+    "3-5 years of hands-on experience in front-end development, with a strong focus on React."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Indeed apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "b1cbec8",
+   "key": "https://in.indeed.com/viewjob?jk=5d223912d6e34dd7",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:23:35.435Z",
+   "lastSeenAt": "2026-11-12T05:24:21.618Z"
+  },
+  "https://www.naukri.com/job-listings-react-developer-2-4-years-bangalore-immediate-joiner-sketch-brahma-technologies-bengaluru-2-to-5-years-111126006430": {
+   "url": "https://www.naukri.com/job-listings-react-developer-2-4-years-bangalore-immediate-joiner-sketch-brahma-technologies-bengaluru-2-to-5-years-111126006430",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "React Developer || 2-4 Years || Bangalore || Immediate Joiner",
+   "company": "Sketch Brahma Technologies",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "2-5 Yrs",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1068,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "4a1a2a1",
+   "key": "https://www.naukri.com/job-listings-react-developer-2-4-years-bangalore-immediate-joiner-sketch-brahma-technologies-bengaluru-2-to-5-years-111126006430",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:23:49.588Z",
+   "lastSeenAt": "2026-11-12T05:24:35.129Z"
+  },
+  "https://www.naukri.com/job-listings-consultant-full-stack-java-react-bengaluru-deloitte-shared-services-india-bengaluru-3-to-7-years-091126005118": {
+   "url": "https://www.naukri.com/job-listings-consultant-full-stack-java-react-bengaluru-deloitte-shared-services-india-bengaluru-3-to-7-years-091126005118",
+   "portal": "naukri",
+   "site": "naukri",
+   "title": "Consultant | Full Stack - Java + React | Bengaluru",
+   "company": "Deloitte Shared Services India",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 7
+   },
+   "experienceText": "3-7 Yrs",
+   "technologyMatch": [
+    "React Native",
+    "TypeScript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2910,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Consultant or Consultant can include: Develop and maintain mobile applications using React Native for iOS and Android platforms.",
+    "Proficient in React Native and its core principles with at least 3 years of relevant experience Experience with TypeScript is a plus."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Naukri apply (may open employer site)",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "895cead",
+   "key": "https://www.naukri.com/job-listings-consultant-full-stack-java-react-bengaluru-deloitte-shared-services-india-bengaluru-3-to-7-years-091126005118",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:23:51.674Z",
+   "lastSeenAt": "2026-11-12T05:24:35.132Z"
+  },
+  "https://in.talent.com/view?id=637895903446370085": {
+   "url": "https://in.talent.com/view?id=637895903446370085",
+   "portal": "talent",
+   "site": "talent",
+   "title": "React + Capacitor Mobile Developer",
+   "company": "ai crew solutions",
+   "location": "Hyderabad / Secunderabad, Telangana, India",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 2,
+    "max": null
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React",
+    "Node.js"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 1649,
+   "why": "score 70 (full description)",
+   "snippets": [
+    "* Develop and maintain cross-platform mobile applications using React and Capacitor",
+    "* 2+ years of professional experience with React and the MERN stack (MongoDB, Express, React, Node.js)",
+    "* Hands-on experience building mobile applications with Capacitor"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "0b50299",
+   "key": "https://in.talent.com/view?id=637895903446370085",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:19.600Z",
+   "lastSeenAt": "2026-11-17T16:59:41.299Z"
+  },
+  "https://in.indeed.com/viewjob?jk=55c11a20e2adf35c": {
+   "url": "https://in.indeed.com/viewjob?jk=55c11a20e2adf35c",
+   "portal": "indeed",
+   "site": "indeed",
+   "title": "React Developer",
+   "company": "EffiaSoft",
+   "location": "Hyderabad, Telangana",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3117,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Experience - 3-5 Years",
+    "We are seeking an experienced React Developer to lead the design, development, and delivery of high-performance, user-focused applications.",
+    "As a key member of our front-end team, you will take ownership of React-based projects, mentor junior developers, and ensure the highest standards of code quality, performance, and scalability."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Indeed apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "4d509cb",
+   "key": "https://in.indeed.com/viewjob?jk=55c11a20e2adf35c",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:21.626Z",
+   "lastSeenAt": "2026-11-12T05:24:21.626Z"
+  },
+  "https://in.talent.com/view?id=625135620914877969": {
+   "url": "https://in.talent.com/view?id=625135620914877969",
+   "portal": "talent",
+   "site": "talent",
+   "title": "Mobile Engineer (React Native + Fullstack)",
+   "company": "superkalam (yc w23)",
+   "location": "Bengaluru / Bangalore, India",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 4
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React Native",
+    "Node"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3165,
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Ideally 2-4yrs of experience in building Mobile apps + backend engineering (React Native and NodeJS/NestJS)",
+    "Mobile engineering skills -",
+    "Have handled various mobile app challenges like - performance, optimized app builds, push notifications, etc."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "0389b11",
+   "key": "https://in.talent.com/view?id=625135620914877969",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:31.275Z",
+   "lastSeenAt": "2026-11-17T16:59:51.178Z"
+  },
+  "https://www.instahyre.com/#job/zensar/java-aws-react": {
+   "url": "https://www.instahyre.com/#job/zensar/java-aws-react",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "Java AWS + React",
+   "company": "Zensar",
+   "location": "",
+   "score": 55,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "card",
+   "fullDescriptionLength": null,
+   "why": "score 55 (listing card); full description unavailable (description not found on page)",
+   "snippets": [
+    "Zensar - Java AWS + React Hyderabad Founded in 2001 1000+ employees View job » Not interested Zensar provides digital and technology services to global businesses, helping them improve performance through transformation and stronger core systems."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "cabec71",
+   "key": "https://www.instahyre.com/#job/zensar/java-aws-react",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:32.545Z",
+   "lastSeenAt": "2026-11-12T05:24:32.545Z"
+  },
+  "https://www.instahyre.com/#job/sugar-fit/react-native-developer": {
+   "url": "https://www.instahyre.com/#job/sugar-fit/react-native-developer",
+   "portal": "instahyre",
+   "site": "instahyre",
+   "title": "React Native Developer",
+   "company": "Sugar.fit",
+   "location": "",
+   "score": 70,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "React Native",
+    "JavaScript",
+    "TypeScript"
+   ],
+   "evidence": "card",
+   "fullDescriptionLength": null,
+   "why": "score 70 (listing card); full description unavailable (description not found on page)",
+   "snippets": [
+    "React NativeAndroidJavaScriptTypeScriptiOS React NativeAndroidJavaScriptTypeScriptiOS"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Instahyre apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "full description could not be read — decided on the listing card",
+    "submitted by the instahyre bot the next time it lists this job (no direct-URL apply for this portal)"
+   ],
+   "dryRun": true,
+   "id": "7a68a1c",
+   "key": "https://www.instahyre.com/#job/sugar-fit/react-native-developer",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:34.612Z",
+   "lastSeenAt": "2026-11-17T16:59:45.628Z"
+  },
+  "https://in.talent.com/view?id=629045022808804140": {
+   "url": "https://in.talent.com/view?id=629045022808804140",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Intermediate Application Developer- eCommerce (Shopify) Platform Support",
+   "company": "UPS",
+   "location": "Chennai, India",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": null
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React",
+    "Node.js"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2972,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Develop and maintain application features using React.js (frontend) and Node.js (backend).",
+    "3+ years of experience in application development.",
+    "Strong proficiency in React.js, Node.js, HTML, CSS and API development."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "66c1d90",
+   "key": "https://in.talent.com/view?id=629045022808804140",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:38.742Z",
+   "lastSeenAt": "2026-11-17T16:59:58.705Z"
+  },
+  "https://in.indeed.com/viewjob?jk=73212a7f2e6f2313": {
+   "url": "https://in.indeed.com/viewjob?jk=73212a7f2e6f2313",
+   "portal": "indeed",
+   "site": "indeed",
+   "title": "React Full Stack",
+   "company": "UST",
+   "location": "Tamil Nadu",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": null
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "Python",
+    "python",
+    "react",
+    "React",
+    "JavaScript",
+    "TypeScript"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3913,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "UST is looking for Python full stack with python and react.",
+    "Design and implement responsive UIs using React (Hooks, Context, Redux or similar).",
+    "3+ years professional experience with **React** and modern JavaScript/TypeScript."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Indeed apply",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "aa55675",
+   "key": "https://in.indeed.com/viewjob?jk=73212a7f2e6f2313",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:39.247Z",
+   "lastSeenAt": "2026-11-12T05:24:39.247Z"
+  },
+  "https://in.talent.com/view?id=612830139704938147": {
+   "url": "https://in.talent.com/view?id=612830139704938147",
+   "portal": "talent",
+   "site": "talent",
+   "title": "Java Fullstack Developer",
+   "company": "KGISL Group of Companies",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 2,
+    "max": 5
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "Java",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 1790,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Job description Job Title: Java Fullstack Developer (Java + Angular/React)",
+    "Experience: 2 to 5 years",
+    "We are seeking a talented Fullstack Developer to design and build scalable web applications using Java 8 (Spring Boot, Hibernate) on the backend and Angular or React on the frontend."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (10 mentions vs 5 React/Node/TS) — check fit before approving"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you",
+    "description is mainly java / angular (10 mentions vs 5 React/Node/TS) — check fit before approving"
+   ],
+   "dryRun": true,
+   "id": "fc050eb",
+   "key": "https://in.talent.com/view?id=612830139704938147",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:47.050Z",
+   "lastSeenAt": "2026-11-17T17:00:13.155Z"
+  },
+  "https://in.talent.com/view?id=620135314151387105": {
+   "url": "https://in.talent.com/view?id=620135314151387105",
+   "portal": "talent",
+   "site": "Talent.com",
+   "title": "Full Stack Engineer",
+   "company": "Wheelson BizAI",
+   "location": "Coimbatore, India",
+   "score": 55,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "Node.js",
+    "Python",
+    "TypeScript",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 2747,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "If you enjoy working with Node.js, NestJS, Python (FastAPI), modern frontend frameworks, and AI integrations, we would love to connect with you.",
+    "Architecture & Development: Design and maintain scalable, high-availability web applications using Node.js, NestJS, Python (FastAPI), and TypeScript.",
+    "Frontend Development: Build responsive and modern user interfaces using React.js, Vue.js, or Angular with a focus on performance and user experience."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Talent.com quick apply / redirect",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "2ef27f6",
+   "key": "https://in.talent.com/view?id=620135314151387105",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:51.321Z",
+   "lastSeenAt": "2026-11-12T05:24:51.321Z"
+  },
+  "https://www.foundit.in/job/69781762": {
+   "url": "https://www.foundit.in/job/69781762",
+   "portal": "foundit",
+   "site": "Foundit",
+   "title": "SDE I - Frontend (React + React Native)",
+   "company": "Flexiple",
+   "location": "Bengaluru, India",
+   "score": 70,
+   "experienceRequirement": {
+    "min": 1,
+    "max": 4
+   },
+   "experienceText": "1 - 4 Years",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 1488,
+   "why": "score 70 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Foundit Apply Now",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "56d9d61",
+   "key": "https://www.foundit.in/job/69781762",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:24:58.696Z",
+   "lastSeenAt": "2026-11-12T05:24:58.696Z"
+  },
+  "https://www.foundit.in/job/69779387": {
+   "url": "https://www.foundit.in/job/69779387",
+   "portal": "foundit",
+   "site": "Foundit",
+   "title": "Full Stack Mobile Engineer",
+   "company": "HuntingCube",
+   "location": "Bengaluru, India",
+   "score": 70,
+   "experienceRequirement": null,
+   "experienceText": "Fresher",
+   "technologyMatch": [
+    "React Native",
+    "Python",
+    "Node.js"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3434,
+   "why": "score 70 (full description)",
+   "snippets": [
+    "Responsibilities: - Build and scale our mobile application stack across iOS and Android using React Native from a consumer internet background.",
+    "- Design robust backend APIs and microservices in Python/Node.js with MongoDB as the primary datastore.",
+    "Responsibilities: - Build and scale our mobile application stack across iOS and Android using React Native from a consumer internet background."
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajirn02.pdf",
+   "channel": "Foundit Apply Now",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "f782b4d",
+   "key": "https://www.foundit.in/job/69779387",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:25:00.452Z",
+   "lastSeenAt": "2026-11-12T05:25:00.452Z"
+  },
+  "https://www.foundit.in/job/69779221": {
+   "url": "https://www.foundit.in/job/69779221",
+   "portal": "foundit",
+   "site": "Foundit",
+   "title": "Full Stack Developer - Coimbatore - IMMEDIATE JOINER",
+   "company": "tandem crystals pvt ltd",
+   "location": "Chennai, India",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 3,
+    "max": 5
+   },
+   "experienceText": "3 - 5 Years",
+   "technologyMatch": [],
+   "evidence": "full",
+   "fullDescriptionLength": 2856,
+   "why": "score 55 (full description)",
+   "snippets": [],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "Foundit Apply Now",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "da18c56",
+   "key": "https://www.foundit.in/job/69779221",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:25:26.652Z",
+   "lastSeenAt": "2026-11-12T05:25:26.652Z"
+  },
+  "https://jobs.ashbyhq.com/aiprise/4994f7fc-b974-420f-9823-32d6c493f5c2": {
+   "url": "https://jobs.ashbyhq.com/aiprise/4994f7fc-b974-420f-9823-32d6c493f5c2",
+   "portal": "google",
+   "site": "Google",
+   "title": "Software Engineer I, Frontend (Bangalore, India)",
+   "company": "AiPrise",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": null,
+   "experienceText": "",
+   "technologyMatch": [
+    "React",
+    "React Native"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3405,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "The flow is a React app, and customers embed it in their own products through our Web, Flutter and React Native SDKs.",
+    "- Build camera features like ID capture, selfie and liveness, and make them reliable on iPhones, low-end Android phones and inside mobile apps",
+    "- Maintain and improve our Web, Flutter and React Native SDKs so the flow feels native inside customer apps"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajife02.pdf",
+   "channel": "employer ATS form",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "4159681",
+   "key": "https://jobs.ashbyhq.com/aiprise/4994f7fc-b974-420f-9823-32d6c493f5c2",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:25:56.291Z",
+   "lastSeenAt": "2026-11-17T17:01:16.678Z"
+  },
+  "https://jobs.ashbyhq.com/aiprise/41af4efa-a550-484e-afde-a9f5f3807eca": {
+   "url": "https://jobs.ashbyhq.com/aiprise/41af4efa-a550-484e-afde-a9f5f3807eca",
+   "portal": "google",
+   "site": "Google",
+   "title": "Software Engineer I, Full Stack (Frontend Focused) (Bangalore, India)",
+   "company": "AiPrise",
+   "location": "Bengaluru",
+   "score": 55,
+   "experienceRequirement": {
+    "min": 0,
+    "max": 2
+   },
+   "experienceText": "",
+   "technologyMatch": [
+    "React Native",
+    "TypeScript",
+    "React"
+   ],
+   "evidence": "full",
+   "fullDescriptionLength": 3897,
+   "why": "score 55 (full description)",
+   "snippets": [
+    "Most of your work will be on what our customers and their users see: the onboarding flow end users go through, our Web, Flutter and React Native SDKs, and the case management product compliance teams use every day.",
+    "- 0-2 years of professional experience building and shipping production software",
+    "- Strong TypeScript and React, including performance and state management"
+   ],
+   "resume": "/Users/shivaji/Downloads/Resumes/shivajifs02.pdf",
+   "channel": "employer ATS form",
+   "flags": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "applicationRequirements": [
+    "current CTC not in profile — a form asking for it is handed to you"
+   ],
+   "dryRun": true,
+   "id": "7a6ab73",
+   "key": "https://jobs.ashbyhq.com/aiprise/41af4efa-a550-484e-afde-a9f5f3807eca",
+   "status": "pending",
+   "preparedAt": "2026-11-12T05:25:56.313Z",
+   "lastSeenAt": "2026-11-17T17:01:17.736Z"
+  }
+ }
+}

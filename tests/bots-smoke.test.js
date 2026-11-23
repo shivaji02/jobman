@@ -199,3 +199,11 @@ test('bots/indeed searchUrl and jobKey', () => {
   assert.equal(searchUrl('react native developer', 'Hyderabad'), 'https://in.indeed.com/jobs?q=react%20native%20developer&l=Hyderabad&fromage=3&sort=date');
   assert.equal(jobKey('abc123'), 'https://in.indeed.com/viewjob?jk=abc123');
 });
+
+test('bots/indeed gives up after repeated empty searches only when nothing was found', () => {
+  const { emptySearchVerdict, MAX_EMPTY_SEARCHES: n } = require('../src/bots/indeed');
+  assert.equal(emptySearchVerdict({ emptyStreak: n - 1, discovered: 0 }), '');
+  assert.equal(emptySearchVerdict({ emptyStreak: n + 5, discovered: 12 }), '');
+  assert.match(emptySearchVerdict({ emptyStreak: n, discovered: 0, pageTitle: 'Just a moment...' }), /bot check/);
+  assert.match(emptySearchVerdict({ emptyStreak: n, discovered: 0, pageTitle: 'react jobs in Pune' }), /no results/);
+});

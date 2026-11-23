@@ -20,10 +20,12 @@ const { classifyLocation, byLocationPreference, SEARCH_CITIES } = require('../co
 const { selectResume, RESUME_RN, RESUME_FS } = require('./wellfound');
 const logger = require('../core/logger');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit, claimGate } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 
 const QUERIES = [
   'react native developer',
+  'react native',
+  'cross platform mobile developer',
   'mobile developer',
   'react developer',
   'full stack developer node react',
@@ -182,9 +184,13 @@ function log(dedup, dryRun, card, status, notes) {
   dedup.append({ site: SITE, job_title: card.title, company: card.company, job_url: card.url, status, notes });
 }
 
-async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
-  const seenThisRun = new Set();
+async function run({ profile = {}, dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'talent', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
+  const seenThisRun = (st.seen = st.seen || new Set());
   const tabs = createTabTracker('talent');
   const page = await newPage();
   await blockHeavyAssets(page);
@@ -192,6 +198,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
   try {
     const searches = SEARCH_CITIES.flatMap((city) => QUERIES.map((query) => ({ city, query })));
     for (const { city, query } of searches) {
+      if (doneSearches.has(`${city}|${query}`)) continue;
       if (results.applied.length + results.unconfirmed.length + results.manualApply.length >= MAX_APPS_PER_RUN) break;
 
       await withRetry(() => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }), { maxAttempts: 2 });
@@ -210,6 +217,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         const loc = classifyLocation(card.location, card.company);
         const score = scoreJob({ title: card.title, description: card.text });
 
+        if (loc.allowed && !shouldApply(score) && offerIfUncertain(pipeline, portal, job, card, SITE)) continue;
         if (!loc.allowed || !shouldApply(score)) {
           job.reason = !loc.allowed ? loc.reason : `score ${score} below threshold`;
           results.skipped.push(job);
@@ -223,7 +231,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         }
 
         // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
-        if (!(await claimGate(results, dedup, card.url, job))) continue;
+        if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
         if (dryRun) {
           job.reason = `would apply (score ${score}; ${loc.reason})`;
@@ -260,6 +268,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         }
         await humanDelay(); // 2-3.5s, per CLAUDE.md rate-limit rule
       }
+      doneSearches.add(`${city}|${query}`);
     }
   } catch (err) {
     tabs.printSummary();
@@ -273,4 +282,4 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
   return results;
 }
 
-module.exports = { run, searchUrl, extractCards, RESUME_RN, RESUME_FS };
+module.exports = { run, applyToJob, searchUrl, extractCards, RESUME_RN, RESUME_FS };

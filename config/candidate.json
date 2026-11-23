@@ -82,8 +82,8 @@
   },
   "notice_period_days": 0,
   "portfolio_url": "",
-  "current_ctc": "",
-  "expected_ctc": "15-20 LPA",
+  "current_ctc": "6.5 LPA",
+  "expected_ctc": "10+ LPA",
   "locations": "Hyderabad (first preference), Bangalore, Chennai and other South India cities; Pune for good companies only; not Mumbai",
   "preferred_locations": [
     "Hyderabad",
@@ -102,9 +102,20 @@
   ],
   "serving_notice": false,
   "joining": "Immediate joiner — resigned, last working day 2026-11-03",
+  "last_working_day": "2026-11-03",
   "willing_to_relocate": true,
   "available_immediate": true,
-  "skill_years": {},
+  "skill_years": {
+    "React Native": 3,
+    "React": 3,
+    "JavaScript": 3,
+    "TypeScript": 3,
+    "Node.js": 3,
+    "Fullstack Development": 3,
+    "Frontend Development": 3,
+    "HTML5": 3,
+    "CSS": 3
+  },
   "_skill_years_help": "Fill with YOUR real years per skill, e.g. {\"React Native\": 2.5, \"React\": 2.5, \"Node.js\": 1.5, \"PostgreSQL\": 1}. Screening questions like \"years with <skill>\" are only answered from this map — 93 past applications stalled on them. Leave a skill out to have the bot hand that question to you.",
   "_current_ctc_help": "current_ctc is empty, so every \"current CTC\" question is handed to you (~60 past stalls). Fill e.g. \"6.5 LPA\" to let the bot answer it.",
   "resumes": {
@@ -114,7 +125,7 @@
     "fe": "shivajife02.pdf"
   },
   "country": "India",
-  "linkedin_url": "",
+  "linkedin_url": "https://www.linkedin.com/in/shivaji-mandapati-049881122/",
   "github_url": "",
   "current_location": "",
   "custom_answers": [],

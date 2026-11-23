@@ -4,6 +4,9 @@
  */
 const { renderTable, clip } = require('./table');
 const { reconcileAll } = require('./disposition');
+const { isTransientApplicationUrl } = require('./direct');
+const { normalizeJobUrl, jobFingerprint } = require('./dedup');
+const { canonicalAtsUrl } = require('./ats');
 
 function skipBucket(reason = '') {
   const r = reason.toLowerCase();
@@ -11,7 +14,11 @@ function skipBucket(reason = '') {
   if (/pune only/.test(r)) return 'Pune (not a listed company)';
   if (/outside south|remote-only/.test(r)) return 'Outside South India';
   if (/experience/.test(r)) return 'Experience out of range';
-  if (/score|threshold/.test(r)) return 'Not a matching role';
+  const score = r.match(/score\s+(-?\d+)/);
+  if (/\(full description\)/.test(r)) return 'Role / stack below threshold (full description checked)';
+  if (/\(listing card\)/.test(r)) return 'Needs enrichment (listing card only)';
+  if (score && Number(score[1]) >= 45) return 'Near match — review JD (below apply threshold)';
+  if (/score|threshold/.test(r)) return 'Role / stack threshold (evidence level unspecified)';
   if (/already applied|already (logged|manual|unconfirmed)|same role already/.test(r)) return 'Already applied';
   return clip(reason || 'Other', 40);
 }
@@ -31,7 +38,8 @@ function formatRunSummary(results, { dryRun = false } = {}) {
     rec.counts.applied_unconfirmed,
     rec.counts.already_applied,
     rec.counts.manual_required,
-    rec.counts.failed_technical,
+    // Failed column = technical failures + blocked by the site (both retried next run).
+    rec.counts.failed_technical + (rec.counts.blocked_by_site || 0),
     rec.counts.rejected_location + rec.counts.rejected_experience + rec.counts.rejected_role + rec.counts.rejected_stale + rec.counts.deferred_cap,
     rec.unaccounted,
   ];
@@ -58,9 +66,19 @@ function formatRunSummary(results, { dryRun = false } = {}) {
   out.push(title(`✅ ${verb.toUpperCase()} (${applied.length})`));
   out.push(applied.length ? renderTable(['#', 'Portal', 'Role', 'Company', 'Evidence'], applied.map((j, i) => [i + 1, j.portal, j.title, j.company, j.evidence ? j.evidence.signal : dryRun ? '-' : 'NONE']), [4, 10, 40, 26, 40]) : '  (none)');
 
-  const manual = flat('manualApply');
+  const manualSeen = new Set();
+  const manual = flat('manualApply').filter((j) => {
+    const candidate = (j.companyUrl && !isTransientApplicationUrl(j.companyUrl) ? j.companyUrl : '') || j.url;
+    const id = canonicalAtsUrl(candidate) || '';
+    const fp = jobFingerprint(j.company, j.title);
+    const key = id || fp;
+    if (!key) return true;
+    if (manualSeen.has(key)) return false;
+    manualSeen.add(key);
+    return true;
+  });
   out.push(title(`🔗 OPEN FOR YOU — finish manually (${manual.length}; tabs left open)`));
-  out.push(manual.length ? renderTable(['#', 'Portal', 'Role', 'Company', 'Open this URL'], manual.map((j, i) => [i + 1, j.portal, j.title, j.company, j.companyUrl || j.url]), [4, 10, 38, 24, 300]) : '  (none)');
+  out.push(manual.length ? renderTable(['#', 'Portal', 'Role', 'Company', 'Open this URL'], manual.map((j, i) => [i + 1, j.portal, j.title, j.company, (j.companyUrl && !isTransientApplicationUrl(j.companyUrl) ? j.companyUrl : '') || j.url]), [4, 10, 38, 24, 300]) : '  (none)');
 
   const unconfirmed = [...flat('unconfirmed'), ...flat('failed').filter((j) => /not confirmed|no .*confirmation/i.test(j.reason || ''))];
   if (unconfirmed.length) {

@@ -68,7 +68,11 @@ function rejectionBucket(reason = '') {
   if (/outside south|remote-only|south india city|location/.test(r)) return 'Outside South India';
   if (/experience|yrs|years/.test(r)) return 'Experience out of range';
   if (/stale|closed|no longer/.test(r)) return 'Closed / stale';
-  if (/score|threshold|role rejected/.test(r)) return 'Not a matching role';
+  if (/\(full description\)/.test(r)) return 'Role / stack below threshold (full description checked)';
+  if (/\(listing card\)/.test(r)) return 'Needs enrichment (listing card only)';
+  const score = r.match(/score\s+(-?\d+)/);
+  if (score && Number(score[1]) >= 45) return 'Near match — review JD';
+  if (/score|threshold|role rejected/.test(r)) return 'Role / stack threshold (evidence level unspecified)';
   if (/cap reached/.test(r)) return 'Per-run cap';
   return 'Other';
 }

@@ -25,7 +25,11 @@ function createFakeBot(spec) {
   const { site, pages, pageMs = 10, applyMs = 20, gapMs = 5, crashTimes = 0, ledger = [], onApply } = spec;
   return {
     runs: () => runs,
-    async run({ dedup, dryRun }) {
+    async run({ dedup, dryRun, approvedJobs }) {
+      // Synthetic bots represent explicit consent in tests/benchmarks only.
+      const syntheticApprovals = approvedJobs?.size === 0 || approvedJobs == null
+        ? pages.flat().map((card) => card.url)
+        : approvedJobs;
       runs++;
       const results = emptyResults();
       const seen = new Set();
@@ -43,7 +47,7 @@ function createFakeBot(spec) {
               if (!dryRun) dedup.append({ site, job_title: card.title, company: card.company, job_url: card.url, status: 'skipped', notes: job.reason });
               continue;
             }
-            if (!(await claimGate(results, dedup, card.url, job))) continue;
+            if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs: syntheticApprovals }))) continue;
             if (dryRun) {
               job.reason = 'would apply';
               results.applied.push(job);

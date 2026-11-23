@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "portal": "naukri",
+      "title": "Walk-in || Full Stack Developer (Java + Python/React.js) II CloudAngles",
+      "company": "Cloud Angles Digital Transformation",
+      "url": "https://www.naukri.com/job-listings-full-stack-developer-java-python-react-js-ii-cloudangles-cloud-angles-digital-transformation-hyderabad-2-to-6-years-071126009758",
+      "status": "needs_reconfirmation",
+      "reason": "Nov 9 manual-action candidate was not rediscovered on Nov 10; no application history exists. Recheck posting and eligibility before preparing."
+    },
+    {
+      "portal": "talent",
+      "title": "Java Fullstack Developer",
+      "company": "KGiSL Institute of Technology",
+      "url": "https://in.talent.com/view?id=615901703685154665",
+      "status": "needs_reconfirmation",
+      "reason": "Nov 9 manual-action candidate was not rediscovered on Nov 10; no application history exists. Recheck posting and eligibility before preparing."
+    },
+    {
+      "portal": "naukri",
+      "title": "Walk-in || Fullstack Developer",
+      "company": "Cloud Angles Digital Transformation",
+      "url": "https://www.naukri.com/job-listings-fullstack-developer-cloud-angles-digital-transformation-hyderabad-2-to-5-years-071126008805",
+      "status": "needs_reconfirmation",
+      "reason": "Nov 9 manual-action candidate; prior history records a technical failure because no apply button was found on Nov 7. Not rediscovered Nov 10. Recheck posting before preparing."
+    }
+  ]
+}

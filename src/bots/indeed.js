@@ -30,19 +30,41 @@ const { selectResume } = require('./wellfound');
 const logger = require('../core/logger');
 const { planAnswers } = require('../core/screening');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit, claimGate } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 
 const QUERIES = [
   'react native developer',
   'react native engineer',
+  'react native',
+  'expo react native developer',
+  'cross platform mobile developer',
   'mobile app developer',
   'react developer',
   'full stack developer node react',
 ];
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 30;
 const MAX_FLOW_STEPS = 10;
+const INDEED_BUDGET_MS = Number(process.env.JOBMAN_INDEED_BUDGET_MS) || 15 * 60_000;
 const STEP_WAIT_MS = 20_000;
 const SITE = 'Indeed';
+// Run 2026-11-09: every Indeed search returned 0 cards (15 s wait each) and the
+// portal ate the whole 10-minute run. When the first few searches all come back
+// empty the results page is almost certainly a block/interstitial, so give up.
+const MAX_EMPTY_SEARCHES = 3;
+
+/**
+ * Decide whether to abandon Indeed after a search. Only bails while *nothing*
+ * has been found this run — once cards have appeared, a later empty city is
+ * just a quiet market. Returns a skip reason, or '' to keep going.
+ */
+function emptySearchVerdict({ emptyStreak, discovered, pageTitle = '', pageUrl = '' }) {
+  if (discovered > 0 || emptyStreak < MAX_EMPTY_SEARCHES) return '';
+  const hint = /just a moment|attention required|verify|blocked|security check|captcha/i.test(pageTitle) ||
+    /challenge|captcha|cdn-cgi/i.test(pageUrl)
+    ? 'bot check / interstitial'
+    : 'no results';
+  return `${emptyStreak} searches in a row returned 0 cards (${hint}; page title "${String(pageTitle).slice(0, 60)}") — open in.indeed.com in the bot's Chrome to check`;
+}
 
 function searchUrl(query, city = 'Hyderabad') {
   return `https://in.indeed.com/jobs?q=${encodeURIComponent(query)}&l=${encodeURIComponent(city)}&fromage=3&sort=date`;
@@ -293,20 +315,91 @@ function log(dedup, dryRun, card, status, notes) {
   dedup.append({ site: SITE, job_title: card.title, company: card.company, job_url: jobKey(card.jk), status, notes });
 }
 
-async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
-  const seenThisRun = new Set();
+/**
+ * Indeed serves a Cloudflare-style verification page ("Just a moment...") to
+ * automated sessions. Pure check on what the tab shows — used right after every
+ * navigation so the portal pauses on the first one instead of burning three
+ * 15-second searches (run 2026-11-09).
+ */
+function isInterstitial({ title = '', url = '', bodyText = '' } = {}) {
+  if (/just a moment|attention required|verify you are human|security check|access denied|one more step/i.test(title)) return true;
+  if (/\/cdn-cgi\/|challenge-platform|__cf_chl|captcha/i.test(url)) return true;
+  return /verify you are human|checking your browser|needs to review the security of your connection|enable javascript and cookies to continue/i.test(String(bodyText).slice(0, 2000));
+}
+
+async function readTabState(page) {
+  const title = await page.title().catch(() => '');
+  const bodyText = await page.evaluate(() => (document.body ? document.body.innerText.slice(0, 2000) : '')).catch(() => '');
+  return { title, url: page.url(), bodyText };
+}
+
+/** How long a paused Indeed worker waits for you to finish the verification yourself. */
+// Interactive runs wait up to 3 min for you; under cron (no terminal) nobody can complete it, so don't wait.
+const verifyWaitMs = () =>
+  process.env.JOBMAN_VERIFY_WAIT_MS != null && Number.isFinite(Number(process.env.JOBMAN_VERIFY_WAIT_MS)) ? Number(process.env.JOBMAN_VERIFY_WAIT_MS) : process.stdout.isTTY ? 180_000 : 0;
+
+/**
+ * Pause this portal (only this worker — the others keep running) until the
+ * verification page is gone or VERIFY_WAIT_MS passes. The page is never clicked,
+ * typed into or solved by the bot. Returns true when it cleared.
+ */
+async function pauseForVerification(page, { waitMs = verifyWaitMs(), pollMs = 5000, onStatus = () => {} } = {}) {
+  const started = Date.now();
+  await page.bringToFront().catch(() => {});
+  logger.warn(
+    `[indeed] verification page shown ("${(await page.title().catch(() => '')).slice(0, 40)}") — Indeed is PAUSED, other portals continue. ` +
+      (waitMs > 0 ? `Complete it yourself in the Chrome tab within ${Math.round(waitMs / 1000)} s to resume; the bot will not touch it.` : 'Waiting is disabled (JOBMAN_VERIFY_WAIT_MS=0).')
+  );
+  while (Date.now() - started < waitMs) {
+    onStatus(`paused — verification needs you (${Math.round((waitMs - (Date.now() - started)) / 1000)} s left)`);
+    await new Promise((r) => setTimeout(r, pollMs));
+    if (!isInterstitial(await readTabState(page))) {
+      logger.info('[indeed] verification cleared — resuming');
+      onStatus('');
+      return true;
+    }
+  }
+  return false;
+}
+
+async function run({ profile = {}, dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'indeed', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
+  const seenThisRun = (st.seen = st.seen || new Set());
   const tabs = createTabTracker('indeed');
   const page = await newPage();
   await blockHeavyAssets(page);
   const attempted = () => results.applied.length + results.unconfirmed.length + results.manualApply.length;
 
+  let emptyStreak = 0;
+  // Wall-clock budget for one Indeed pass (2026-11-17: a run took ~27 min). Searches
+  // not reached are simply not marked done, so the next run picks them up.
+  const deadline = Date.now() + INDEED_BUDGET_MS;
+  let budgetHit = false;
   try {
     const searches = SEARCH_CITIES.flatMap((city) => QUERIES.map((query) => ({ city, query })));
     for (const { city, query } of searches) {
       if (attempted() >= MAX_APPS_PER_RUN) break;
+      if (Date.now() > deadline) {
+        budgetHit = true;
+        logger.warn(`[indeed] time budget ${Math.round(INDEED_BUDGET_MS / 60_000)} min reached — remaining searches run next time`);
+        break;
+      }
 
+      if (doneSearches.has(`${city}|${query}`)) continue;
       await withRetry(() => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }), { maxAttempts: 2 });
+      if (isInterstitial(await readTabState(page))) {
+        const cleared = await pauseForVerification(page, { onStatus: (msg) => { st.status = msg; } });
+        if (!cleared) {
+          const why = 'paused — Indeed showed a verification page ("Just a moment...") and it was not completed; nothing was bypassed. Open in.indeed.com in the bot\'s Chrome, complete it, then rerun with --portals=indeed (or --resume)';
+          results.manualAction = { portal: 'indeed', reason: why };
+          throw new SkipPortalError(why);
+        }
+        await withRetry(() => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }), { maxAttempts: 2 });
+      }
       await page.waitForSelector('.job_seen_beacon [data-jk], a[data-jk]', { timeout: 15000 }).catch(() => {});
       await checkForCaptcha(page);
       if (!dryRun && (await isLoggedOut(page))) {
@@ -316,8 +409,18 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
       const cards = (await extractCards(page)).sort(byLocationPreference);
       results.discovered += cards.length;
       logger.info(`[indeed] "${query}" in ${city}: ${cards.length} cards`);
+      emptyStreak = cards.length ? 0 : emptyStreak + 1;
+      if (!cards.length) {
+        const pageTitle = await page.title().catch(() => '');
+        const why = emptySearchVerdict({ emptyStreak, discovered: results.discovered, pageTitle, pageUrl: page.url() });
+        if (why) throw new SkipPortalError(why);
+      }
 
       for (const card of cards) {
+        if (Date.now() > deadline) {
+          budgetHit = true;
+          break;
+        }
         const key = jobKey(card.jk);
         const job = { title: card.title, company: card.company, url: key };
         if (admit(results, { key, seen: seenThisRun, dedup, job, site: SITE, dryRun }) !== 'new') continue;
@@ -329,7 +432,10 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         let skipReason = '';
         if (!loc.allowed) skipReason = loc.reason;
         else if (range && (range.min > 3.5 || range.max < 1.5)) skipReason = `experience ${range.min}-${range.max} out of range`;
-        else if (!shouldApply(score)) skipReason = `score ${score} below threshold`;
+        else if (!shouldApply(score)) {
+          if (offerIfUncertain(pipeline, portal, job, card, SITE)) continue;
+          skipReason = `score ${score} below threshold`;
+        }
         else if (attempted() >= MAX_APPS_PER_RUN) skipReason = 'per-run cap reached';
         if (skipReason) {
           job.reason = skipReason;
@@ -339,7 +445,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         }
 
         // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
-        if (!(await claimGate(results, dedup, key, job))) continue;
+        if (!(await claimGate(results, dedup, key, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
         if (dryRun) {
           job.resume = selectResume(card.title, card.text);
@@ -397,6 +503,8 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
         }
         await humanDelay();
       }
+      if (budgetHit) break; // this search was cut short: do not mark it done
+      doneSearches.add(`${city}|${query}`);
     }
   } catch (err) {
     tabs.printSummary();
@@ -410,4 +518,4 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
   return results;
 }
 
-module.exports = { run, searchUrl, jobKey, extractCards, walkIndeedApply };
+module.exports = { run, applyToJob, searchUrl, jobKey, extractCards, walkIndeedApply, emptySearchVerdict, isInterstitial, pauseForVerification, MAX_EMPTY_SEARCHES };

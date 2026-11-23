@@ -14,11 +14,13 @@ const { withRetry, isUiError } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit, claimGate } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 const { classifyLocation, byLocationPreference } = require('../core/location');
 
 const QUERIES = [
   'react native developer',
+  'react native engineer',
+  'react native',
   'mobile developer',
   'frontend engineer react',
   'full stack developer node react',
@@ -173,6 +175,8 @@ async function extractCards(page) {
       cards.push({
         title,
         url: `https://wellfound.com/jobs/${m[1]}`,
+        // The id-only URL is the dedup key but 404s; the slugged link is the real page (audit 2026-11-10).
+        detailUrl: href.split(/[?#]/)[0],
         company: company || '',
         experienceText: (expMatch?.[1] || '').trim(),
         text: blockText,
@@ -258,7 +262,7 @@ async function applyToJob(browser, job, profile) {
   const resume = selectResume(job.title, job.text);
   try {
     await withRetry(
-      () => page.goto(job.url, { waitUntil: 'domcontentloaded', timeout: 45000 }),
+      () => page.goto(job.detailUrl || job.url, { waitUntil: 'domcontentloaded', timeout: 45000 }),
       { maxAttempts: 2 }
     );
     await new Promise((r) => setTimeout(r, 2000));
@@ -390,15 +394,20 @@ async function applyToJob(browser, job, profile) {
   }
 }
 
-async function run({ profile, dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
-  const seenThisRun = new Set(); // same job shows up under several city/query searches
+async function run({ profile, dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'wellfound', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
+  const seenThisRun = (st.seen = st.seen || new Set()); // same job shows up under several city/query searches
   const tabs = createTabTracker('wellfound');
   const page = await newPage();
 
   try {
     const searches = ['hyderabad', 'bangalore', 'chennai'].flatMap((city) => QUERIES.map((query) => ({ city, query })));
     for (const { city, query } of searches) {
+      if (doneSearches.has(`${city}|${query}`)) continue;
       if (results.applied.length + results.unconfirmed.length >= MAX_APPS_PER_RUN) break;
 
       await withRetry(() => page.goto(searchUrl(query, city), { waitUntil: 'domcontentloaded' }), {
@@ -452,10 +461,12 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
           title: card.title,
           company: card.company,
           url: card.url,
+          detailUrl: card.detailUrl,
           text: card.text,
         };
 
         if (!shouldApply(score)) {
+          if (offerIfUncertain(pipeline, portal, job, card, 'Wellfound')) continue;
           job.reason = `score ${score} below threshold`;
           results.skipped.push(job);
           if (!dryRun) {
@@ -478,7 +489,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
         }
 
         // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
-        if (!(await claimGate(results, dedup, card.url, job))) continue;
+        if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
         if (dryRun) {
           job.reason = `would apply (score ${score})`;
@@ -592,6 +603,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
 
         await humanDelay(3000, 5000);
       }
+      doneSearches.add(`${city}|${query}`);
     }
   } catch (err) {
     tabs.printSummary();
@@ -607,6 +619,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
 
 module.exports = {
   run,
+  applyToJob,
   searchUrl,
   extractCards,
   selectResume,

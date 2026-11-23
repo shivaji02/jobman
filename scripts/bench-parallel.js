@@ -19,6 +19,7 @@ const os = require('os');
 const path = require('path');
 const { createLog } = require('../src/core/dedup');
 const { runParallel } = require('../src/parallel');
+const { createSampler } = require('../src/core/resources');
 const { createFakeBot, fakeBrowser, healthySampler } = require('../tests/helpers/fakeBot');
 
 const scale = Number((process.argv.find((a) => a.startsWith('--scale=')) || '').split('=')[1]) || 1 / 20;
@@ -86,6 +87,11 @@ async function once(mode) {
   const ledger = [];
   const bots = makeBots(ledger);
   const t0 = Date.now();
+  const sampler = createSampler({ profileDir: '' });
+  const samples = [];
+  const sample = async () => { try { samples.push(await sampler.sample()); } catch { /* resource sample is optional */ } };
+  await sample();
+  const sampleTimer = setInterval(sample, 1000);
   if (mode === 'sequential') await runPool(bots, log, 1);
   else if (mode === 'pool-4') await runPool(bots, log, 4);
   else {
@@ -105,10 +111,20 @@ async function once(mode) {
     });
   }
   const wall = Date.now() - t0;
+  clearInterval(sampleTimer);
+  await sample();
   const roles = ledger.map((l) => `${l.company}|${l.title}`);
   const firstAt = ledger.length ? Math.min(...ledger.map((l) => l.at)) - t0 : null;
   fs.rmSync(dir, { recursive: true, force: true });
-  return { wall: wall / scale / 1000, first: firstAt != null ? firstAt / scale / 1000 : null, submitted: ledger.length, duplicates: roles.length - new Set(roles).size };
+  return {
+    wall: wall / scale / 1000,
+    measuredWallMs: wall,
+    first: firstAt != null ? firstAt / scale / 1000 : null,
+    submitted: ledger.length,
+    duplicates: roles.length - new Set(roles).size,
+    peakCpuPct: Math.max(...samples.map((s) => s.cpuPct || 0)),
+    minMemAvailablePct: Math.min(...samples.map((s) => s.memAvailablePct ?? 100)),
+  };
 }
 
 (async () => {
@@ -120,12 +136,12 @@ async function once(mode) {
     const runs = [];
     for (let i = 0; i < reps; i++) runs.push(await once(mode));
     const med = (k) => runs.map((r) => r[k]).sort((a, b) => a - b)[Math.floor(runs.length / 2)];
-    rows.push({ mode, wall: med('wall'), first: med('first'), submitted: med('submitted'), duplicates: Math.max(...runs.map((r) => r.duplicates)) });
+    rows.push({ mode, wall: med('wall'), first: med('first'), submitted: med('submitted'), duplicates: Math.max(...runs.map((r) => r.duplicates)), peakCpuPct: Math.max(...runs.map((r) => r.peakCpuPct)), minMemAvailablePct: Math.min(...runs.map((r) => r.minMemAvailablePct)) });
   }
   const base = rows[0].wall;
-  console.log('| Scheduler | Wall-clock (s, real-time equiv.) | vs sequential | First application (s) | Submissions | Duplicate submissions |');
-  console.log('|---|---|---|---|---|---|');
-  for (const r of rows) console.log(`| ${r.mode} | ${r.wall.toFixed(0)} | ${(base / r.wall).toFixed(2)}× | ${r.first != null ? r.first.toFixed(0) : '-'} | ${r.submitted} | ${r.duplicates} |`);
+  console.log('| Scheduler | Wall-clock (s, real-time equiv.) | vs sequential | First application (s) | Submissions | Duplicate submissions | Peak host CPU | Min available memory |');
+  console.log('|---|---|---|---|---|---|---:|---:|');
+  for (const r of rows) console.log(`| ${r.mode} | ${r.wall.toFixed(0)} | ${(base / r.wall).toFixed(2)}× | ${r.first != null ? r.first.toFixed(0) : '-'} | ${r.submitted} | ${r.duplicates} | ${r.peakCpuPct}% | ${r.minMemAvailablePct}% |`);
 
   // Syndication race: the same 10 roles listed on three portals that reach them at the same moment.
   console.log('\nSyndication race (10 roles × 3 portals reached simultaneously):\n');

@@ -7,7 +7,7 @@ const path = require('path');
 const { Semaphore, backoffMs, mapLimitLazy } = require('../src/core/concurrency');
 const { createJobStore, statusFromCsv, STATUS } = require('../src/core/jobdb');
 const { createLog } = require('../src/core/dedup');
-const { reconcileAll } = require('../src/core/disposition');
+const { reconcileAll, emptyResults } = require('../src/core/disposition');
 const { runParallel, buildUnits, mergeAttempts, acquireLock } = require('../src/parallel');
 const { createFakeBot, createCaptchaBot, fakeBrowser, healthySampler, sleep } = require('./helpers/fakeBot');
 
@@ -268,6 +268,13 @@ test('runParallel: CAPTCHA stops are never retried', async () => {
   assert.equal(metrics.retries, 0);
   assert.equal(metrics.portals.x.state, 'skipped');
   assert.match(results.x.note, /CAPTCHA/);
+});
+
+test('runParallel: a completed worker with blocked searches is reported partial', async () => {
+  const { log, stateDir } = setup();
+  const bot = { async run() { return { ...emptyResults(), note: 'verification blocked; remaining searches not run' }; } };
+  const { metrics } = await runParallel(parallelOpts({ bots: { portal: bot }, portals: ['portal'], log, stateDir }));
+  assert.equal(metrics.portals.portal.state, 'partial');
 });
 
 test('runParallel --resume skips portals finished in today\'s checkpoint and reuses their results', async () => {

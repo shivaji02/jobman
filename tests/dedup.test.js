@@ -133,3 +133,30 @@ test('normalizeJobUrl keeps the id param for Talent.com job links', () => {
   assert.equal(normalizeJobUrl('https://in.talent.com/view?id=abc123&utm=x'), 'https://in.talent.com/view?id=abc123');
   assert.notEqual(normalizeJobUrl('https://in.talent.com/view?id=1'), normalizeJobUrl('https://in.talent.com/view?id=2'));
 });
+
+test('canonical employer fingerprints merge NCR Voyix/NCR title variants', () => {
+  const { jobFingerprint } = require('../src/core/dedup');
+  assert.equal(jobFingerprint('NCR Voyix', 'Software Engineer II'), jobFingerprint('ncr', 'Software Engineer (II)'));
+  assert.equal(jobFingerprint('SWIGGY', 'Software Dev Engineer I'), jobFingerprint('Swiggy', 'Software Dev Engineer 1'));
+});
+
+test('requeued lifts a manual-apply hand-off but never an applied / unconfirmed row', () => {
+  const file = tempCsvPath();
+  const log = createLog(file);
+  const handed = 'https://example.com/job/handed';
+  const applied = 'https://example.com/job/applied';
+  const unconf = 'https://example.com/job/unconf';
+  const row = (job_url, status) => log.append({ site: 'Naukri', job_title: `T ${status} ${job_url}`, company: 'C', job_url, status, notes: status });
+  row(handed, 'manual-apply');
+  row(applied, 'applied');
+  row(unconf, 'unconfirmed');
+  const failed = 'https://example.com/job/failed';
+  row(failed, 'failed'); row(failed, 'failed');
+  for (const u of [handed, applied, unconf, failed]) row(u, 'requeued');
+  const fresh = createLog(file);
+  assert.equal(fresh.has(handed), false);
+  assert.equal(fresh.priorDisposition(handed), null);
+  assert.equal(fresh.has(applied), true);
+  assert.equal(fresh.has(unconf), true);
+  assert.equal(fresh.priorDisposition(failed), null);
+});

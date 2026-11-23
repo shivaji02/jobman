@@ -1,8 +1,8 @@
 /**
- * node-cron wiring — runs all portals daily at 7:00 AM IST.
+ * node-cron wiring — runs all portals daily at 7:00 AM IST (parallel runner + application pipeline).
  */
 const cron = require('node-cron');
-const { runAll } = require('./runner');
+const { runParallel } = require('./parallel');
 const logger = require('./core/logger');
 
 function start({ dryRun = false } = {}) {
@@ -10,7 +10,8 @@ function start({ dryRun = false } = {}) {
   const task = cron.schedule(
     '0 7 * * *',
     () => {
-      runAll({ dryRun }).catch((err) =>
+      // Same pipeline as `npm run parallel` (enrichment, approval queue, metrics); no live dashboard under cron.
+      runParallel({ dryRun, dashboard: false }).catch((err) =>
         logger.error(`[scheduler] run failed: ${err.message}`)
       );
     },

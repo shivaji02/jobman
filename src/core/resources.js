@@ -39,6 +39,12 @@ function createSampler({ profileDir = '' } = {}) {
       const out = (await execText('sysctl', ['-n', 'kern.memorystatus_level'])).trim();
       const n = parseInt(out, 10);
       if (Number.isFinite(n)) return n;
+      // Sandboxed/managed macOS processes may be denied sysctl access. Use the
+      // same system pressure summary surfaced by Activity Monitor instead of
+      // os.freemem(), which counts reclaimable cache as unavailable.
+      const pressure = await execText('memory_pressure', ['-Q']);
+      const match = pressure.match(/free percentage:\s*(\d+)%/i);
+      if (match) return Number(match[1]);
     }
     return Math.round((os.freemem() / os.totalmem()) * 100);
   }

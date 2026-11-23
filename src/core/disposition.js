@@ -21,9 +21,12 @@ const DISPOSITIONS = [
   { key: 'applied_confirmed', label: 'Applied — confirmed (evidence captured)' },
   { key: 'would_apply', label: 'Would apply (dry run)' },
   { key: 'applied_unconfirmed', label: 'Submitted, confirmation not seen (never resubmitted)' },
+  { key: 'awaiting_approval', label: 'Prepared — awaiting your approval' },
   { key: 'already_applied', label: 'Already applied / handled in an earlier run' },
   { key: 'manual_required', label: 'Needs you (CAPTCHA, OTP, external ATS, missing info)' },
+  { key: 'needs_enrichment', label: 'Insufficient evidence — full description unavailable (re-checked next run)' },
   { key: 'failed_technical', label: 'Technical failure (retried; will retry next run)' },
+  { key: 'blocked_by_site', label: 'Blocked by the site (rate-limited / circuit open; retried later, not a code fault)' },
   { key: 'rejected_location', label: 'Rejected — location' },
   { key: 'rejected_experience', label: 'Rejected — experience range' },
   { key: 'rejected_role', label: 'Rejected — role / tech / seniority' },
@@ -32,7 +35,10 @@ const DISPOSITIONS = [
 ];
 const KEYS = DISPOSITIONS.map((d) => d.key);
 
-const BUCKETS = ['applied', 'unconfirmed', 'alreadyApplied', 'manualApply', 'failed', 'skipped'];
+/** Failure reasons caused by a site refusing or throttling us (not a bug in Jobman). */
+const BLOCKED_BY_SITE_RE = /circuit open|rate.?limit|\b429\b|access denied|too many requests|temporarily blocked/;
+
+const BUCKETS = ['applied', 'unconfirmed', 'alreadyApplied', 'manualApply', 'failed', 'skipped', 'awaitingApproval', 'insufficient'];
 
 /** Map one bucket entry to its canonical disposition. */
 function classify(bucket, entry = {}, { dryRun = false } = {}) {
@@ -40,9 +46,13 @@ function classify(bucket, entry = {}, { dryRun = false } = {}) {
   if (bucket === 'applied') return dryRun ? 'would_apply' : entry.evidence ? 'applied_confirmed' : 'applied_unconfirmed';
   if (bucket === 'unconfirmed') return 'applied_unconfirmed';
   if (bucket === 'alreadyApplied') return 'already_applied';
-  if (bucket === 'manualApply') return 'manual_required';
+  if (bucket === 'awaitingApproval') return 'awaiting_approval';
+  if (bucket === 'insufficient') return 'needs_enrichment';
+  // Legacy gate entries (before the approval queue) were approval waits, not manual work.
+  if (bucket === 'manualApply') return entry.needsApproval ? 'awaiting_approval' : 'manual_required';
   if (bucket === 'failed') {
     if (/not confirmed|no .*confirmation|confirmation not/.test(r)) return 'applied_unconfirmed';
+    if (BLOCKED_BY_SITE_RE.test(r)) return 'blocked_by_site';
     return 'failed_technical';
   }
   // skipped
@@ -50,6 +60,7 @@ function classify(bucket, entry = {}, { dryRun = false } = {}) {
   if (/not confirmed|no .*confirmation/.test(r)) return 'applied_unconfirmed';
   if (/unanswered|cannot be answered|missing profile|needs you|captcha|otp|login required|manual/.test(r)) return 'manual_required';
   if (/cap reached/.test(r)) return 'deferred_cap';
+  if (/declined by you/.test(r)) return 'rejected_role';
   if (/\bstale\b|posting (is )?closed|no longer (open|listed|accepting)|expired|posted \d+ days ago/.test(r)) return 'rejected_stale';
   if (/experience|yrs|years/.test(r)) return 'rejected_experience';
   if (/mumbai|pune|location|south india|remote|city/.test(r)) return 'rejected_location';
@@ -97,7 +108,7 @@ function reconcileAll(results = {}, opts = {}) {
 
 /** Fresh results object every bot should start from. */
 function emptyResults(note) {
-  const r = { discovered: 0, duplicates: 0, outOfScope: 0, reviewed: 0, applied: [], unconfirmed: [], alreadyApplied: [], manualApply: [], skipped: [], failed: [] };
+  const r = { discovered: 0, duplicates: 0, outOfScope: 0, reviewed: 0, applied: [], unconfirmed: [], alreadyApplied: [], manualApply: [], skipped: [], failed: [], awaitingApproval: [], insufficient: [] };
   if (note) r.note = note;
   return r;
 }
@@ -182,13 +193,32 @@ function blockersFrom(reason = '') {
 module.exports = { blockersFrom, DISPOSITIONS, KEYS, BUCKETS, classify, reconcile, reconcileAll, emptyResults, admit };
 
 /**
- * Parallel-run claim gate, called by a bot right before it would apply (or, in a
- * dry run, record "would apply"). With the plain dedup module it is a no-op.
- * With a job-store view it atomically claims the job across all portal workers
- * and waits for an application slot. Returns false (job recorded as already
- * handled) when another worker holds the same job or role.
+ * Claim gate, called by a bot right before it would apply (or, in a dry run,
+ * record "would apply").
+ *
+ *   - with a pipeline (core/pipeline) and no approval for this exact job: the job
+ *     is handed over — full description, final eligibility, preparation and the
+ *     approval queue happen there — and the bot moves on (returns false)
+ *   - approved jobs (approval queue or --approve-url) continue to the bot's own
+ *     apply routine, after the job store's atomic cross-portal claim
+ *   - no pipeline (legacy callers/tests): unapproved live jobs are recorded as
+ *     awaiting approval
  */
-async function claimGate(results, dedup, key, job) {
+async function claimGate(results, dedup, key, job, { dryRun = false, approvedJobs = [], pipeline = null, portal, offer = {} } = {}) {
+  const approved = require('./approval').isJobApproved(key, approvedJobs);
+  if (pipeline && !approved) {
+    pipeline.offer(portal || dedup?.portal || 'unknown', job, { ...offer, verdict: offer.verdict });
+    return false;
+  }
+  if (!dryRun && !approved) {
+    results.manualApply.push({
+      ...job,
+      companyUrl: job.companyUrl || job.url,
+      needsApproval: true,
+      reason: 'awaiting explicit per-job approval; rerun with --approve-url <posting URL>',
+    });
+    return false;
+  }
   if (typeof dedup?.claimForApply !== 'function') return true;
   const c = await dedup.claimForApply(key, job);
   if (c.ok) return true;
@@ -196,4 +226,19 @@ async function claimGate(results, dedup, key, job) {
   return false;
 }
 
+/**
+ * Card-level rejection that might be missing information rather than a mismatch
+ * (core/evaluate). With a pipeline, the listing is handed over for a full-
+ * description check and the caller must `continue`; returns true in that case.
+ */
+function offerIfUncertain(pipeline, portal, job, card = {}, site) {
+  if (!pipeline) return false;
+  const { evaluateJob } = require('./evaluate');
+  const verdict = evaluateJob({ title: card.title || job.title, description: card.text || job.description || '', experienceText: card.experienceText || '', skills: card.skills, source: 'card' });
+  if (verdict.decision !== 'needs_enrichment') return false;
+  pipeline.offer(portal, job, { verdict, text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl || job.detailUrl, site });
+  return true;
+}
+
+module.exports.offerIfUncertain = offerIfUncertain;
 module.exports.claimGate = claimGate;

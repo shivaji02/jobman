@@ -14,7 +14,7 @@ const path = require('path');
 const { scoreJob, shouldApply, experienceFromText, TARGET_EXP } = require('./filter');
 const { classifyLocation } = require('./location');
 const { selectResume } = require('./resume');
-const { admit, claimGate } = require('./disposition');
+const { admit, claimGate, offerIfUncertain } = require('./disposition');
 const { normalizeJobUrl } = require('./dedup');
 const { evidenceNote } = require('./evidence');
 const { humanDelay, closePageQuietly } = require('./browser');
@@ -24,6 +24,20 @@ const logger = require('./logger');
 const RECORDS_FILE = path.join(__dirname, '..', '..', 'data', 'direct_applications.jsonl');
 const MAX_AGE_DAYS = Number(process.env.JOBMAN_MAX_POSTING_AGE_DAYS) || 30;
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 30;
+
+function isTransientApplicationUrl(value = '') {
+  try {
+    const u = new URL(value);
+    return /(^|\.)indeed\.com$/.test(u.hostname) && /demographic-questions|indeedapply|api/i.test(u.pathname)
+      || /(^|\.)naukri\.com$/.test(u.hostname) && /myapply|showAcp|applyworkflow/i.test(u.pathname)
+      || /(^|\.)smartrecruiters\.com$/.test(u.hostname) && /oneclick-ui/i.test(u.pathname)
+      || /(^|\.)talent\.com$/.test(u.hostname) && /\/redirect\b/i.test(u.pathname);
+  } catch { return true; }
+}
+
+function primaryApplicationUrl(postingUrl, applicationUrl) {
+  return applicationUrl && !isTransientApplicationUrl(applicationUrl) ? applicationUrl : postingUrl;
+}
 
 /** Keys handled by any direct channel in this process — google and careers never redo each other's jobs. */
 const handledThisRun = new Set();
@@ -80,9 +94,9 @@ const CSV_STATUS = { applied: 'applied', unconfirmed: 'unconfirmed', 'manual-app
  *   source: where the posting was discovered, e.g. 'google: site:jobs.lever.co "React Native" India'
  */
 async function processPosting(p, ctx) {
-  const { results, seen, dedup, dryRun, profile, newPage, site } = ctx;
+  const { results, seen, dedup, dryRun, profile, newPage, site, approvedJobs = [] } = ctx;
   const key = normalizeJobUrl(p.url);
-  const entry = { title: p.title, company: p.company, url: p.url, ats: p.ats, source: ctx.source || site, location: p.location };
+  const entry = { title: p.title, company: p.company, url: p.url, applyUrl: p.applyUrl, ats: p.ats, source: ctx.source || site, location: p.location };
 
   if (handledThisRun.has(key) && !seen.has(key)) {
     results.duplicates++;
@@ -94,6 +108,9 @@ async function processPosting(p, ctx) {
   handledThisRun.add(key);
 
   const reject = screenPosting(p);
+  // The posting's description could not be read (ATS fetch failed): a low score is missing
+  // information, not a mismatch — let the pipeline retry the description.
+  if (reject && /below threshold/.test(reject) && ctx.pipeline && String(p.text || '').length < 400 && offerIfUncertain(ctx.pipeline, ctx.portal || site, entry, { title: p.title, text: p.text }, site)) return 'offered';
   if (reject) {
     entry.reason = reject;
     results.skipped.push(entry);
@@ -109,18 +126,29 @@ async function processPosting(p, ctx) {
     return 'deferred';
   }
   // Parallel runs: atomically claim across workers + wait for an application slot.
-  if (!(await claimGate(results, dedup, key, entry))) return 'already';
+  if (!(await claimGate(results, dedup, key, entry, { dryRun, approvedJobs, pipeline: ctx.pipeline, portal: ctx.portal || site, offer: { description: p.text, location: p.location, site } }))) return 'approval-or-dedup';
 
   entry.resume = selectResume(p.title, p.text);
-  entry.companyUrl = p.url;
+  // Keep the employer posting as the manual hand-off. Transient API/form state
+  // URLs are useful diagnostics but are not stable links for a person.
+  entry.companyUrl = primaryApplicationUrl(p.url, p.applyUrl);
   const job = { ...p, resume: entry.resume };
 
   let outcome;
   let page;
+  const visitedFormUrls = new Set();
   for (let attempt = 1; attempt <= 2; attempt++) {
     page = await newPage();
+    if (typeof page.on === 'function') {
+      page.on('framenavigated', (frame) => {
+        try {
+          if (frame === page.mainFrame()) visitedFormUrls.add(frame.url());
+        } catch { /* a page may close while navigation is being recorded */ }
+      });
+    }
     try {
       outcome = await applyOnAts(page, job, { profile, dryRun });
+      if (typeof page.url === 'function' && page.url() && page.url() !== p.url) visitedFormUrls.add(page.url());
     } catch (err) {
       outcome = { status: 'failed', submitted: false, reason: err.message };
     }
@@ -182,7 +210,10 @@ async function processPosting(p, ctx) {
       title: p.title,
       location: p.location,
       discovered_via: entry.source,
-      application_url: p.applyUrl || p.url,
+      application_url: primaryApplicationUrl(p.url, p.applyUrl),
+      original_posting_url: p.url,
+      final_application_url: primaryApplicationUrl(p.url, p.applyUrl),
+      intermediate_form_urls: [...visitedFormUrls].filter((url) => url !== p.url),
       job_url: key,
       ats: p.ats,
       resume: entry.resume,
@@ -198,4 +229,15 @@ async function processPosting(p, ctx) {
   return outcome.status;
 }
 
-module.exports = { processPosting, screenPosting, postingAgeDays, handledThisRun, RECORDS_FILE, MAX_AGE_DAYS };
+/**
+ * True when a job is already placed (applied, unconfirmed, or handed off in an
+ * earlier run). Bots call this BEFORE fetching a posting's full description, so
+ * placed jobs cost nothing on later runs. Rejected jobs are not affected.
+ */
+function alreadyPlaced(dedup, url, job = {}) {
+  if (typeof dedup?.priorDisposition !== 'function') return false;
+  const prior = dedup.priorDisposition(normalizeJobUrl(url), { company: job.company, title: job.title });
+  return prior?.kind === 'already';
+}
+
+module.exports = { processPosting, screenPosting, alreadyPlaced, postingAgeDays, handledThisRun, RECORDS_FILE, MAX_AGE_DAYS, isTransientApplicationUrl, primaryApplicationUrl };

@@ -19,8 +19,9 @@
 const { createSearch, SearchBlockedError } = require('../core/websearch');
 const { DEFAULT_QUERIES, classifyResult, resolvePage } = require('../core/discovery');
 const { fetchPosting } = require('../core/ats');
+const { createVerificationQueue, classifyVerificationError } = require('../core/verification-queue');
 const directory = require('../core/companies');
-const { processPosting, screenPosting } = require('../core/direct');
+const { processPosting, screenPosting, alreadyPlaced } = require('../core/direct');
 const { emptyResults, admit } = require('../core/disposition');
 const { normalizeJobUrl } = require('../core/dedup');
 const logger = require('../core/logger');
@@ -99,7 +100,7 @@ function companyFromTitle(resultTitle, roleTitle) {
   return t.split(/\s+[-–|@]\s+|\s+at\s+/)[0].trim();
 }
 
-async function run({ dedup, dryRun, profile, newPage }) {
+async function run({ dedup, dryRun, profile, newPage, approvedJobs = [], pipeline = null, portal = 'google' }) {
   const results = emptyResults();
   results.discovery = { provider: '', queries: 0, results: 0, postings: 0, closed: 0, boardsAdded: 0, pages: 0, aggregators: 0, irrelevant: 0, blocked: '' };
   const seen = new Set();
@@ -205,6 +206,19 @@ async function run({ dedup, dryRun, profile, newPage }) {
   // Nothing from the search snippet or the cache is ever treated as "open".
   const closedLeads = new Set();
   for (const { ref, hint, source, leadUrl } of refs) {
+    // Already applied / handed off in an earlier run: skip the live fetch entirely.
+    if (alreadyPlaced(dedup, urlOf(ref), { title: hint, company: ref.token })) {
+      admit(results, { key: normalizeJobUrl(urlOf(ref)), seen, dedup, job: { title: hint || '', company: ref.token, url: urlOf(ref), ats: ref.ats, source }, site: SITE, dryRun });
+      continue;
+    }
+    // Title gate BEFORE the live ATS read: 52 of one run's "failed" rows were UX designer /
+    // data scientist / intern / manager leads that only failed on Workday rate limits
+    // (2026-11-23). An off-target title is out of scope — no fetch, no failure row.
+    if (offTargetTitle(hint)) {
+      results.discovery.irrelevant++;
+      results.outOfScope++;
+      continue;
+    }
     let posting;
     try {
       posting = await fetchPosting({ ...ref, name: directory.get(ref)?.name });
@@ -212,6 +226,18 @@ async function run({ dedup, dryRun, profile, newPage }) {
       if (lead) lead.lastVerifiedOpen = new Date().toISOString();
     } catch (err) {
       if (err.closed && leadUrl) closedLeads.add(leadUrl);
+      if (!err.closed && !dryRun && !process.env.NODE_TEST_CONTEXT) {
+        try {
+          const failure = classifyVerificationError(err);
+          createVerificationQueue().enqueue({
+            company: directory.get(ref)?.name || ref.token, title: hint || '',
+            url: urlOf(ref), requisitionId: ref.jobId || ref.id || '',
+            source: 'google',
+          }, failure);
+        } catch (queueError) {
+          logger.warn(`[google] verification queue unavailable: ${queueError.message}`);
+        }
+      }
       const entry = { title: hint || '(closed posting)', company: ref.token, url: urlOf(ref), ats: ref.ats, source };
       if (admit(results, { key: normalizeJobUrl(urlOf(ref)), seen, dedup, job: entry, site: SITE, dryRun }) === 'new') {
         results.discovery.closed++;
@@ -223,7 +249,7 @@ async function run({ dedup, dryRun, profile, newPage }) {
     results.discovery.postings++;
     posting.company = companyName(ref, posting, companyFromTitle(hint, posting.title));
     directory.upsert(ref, { source: 'google', name: posting.company, persist: false });
-    await processPosting(posting, { results, seen, dedup, dryRun, profile, newPage, site: SITE, source });
+    await processPosting(posting, { results, seen, dedup, dryRun, profile, newPage, site: SITE, source, approvedJobs, pipeline, portal });
   }
   directory.save();
   // A posting the ATS no longer lists does not come back: drop those leads.
@@ -233,6 +259,15 @@ async function run({ dedup, dryRun, profile, newPage }) {
   }
   saveLeads(leadState);
   return results;
+}
+
+/** A search-result title that can never fit: outside the role family, or a title-level hard reject. */
+function offTargetTitle(hint) {
+  const title = String(hint || '').replace(/\s+[-–|]\s+(my)?workday.*$/i, '').trim();
+  if (!title || title.startsWith('(')) return false; // no title yet — let the live read decide
+  if (!require('../core/evaluate').isRoleFamily(title)) return true;
+  const hr = require('../core/filter').hardReject({ title });
+  return !!(hr && hr.basis === 'title');
 }
 
 function urlOf(ref) {
@@ -252,4 +287,5 @@ function urlOf(ref) {
   }
 }
 
-module.exports = { run, companyFromTitle, companyName, looksLikeRole, urlOf, mergeLeads, nextQueries, loadLeads, saveLeads };
+module.exports = {
+  offTargetTitle, run, companyFromTitle, companyName, looksLikeRole, urlOf, mergeLeads, nextQueries, loadLeads, saveLeads };

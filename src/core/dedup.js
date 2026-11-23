@@ -125,16 +125,25 @@ function isIdentitylessUrl(url) {
  * Foundit ⇄ Talent.com ⇄ company ATS). Company + title, normalized.
  */
 function jobFingerprint(company, title) {
+  const employerAliases = new Map([
+    ['ncr', 'ncr voyix'],
+    ['ncr voyix', 'ncr voyix'],
+    ['swiggy', 'swiggy'],
+  ]);
   const n = (s) =>
     String(s || '')
       .toLowerCase()
+      .replace(/\((ii|i|2|1)\)/gi, '$1')
       .replace(/\(.*?\)/g, ' ')
       .replace(/\b(pvt|private|ltd|limited|inc|llp|technologies|technology|solutions|services|india|software)\b/g, ' ')
       .replace(/[^a-z0-9]+/g, ' ')
       .trim();
   const c = n(company);
   const t = n(title);
-  return c && t ? `${c}|${t}` : '';
+  const employer = employerAliases.get(c) || c;
+  // Minor portal title formatting differences should not split one requisition.
+  const role = t.replace(/\b(ii|2)\b/g, '2').replace(/\b(i|1)\b/g, '1').replace(/\s+/g, ' ').trim();
+  return employer && role ? `${employer}|${role}` : '';
 }
 
 /**
@@ -143,6 +152,9 @@ function jobFingerprint(company, title) {
  *   unconfirmed  — submit was clicked but success could not be verified; resubmitting
  *                  could create a duplicate application, so it is never retried
  *   manual-apply — handed to the user
+ * A later `requeued` row lifts a manual-apply hand-off and resets the failed-attempt
+ * count (e.g. the profile now answers the stalled question, or the bot bug behind the
+ * failures is fixed). It never lifts applied / unconfirmed.
  */
 const BLOCKING_STATUSES = new Set(['applied', 'unconfirmed', 'manual-apply']);
 const SUBMITTED_STATUSES = new Set(['applied', 'unconfirmed']);
@@ -165,6 +177,11 @@ function createLog(filePath = DEFAULT_LOG) {
     };
   }
 
+  // Status before any requeue marker; lastStatus is overwritten by the requeued row itself.
+  function lastNonRequeued(s, url) {
+    return s.unconfirmed?.has(url) ? 'unconfirmed' : '';
+  }
+
   function index(row) {
     const url = normalizeJobUrl(row.job_url);
     if (!url || isIdentitylessUrl(url)) return;
@@ -172,6 +189,7 @@ function createLog(filePath = DEFAULT_LOG) {
     s.lastStatus.set(url, { status: row.status, notes: row.notes || '' });
     if (BLOCKING_STATUSES.has(row.status)) s.blocking.add(url);
     if (row.status === 'applied') s.strictlyApplied.add(url);
+    if (row.status === 'unconfirmed') (s.unconfirmed = s.unconfirmed || new Set()).add(url);
     if (row.status === 'failed') s.failures.set(url, (s.failures.get(url) || 0) + 1);
     // An `unconfirmed` row is lifted only by a later check that PROVED nothing was submitted.
     if (row.status === 'failed' && /^verified not applied/i.test(row.notes || '') && s.lastStatus.get(url)?.status === 'failed') {
@@ -182,6 +200,13 @@ function createLog(filePath = DEFAULT_LOG) {
       }
     }
     if (row.status === 'manual-apply') (s.handedOff = s.handedOff || new Set()).add(url);
+    if (row.status === 'requeued' && !s.strictlyApplied.has(url) && !SUBMITTED_STATUSES.has(lastNonRequeued(s, url))) {
+      if (s.handedOff?.has(url)) {
+        s.blocking.delete(url);
+        s.handedOff.delete(url);
+      }
+      s.failures.delete(url); // failures caused by a since-fixed bot bug
+    }
     if (SUBMITTED_STATUSES.has(row.status)) {
       const fp = jobFingerprint(row.company, row.job_title);
       if (fp) s.fingerprints.set(fp, { date: row.date || istDate(), status: row.status, url });

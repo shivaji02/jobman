@@ -128,6 +128,8 @@ async function attachToRunningProfile() {
   }
 }
 
+const MAC_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+
 async function launch(opts = {}) {
   if (!opts.fresh && process.env.JOBMAN_FRESH_BROWSER !== 'true') {
     const attached = await attachToRunningProfile();
@@ -168,6 +170,10 @@ async function launch(opts = {}) {
   };
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
     baseOpts.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  } else if (platform === 'darwin' && fs.existsSync(MAC_CHROME)) {
+    // The bundled Chromium fails to spawn on this Mac ("Unknown system error -88") on
+    // every run, so start with the installed Google Chrome instead.
+    baseOpts.executablePath = MAC_CHROME;
   }
 
   let browser;

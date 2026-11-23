@@ -44,6 +44,10 @@ const SKILL_ALIASES = {
   postgresql: ['postgres', 'postgre sql'],
   'next.js': ['next', 'nextjs'],
   'express.js': ['express', 'expressjs'],
+  'fullstack development': ['full stack development', 'full-stack development', 'fullstack', 'full stack', 'full-stack'],
+  'frontend development': ['front end development', 'front-end development', 'frontend', 'front end', 'front-end'],
+  html5: ['html'],
+  css: ['css3'],
 };
 
 function skillYears(question, profile = {}) {
@@ -82,14 +86,39 @@ function answerFor(question, field = {}, profile = {}) {
 
   if (!q) return null;
 
+  // ---- the user's own written answers (profile.custom_answers) -------------
+  for (const ca of Array.isArray(profile.custom_answers) ? profile.custom_answers : []) {
+    if (!ca || !ca.match || ca.answer == null || ca.answer === '') continue;
+    let re;
+    try {
+      re = new RegExp(ca.match, 'i');
+    } catch {
+      continue;
+    }
+    if (!re.test(q)) continue;
+    if (!options.length) return String(ca.answer);
+    const exact = options.find((o) => norm(o) === norm(ca.answer));
+    if (exact) return exact;
+  }
+
   // ---- contact -------------------------------------------------------------
   if (/\b(mobile|phone|contact) (number|no)\b|^phone\b|^mobile\b/.test(q)) {
     if (!profile.phone) return null;
     return /country code|with code|\+91/.test(q) ? String(profile.phone).replace(/[^\d+]/g, '') : localPhone(profile.phone);
   }
   if (/\be-?mail\b/.test(q)) return profile.email || null;
-  if (/linkedin (profile|url)/.test(q)) return profile.links?.linkedin || null;
-  if (/portfolio|github|personal (site|website|url)/.test(q)) return profile.portfolio_url || profile.links?.github || profile.links?.portfolio || null;
+  // candidate.json stores these as linkedin_url / github_url; `links.*` is the older shape.
+  if (/linkedin\b.*\b(profile|url|link)\b|^linkedin\b/.test(q)) return profile.linkedin_url || profile.links?.linkedin || null;
+  if (/\bgithub\b/.test(q)) return profile.github_url || profile.links?.github || null;
+  if (/portfolio|personal (site|website|url)|^website\b/.test(q)) {
+    return profile.portfolio_url || profile.links?.portfolio || profile.github_url || profile.links?.github || null;
+  }
+  if (/current (city|location)|where are you (currently )?(based|located)|^(current )?(city|location)\s*\*?$/.test(q)) {
+    if (!profile.current_location) return null;
+    if (!options.length) return String(profile.current_location);
+    const city = norm(String(profile.current_location).split(',')[0]);
+    return options.find((o) => norm(o).includes(city)) || null;
+  }
   if (/^(full )?name\b|your name/.test(q)) return profile.name || null;
 
   // ---- compensation (never invented) ---------------------------------------
@@ -105,6 +134,16 @@ function answerFor(question, field = {}, profile = {}) {
     return String(profile.expected_ctc);
   }
 
+  // ---- last working day (Naukri "Mention Last Working Day", 2026-11-23 stall) ----
+  if (/last working (day|date)|\blwd\b|relieving date|date of relieving/.test(q)) {
+    const lwd = profile.last_working_day;
+    if (!lwd) return null;
+    if (type === 'date') return lwd;
+    const d = new Date(`${lwd}T00:00:00Z`);
+    return Number.isNaN(d.getTime()) ? String(lwd)
+      : d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  }
+
   // ---- notice / joining ----------------------------------------------------
   if (/notice period|\bnp\b|how soon can you join|joining (time|date)|when can you (join|start)|serving notice/.test(q)) {
     const days = profile.notice_period_days;
@@ -116,6 +155,13 @@ function answerFor(question, field = {}, profile = {}) {
       );
     }
     return type === 'number' || /days|in days/.test(q) ? String(days) : days === 0 ? 'Immediate' : `${days} days`;
+  }
+  // "Earliest start date?" / "When are you available to start?" (LinkedIn 2026-11-22 stall)
+  if (/earliest (start|joining|possible)|start date|date of joining|available (to start|from)|availability to (start|join)/.test(q)) {
+    if (!profile.available_immediate && profile.notice_period_days !== 0) return null;
+    if (type === 'date') return new Date().toISOString().slice(0, 10);
+    if (options.length) return pickOption(options, /immediate|asap|now|within (a|1|one) week|0\s*days|less than 15|15 days or less/i);
+    return 'Immediately';
   }
   if (/immediate(ly)? (joiner|join|start)|join immediately|available to start immediately/.test(q)) {
     return profile.available_immediate == null ? null : yesNo(!!profile.available_immediate);

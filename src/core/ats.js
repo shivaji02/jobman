@@ -15,19 +15,126 @@
  */
 const FETCH_TIMEOUT_MS = 15_000;
 
-async function getJson(url, init = {}) {
-  const res = await fetch(url, {
-    ...init,
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    headers: { accept: 'application/json', ...(init.headers || {}) },
+// ------------------------------------------------------- rate-limit-aware HTTP
+// Shared by every ATS reader. Per-host: requests are serialized and spaced
+// (JOBMAN_HTTP_MIN_SPACING_MS, default 1000ms), transient failures (429, 5xx,
+// network/timeout) retry up to JOBMAN_HTTP_MAX_RETRIES (default 3) honoring
+// Retry-After, otherwise exponential backoff with jitter. A host that keeps
+// blocking trips a circuit breaker and fails fast until its cooldown ends.
+const HTTP_CONFIG = {
+  minSpacingMs: () => Number(process.env.JOBMAN_HTTP_MIN_SPACING_MS ?? 1000),
+  maxRetries: () => Math.min(3, Number(process.env.JOBMAN_HTTP_MAX_RETRIES ?? 3)),
+  baseBackoffMs: 1000,
+  maxBackoffMs: 30_000,
+  breakerThreshold: 3, // consecutive blocked responses before opening
+  breakerCooldownMs: 10 * 60_000,
+};
+const hostState = new Map(); // host -> { chain, nextAt, blocks, openUntil }
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function getHostState(host) {
+  if (!hostState.has(host)) hostState.set(host, { chain: Promise.resolve(), nextAt: 0, blocks: 0, openUntil: 0 });
+  return hostState.get(host);
+}
+
+/** Retry-After as seconds or HTTP date → ms to wait (null when absent/invalid). */
+function parseRetryAfter(value, now = Date.now()) {
+  if (value == null || value === '') return null;
+  const secs = Number(value);
+  if (Number.isFinite(secs) && secs >= 0) return Math.min(secs * 1000, HTTP_CONFIG.maxBackoffMs);
+  const at = Date.parse(value);
+  if (Number.isNaN(at)) return null;
+  return Math.min(Math.max(0, at - now), HTTP_CONFIG.maxBackoffMs);
+}
+
+function backoffMs(attempt) {
+  const exp = Math.min(HTTP_CONFIG.maxBackoffMs, HTTP_CONFIG.baseBackoffMs * 2 ** attempt);
+  return Math.round(exp / 2 + Math.random() * (exp / 2)); // jittered
+}
+
+/** Run fn with per-host serialization and minimum spacing between requests. */
+function withHostSlot(host, fn) {
+  const st = getHostState(host);
+  const run = st.chain.then(async () => {
+    const wait = st.nextAt - Date.now();
+    if (wait > 0) await sleep(wait);
+    try {
+      return await fn();
+    } finally {
+      st.nextAt = Date.now() + HTTP_CONFIG.minSpacingMs();
+    }
   });
-  if (res.status === 404 || res.status === 410) {
-    const err = new Error(`${res.status} ${url}`);
-    err.closed = true; // posting / board no longer exists
+  st.chain = run.catch(() => {});
+  return run;
+}
+
+async function getJson(url, init = {}) {
+  let host = '';
+  try {
+    host = new URL(url).host;
+  } catch {
+    host = String(url);
+  }
+  const st = getHostState(host);
+  if (st.openUntil > Date.now()) {
+    const err = new Error(`circuit open for ${host} until ${new Date(st.openUntil).toISOString()} (${url})`);
+    err.rateLimited = true;
+    err.circuitOpen = true;
+    err.retryable = true;
     throw err;
   }
-  if (!res.ok) throw new Error(`${res.status} ${url}`);
-  return res.json();
+
+  const maxRetries = HTTP_CONFIG.maxRetries();
+  for (let attempt = 0; ; attempt++) {
+    let res;
+    try {
+      res = await withHostSlot(host, () =>
+        fetch(url, {
+          ...init,
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+          headers: { accept: 'application/json', ...(init.headers || {}) },
+        }),
+      );
+    } catch (netErr) {
+      // Network failure or timeout: transient.
+      if (attempt >= maxRetries) {
+        const err = new Error(`network ${netErr.message || netErr} (${url})`);
+        err.retryable = true;
+        throw err;
+      }
+      await sleep(backoffMs(attempt));
+      continue;
+    }
+
+    if (res.status === 404 || res.status === 410) {
+      const err = new Error(`${res.status} ${url}`);
+      err.closed = true; // posting / board no longer exists
+      throw err;
+    }
+    if (res.ok) {
+      st.blocks = 0;
+      return res.json();
+    }
+
+    const transient = res.status === 429 || res.status >= 500;
+    if (res.status === 429) {
+      st.blocks += 1;
+      if (st.blocks >= HTTP_CONFIG.breakerThreshold) {
+        st.openUntil = Date.now() + HTTP_CONFIG.breakerCooldownMs;
+        st.blocks = 0;
+      }
+    }
+    if (!transient || attempt >= maxRetries || st.openUntil > Date.now()) {
+      const err = new Error(`${res.status} ${url}`);
+      err.status = res.status;
+      err.rateLimited = res.status === 429;
+      err.circuitOpen = st.openUntil > Date.now();
+      err.retryable = transient;
+      throw err;
+    }
+    const retryAfter = res.status === 429 ? parseRetryAfter(res.headers.get('retry-after')) : null;
+    await sleep(retryAfter ?? backoffMs(attempt));
+  }
 }
 
 const stripHtml = (s) =>
@@ -404,6 +511,10 @@ function detectAtsInHtml(html) {
 }
 
 module.exports = {
+  getJson,
+  parseRetryAfter,
+  HTTP_CONFIG,
+  hostState,
   FETCHERS,
   fetchPosting,
   parseAtsUrl,

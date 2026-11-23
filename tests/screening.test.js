@@ -19,6 +19,30 @@ const profile = {
   serving_notice: false,
 };
 
+test('LinkedIn / GitHub URLs come from linkedin_url / github_url (candidate.json shape)', () => {
+  const p = { ...profile, linkedin_url: 'https://linkedin.com/in/x', github_url: 'https://github.com/x' };
+  assert.equal(answerFor('LinkedIn Profile URL', { type: 'text' }, p), 'https://linkedin.com/in/x');
+  assert.equal(answerFor('GitHub', { type: 'text' }, p), 'https://github.com/x');
+  assert.equal(answerFor('LinkedIn Profile URL', { type: 'text' }, profile), null);
+});
+
+test('earliest start date is answered for an immediate joiner (LinkedIn 2026-11-22 stall)', () => {
+  assert.equal(answerFor('Earliest start date? *', { type: 'text' }, profile), 'Immediately');
+  assert.match(answerFor('Earliest start date', { type: 'date' }, profile), /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(answerFor('Earliest start date', { type: 'text' }, { ...profile, available_immediate: false, notice_period_days: 30 }), null);
+});
+
+test('current location only from profile.current_location', () => {
+  assert.equal(answerFor('Current location', { type: 'text' }, profile), null);
+  assert.equal(answerFor('Current location', { type: 'text' }, { ...profile, current_location: 'Hyderabad, Telangana' }), 'Hyderabad, Telangana');
+});
+
+test('custom_answers (user-written) answer matching questions', () => {
+  const p = { ...profile, custom_answers: [{ match: 'reason for (job )?change', answer: 'Looking for product work' }] };
+  assert.equal(answerFor('Reason for job change?', { type: 'textarea' }, p), 'Looking for product work');
+  assert.equal(answerFor('Reason for job change?', { type: 'textarea' }, profile), null);
+});
+
 test('phone number is filled from profile (34 blocked applications)', () => {
   assert.equal(answerFor('Mobile phone number*', { type: 'tel' }, profile), '8978577031');
   assert.equal(localPhone('+91 89785 77031'), '8978577031');
@@ -102,4 +126,19 @@ test('Naukri questionnaire: interview availability and unlisted skill-years go t
 test('notice period radio with "Available now" (real Naukri options)', () => {
   const options = ['Available now', '1 week', '2 weeks', '3 weeks', '1 month', '1.5 month', '2 months', '3 months'];
   assert.equal(answerFor('What is your Notice Period?', { type: 'radio', options }, profile), 'Available now');
+});
+
+test('frontend / fullstack / HTML5 skill years and last working day (Naukri 2026-11-23 stalls)', () => {
+  const p = {
+    ...profile,
+    last_working_day: '2026-11-03',
+    skill_years: { 'Fullstack Development': 3, 'Frontend Development': 3, HTML5: 3, CSS: 3, React: 3 },
+  };
+  assert.equal(answerFor('How many years of experience do you have in Fullstack Development?', { type: 'text' }, p), '3');
+  assert.equal(answerFor('How many years of experience do you have in Frontend development?', { type: 'text' }, p), '3');
+  assert.equal(answerFor('How many years of experience do you have in HTML5?', { type: 'text' }, p), '3');
+  assert.equal(answerFor('How many years of professional experience do you have in frontend development?', { type: 'number' }, p), '3');
+  assert.equal(answerFor('Mention Last Working Day', { type: 'text' }, p), '03 Nov 2026');
+  assert.equal(answerFor('Last working date', { type: 'date' }, p), '2026-11-03');
+  assert.equal(answerFor('Mention Last Working Day', { type: 'text' }, profile), null);
 });

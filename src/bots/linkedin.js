@@ -11,7 +11,7 @@ const { classifyLocation, byLocationPreference, SEARCH_CITIES } = require('../co
 const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter');
 const { planAnswers } = require('../core/screening');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit, claimGate } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 
 // Nov 2026 UI: Easy Apply renders in a native <dialog data-testid="dialog">.
 const DIALOG_SELECTOR = 'dialog[open], [data-testid="dialog"], [role="dialog"]';
@@ -22,8 +22,14 @@ const LINKEDIN_THRESHOLD = 30;
 const TARGET_TITLES = {
   'react native': 100,
   'native developer': 100,
+  // Expo is React Native; "Mobile Application Developer" scored title=0 on 2026-11-09.
+  expo: 100,
   'mobile developer': 90,
   'mobile engineer': 90,
+  'mobile application developer': 90,
+  'mobile app developer': 90,
+  'cross platform': 70,
+  'hybrid mobile': 70,
   'frontend engineer': 70,
   'frontend developer': 70,
   'front end developer': 70,
@@ -102,32 +108,75 @@ function searchUrl(keywords, city = 'Hyderabad') {
  */
 const CARD_SELECTOR = '[componentkey^="job-card-component-ref-"], [data-occludable-job-id], .jobs-search-results__list-item';
 
+/**
+ * Run 2026-11-09 crashed the whole portal with "Cannot read properties of null
+ * (reading 'scrollHeight')": the in-page script ran while LinkedIn was swapping
+ * /jobs/search/ for /jobs/search-results/, so document.body (and the pane) were
+ * null. Every DOM access is now null-safe, and a navigation mid-scroll ends the
+ * scroll (the caller re-reads the page) instead of throwing.
+ */
+/** Waits used while scrolling the results list (tests shorten them). */
+const TIMING = { scrollPassMs: 600, navigatingMs: 800, stableMs: 1200 };
+
 async function scrollResultsList(page) {
   let prevCount = 0;
   for (let pass = 0; pass < 15; pass++) {
-    const count = await page.evaluate((sel) => {
-      const cards = document.querySelectorAll(sel);
-      const last = cards[cards.length - 1];
-      let pane = document.querySelector('.jobs-search-results-list, [class*="jobs-search-results-list"]');
-      if (!pane && last) {
-        // nearest scrollable ancestor of the card list
-        for (let el = last.parentElement; el && el !== document.body; el = el.parentElement) {
-          if (el.scrollHeight > el.clientHeight + 40 && /auto|scroll/.test(getComputedStyle(el).overflowY)) {
-            pane = el;
-            break;
+    let count;
+    try {
+      count = await page.evaluate((sel) => {
+        const root = document.scrollingElement || document.documentElement || document.body;
+        if (!root) return -1; // document is being replaced (navigation in progress)
+        const cards = document.querySelectorAll(sel);
+        const last = cards[cards.length - 1];
+        let pane = document.querySelector('.jobs-search-results-list, [class*="jobs-search-results-list"]');
+        if (!pane && last) {
+          // nearest scrollable ancestor of the card list
+          for (let el = last.parentElement; el && el !== document.body; el = el.parentElement) {
+            const style = window.getComputedStyle ? getComputedStyle(el) : null;
+            if (el.scrollHeight > el.clientHeight + 40 && style && /auto|scroll/.test(style.overflowY)) {
+              pane = el;
+              break;
+            }
           }
         }
-      }
-      if (last) last.scrollIntoView({ block: 'end' });
-      if (pane) pane.scrollTop = pane.scrollHeight;
-      else window.scrollTo(0, document.body.scrollHeight);
-      return cards.length;
-    }, CARD_SELECTOR);
-    await new Promise((r) => setTimeout(r, 600));
+        if (last && typeof last.scrollIntoView === 'function') last.scrollIntoView({ block: 'end' });
+        if (pane && pane.scrollHeight != null) pane.scrollTop = pane.scrollHeight;
+        else window.scrollTo(0, root.scrollHeight || 0);
+        return cards.length;
+      }, CARD_SELECTOR);
+    } catch (err) {
+      if (/context was destroyed|detached|Cannot find context|Target closed/i.test(err.message)) return prevCount; // navigated away mid-scroll
+      throw err;
+    }
+    if (count < 0) {
+      await new Promise((r) => setTimeout(r, TIMING.navigatingMs));
+      continue;
+    }
+    await new Promise((r) => setTimeout(r, TIMING.scrollPassMs));
     if (count === prevCount && pass > 1) break;
     prevCount = count;
   }
   return prevCount;
+}
+
+/**
+ * Which results layout is on screen: 'modern' (componentkey cards, Nov 2026),
+ * 'legacy' (data-occludable-job-id), 'empty' (explicit no-results message),
+ * 'login', 'unknown' (neither — LinkedIn changed its markup again).
+ */
+async function detectLayout(page) {
+  return page
+    .evaluate(() => {
+      if (document.querySelector('input[type="password"]')) return 'login';
+      if (document.querySelector('[componentkey^="job-card-component-ref-"]')) return 'modern';
+      // Real legacy cards carry a /jobs/view/ link; the /jobs/search/ skeleton shown before the
+      // client-side redirect to /jobs/search-results/ has empty list items (2026-11-10).
+      if (document.querySelector('[data-occludable-job-id] a[href*="/jobs/view/"], .jobs-search-results__list-item a[href*="/jobs/view/"]')) return 'legacy';
+      const text = (document.body && document.body.innerText) || '';
+      if (/no matching jobs found|no results found|we couldn.?t find a match/i.test(text)) return 'empty';
+      return 'unknown';
+    })
+    .catch(() => 'unknown');
 }
 
 /**
@@ -688,14 +737,70 @@ class SkipPortalNoEasyApply extends Error {
   }
 }
 
+/**
+ * Load one search and collect its cards (up to MAX_RESULT_PAGES). Waits for a known
+ * layout instead of a blind selector timeout; an unrecognised layout is an error
+ * (retried once by the caller), an explicit "no results" is just 0 cards.
+ */
+async function discoverSearch(page, { city, role }) {
+  // LinkedIn never reaches networkidle (constant background polling) —
+  // wait for the job list to actually render instead.
+  await page.goto(searchUrl(role, city), { waitUntil: 'domcontentloaded', timeout: PAGE_TIMEOUT_MS });
+  // LinkedIn renders the list, re-routes (/jobs/search-results → /jobs/search-results/), clears
+  // it and renders again ~2 s later. Scraping in that gap produced the silent "0 cards"
+  // searches of 2026-11-09. Wait until cards (or an explicit empty state) hold steady.
+  await page
+    .waitForFunction(
+      (stableMs) => {
+        const text = (document.body && document.body.innerText) || '';
+        if (document.querySelector('input[type="password"]') || /no matching jobs found|no results found/i.test(text)) return true;
+        const n = document.querySelectorAll('[componentkey^="job-card-component-ref-"], [data-occludable-job-id] a[href*="/jobs/view/"]').length;
+        const sig = `${location.pathname}|${n > 0}`;
+        if (window.__jobmanSig !== sig) {
+          window.__jobmanSig = sig;
+          window.__jobmanSince = Date.now();
+          return false;
+        }
+        return n > 0 && Date.now() - window.__jobmanSince >= stableMs;
+      },
+      { timeout: 20000, polling: 250 },
+      TIMING.stableMs
+    )
+    .catch(() => {});
+  const layout = await detectLayout(page);
+  if (layout === 'login') throw new SkipPortalError('login required — sign in once via `npm run login`');
+  await checkForCaptcha(page);
+  if (layout === 'empty') return [];
+  if (layout === 'unknown') throw new Error(`results layout not recognised at ${page.url().slice(0, 80)} (LinkedIn markup change or interstitial)`);
+
+  const cards = [];
+  const startUrl = page.url();
+  for (let p = 0; p < MAX_RESULT_PAGES; p++) {
+    await scrollResultsList(page);
+    cards.push(...(await extractCards(page)));
+    if (!(await gotoNextResultsPage(page))) break;
+    // The pager is supposed to update the list in place; a full navigation elsewhere is a layout change.
+    if (!/linkedin\.com\/jobs\//.test(page.url())) throw new Error(`pager navigated away from results (${page.url().slice(0, 60)}) after ${startUrl.slice(0, 40)}`);
+  }
+  // A results layout with zero parsable cards and no "no matching jobs" message is a
+  // half-rendered page, not an empty search (Nov 9: ~half the searches logged 0 this way).
+  if (!cards.length) throw new Error('results page rendered no parsable job cards (page still loading or markup changed)');
+  return cards;
+}
+
+const SATURATE_AFTER = Number(process.env.JOBMAN_LINKEDIN_SATURATE) || 2;
 const SITE = 'LinkedIn';
 const MAX_RESULT_PAGES = 3;
 
-async function run({ profile, dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
-  const seenThisRun = new Set(); // same job shows up under several city/query searches
+async function run({ profile, dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'linkedin', resume: state = null, fullScan = false }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
+  const seenThisRun = (st.seen = st.seen || new Set()); // same job shows up under several city/query searches
   const tabs = createTabTracker('linkedin');
-  const page = await newPage();
+  let page = await newPage();
   const log = (card, status, notes) => {
     if (!dryRun) dedup.append({ site: SITE, job_title: card.title, company: card.company, job_url: card.url, status, notes });
   };
@@ -705,29 +810,47 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
       ...(profile.target_roles || ['react native developer']),
       'React Native immediate joiner',
       'React Native urgent hiring',
+      'React Native engineer',
+      'Expo React Native developer',
+      'Cross-platform mobile developer',
     ];
-    const searches = SEARCH_CITIES.flatMap((city) => roles.map((role) => ({ city, role })));
-    for (const { city, role } of searches) {
+    const searches = SEARCH_CITIES.flatMap((city) => roles.map((role) => ({ city, role, id: `${city}|${role}` })));
+    const queue = searches.filter((s) => !doneSearches.has(s.id));
+    // Saturation (incremental mode): LinkedIn largely ignores the location filter — on
+    // 2026-11-10, 56 searches gave 1,328 sightings of 83 unique jobs. Once a role has
+    // added nothing new in SATURATE_AFTER consecutive cities, its remaining cities are
+    // skipped this run. --full-scan runs every search.
+    const zeroStreak = (st.zeroStreak = st.zeroStreak || {});
+    const saturated = (results.saturatedSearches = results.saturatedSearches || []);
+    for (let qi = 0; qi < queue.length; qi++) {
+      const search = queue[qi];
+      const { city, role } = search;
       if (results.applied.length >= MAX_APPS_PER_RUN) break;
-
-      // LinkedIn never reaches networkidle (constant background polling) —
-      // wait for the job list to actually render instead.
-      await page.goto(searchUrl(role, city), { waitUntil: 'domcontentloaded' });
-
-      if (await page.$('input[type="password"]')) {
-        throw new SkipPortalError('login required — sign in once via `npm run login`');
+      if (!fullScan && (zeroStreak[role] || 0) >= SATURATE_AFTER) {
+        saturated.push(`${role} @ ${city}`);
+        doneSearches.add(search.id);
+        continue;
       }
-      await page.waitForSelector(CARD_SELECTOR, { timeout: 15000 }).catch(() => {});
-      await checkForCaptcha(page);
 
-      const cards = [];
-      for (let p = 0; p < MAX_RESULT_PAGES; p++) {
-        await scrollResultsList(page);
-        cards.push(...(await extractCards(page)));
-        if (!(await gotoNextResultsPage(page))) break;
+      // Discovery for one search is isolated: a navigation / layout change / null DOM
+      // in one search is retried once at the end of the queue on a fresh tab, then
+      // reported — it no longer crashes (and restarts) the whole portal.
+      let cards;
+      try {
+        cards = await discoverSearch(page, { city, role });
+      } catch (err) {
+        if (err instanceof SkipPortalError || err.name === 'SkipPortalError' || err.name === 'ShutdownError') throw err;
+        logger.warn(`[linkedin] "${role}" in ${city} broke (${String(err.message).slice(0, 80)}) — ${search.retried ? 'giving up on this search' : 'retrying once at the end'}`);
+        await closePageQuietly(page);
+        page = await newPage();
+        if (!search.retried) queue.push({ ...search, retried: true });
+        else (results.searchFailures = results.searchFailures || []).push(`${role} @ ${city}: ${String(err.message).slice(0, 60)}`);
+        continue;
       }
       results.discovered += cards.length;
-      logger.info(`[linkedin] "${role}" in ${city}: ${cards.length} cards`);
+      const fresh = new Set(cards.map((c) => c.url).filter((u) => !seenThisRun.has(u))).size;
+      zeroStreak[role] = fresh ? 0 : (zeroStreak[role] || 0) + 1;
+      logger.info(`[linkedin] "${role}" in ${city}: ${cards.length} cards, ${fresh} new`);
       cards.sort(byLocationPreference);
 
       for (const card of cards) {
@@ -752,6 +875,8 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
         // Shared hard rejects (senior/lead/.NET/native-only/Java-only) apply here too —
         // the LinkedIn title score alone would accept "Lead Mobile developer, .NET".
         if (scoreJob({ title: card.title, description: card.text }) < 0) {
+          // Absence-based rejects (e.g. "Java" on the card, no React mentioned) are uncertain on a card.
+          if (offerIfUncertain(pipeline, portal, job, card, SITE)) continue;
           job.reason = 'role rejected (seniority / tech stack)';
           results.skipped.push(job);
           log(card, 'skipped', job.reason);
@@ -770,6 +895,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
         const passesThreshold = shouldApplyLinkedin(scoring);
         logger.debug(formatScoreBreakdown(job, scoring));
         if (!passesThreshold) {
+          if (offerIfUncertain(pipeline, portal, job, card, SITE)) continue;
           job.reason = `score ${score} below threshold`;
           results.skipped.push(job);
           log(card, 'skipped', job.reason);
@@ -777,7 +903,7 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
         }
 
         // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
-        if (!(await claimGate(results, dedup, card.url, job))) continue;
+        if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
         if (dryRun) {
           job.reason = `would apply (score ${score})`;
@@ -841,7 +967,10 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
 
         await humanDelay(3000, 5000);
       }
+      doneSearches.add(search.id);
     }
+    if (saturated.length) logger.info(`[linkedin] skipped ${saturated.length} saturated searches (no new jobs in ${SATURATE_AFTER} consecutive cities for that role; --full-scan runs them)`);
+    if (results.searchFailures?.length) results.note = `${results.searchFailures.length} search(es) failed after a retry: ${results.searchFailures.join('; ')}`;
   } catch (err) {
     tabs.printSummary();
     err.partialResults = results;
@@ -856,6 +985,11 @@ async function run({ profile, dedup, dryRun, newPage, browser }) {
 
 module.exports = {
   run,
+  TIMING,
+  applyToJob,
+  scrollResultsList,
+  detectLayout,
+  discoverSearch,
   parseCardLines,
   fillScreeningFields,
   openEasyApplyModal,

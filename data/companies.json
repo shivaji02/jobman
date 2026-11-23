@@ -9,9 +9,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 9,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 7,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -24,9 +24,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 24,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 22,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -39,10 +39,10 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 928,
-      "indiaOpenings": 50,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 889,
+      "indiaOpenings": 45,
       "relevant": 0
     },
     "greenhouse:coinbase": {
@@ -54,9 +54,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 283,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 251,
       "indiaOpenings": 7,
       "relevant": 0
     },
@@ -69,9 +69,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 145,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 147,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -84,9 +84,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 27,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 29,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -99,8 +99,8 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
       "openings": 86,
       "indiaOpenings": 0,
       "relevant": 0
@@ -114,9 +114,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 310,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 296,
       "indiaOpenings": 3,
       "relevant": 0
     },
@@ -124,14 +124,15 @@
       "name": "Cloudflare",
       "ats": "greenhouse",
       "token": "cloudflare",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "config"
+        "config",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 461,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 505,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -145,9 +146,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 766,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 780,
       "indiaOpenings": 9,
       "relevant": 0
     },
@@ -160,10 +161,10 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 13,
-      "indiaOpenings": 2,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 12,
+      "indiaOpenings": 1,
       "relevant": 0
     },
     "lever:meesho": {
@@ -175,9 +176,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 53,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 48,
       "indiaOpenings": 3,
       "relevant": 0
     },
@@ -185,30 +186,32 @@
       "name": "Paytm",
       "ats": "lever",
       "token": "paytm",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "config"
+        "config",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 201,
-      "indiaOpenings": 4,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 190,
+      "indiaOpenings": 3,
       "relevant": 0
     },
     "lever:zeta": {
       "name": "Zeta",
       "ats": "lever",
       "token": "zeta",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "config"
+        "config",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 28,
-      "indiaOpenings": 5,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 33,
+      "indiaOpenings": 8,
       "relevant": 0
     },
     "lever:palantir": {
@@ -220,9 +223,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 305,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 306,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -235,9 +238,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 170,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 186,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -245,14 +248,16 @@
       "name": "Notion",
       "ats": "ashby",
       "token": "notion",
-      "careersUrl": "",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
       "sources": [
-        "config"
+        "config",
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 154,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 170,
       "indiaOpenings": 1,
       "relevant": 0
     },
@@ -265,8 +270,8 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
       "openings": 32,
       "indiaOpenings": 0,
       "relevant": 0
@@ -280,7 +285,7 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06"
+      "lastSeen": "2026-11-23"
     },
     "ashby:replit": {
       "name": "Replit",
@@ -291,9 +296,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 28,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 38,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -303,13 +308,14 @@
       "token": "sarvam",
       "careersUrl": "",
       "sources": [
-        "config"
+        "config",
+        "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 47,
-      "indiaOpenings": 19,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 40,
+      "indiaOpenings": 18,
       "relevant": 0
     },
     "ashby:supabase": {
@@ -321,9 +327,9 @@
         "config"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 71,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 81,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -336,9 +342,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 93,
+      "lastSeen": "2026-11-21",
+      "lastChecked": "2026-11-23",
+      "openings": 84,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -351,10 +357,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 17,
-      "indiaOpenings": 8,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 18,
+      "indiaOpenings": 7,
       "relevant": 0
     },
     "lever:xsolla": {
@@ -366,12 +372,11 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 0,
-      "indiaOpenings": 0,
-      "relevant": 0,
-      "lastError": "The operation was aborted due to timeout"
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 188,
+      "indiaOpenings": 3,
+      "relevant": 0
     },
     "lever:cmgx": {
       "name": "cmgx",
@@ -382,9 +387,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 11,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 12,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -397,9 +402,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 7,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 9,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -412,14 +417,14 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 714,
-      "indiaOpenings": 44,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 690,
+      "indiaOpenings": 40,
       "relevant": 0
     },
     "greenhouse:point72": {
-      "name": "point72",
+      "name": "Point72",
       "ats": "greenhouse",
       "token": "point72",
       "careersUrl": "",
@@ -427,9 +432,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 200,
+      "lastSeen": "2026-11-12",
+      "lastChecked": "2026-11-23",
+      "openings": 202,
       "indiaOpenings": 29,
       "relevant": 0
     },
@@ -442,9 +447,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 24,
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 26,
       "indiaOpenings": 5,
       "relevant": 0
     },
@@ -457,8 +462,8 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
+      "lastSeen": "2026-11-18",
+      "lastChecked": "2026-11-23",
       "openings": 0,
       "indiaOpenings": 0,
       "relevant": 0,
@@ -473,10 +478,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 15,
-      "indiaOpenings": 2,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 13,
+      "indiaOpenings": 1,
       "relevant": 0
     },
     "greenhouse:cognite": {
@@ -488,25 +493,26 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 53,
-      "indiaOpenings": 8,
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 65,
+      "indiaOpenings": 11,
       "relevant": 0
     },
     "greenhouse:smartsheet": {
       "name": "Smartsheet",
       "ats": "greenhouse",
       "token": "smartsheet",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 71,
-      "indiaOpenings": 12,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 72,
+      "indiaOpenings": 13,
       "relevant": 0
     },
     "greenhouse:toast": {
@@ -518,10 +524,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 329,
-      "indiaOpenings": 10,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 325,
+      "indiaOpenings": 12,
       "relevant": 0
     },
     "greenhouse:6sense": {
@@ -534,24 +540,25 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 34,
-      "indiaOpenings": 3,
+      "lastChecked": "2026-11-23",
+      "openings": 35,
+      "indiaOpenings": 4,
       "relevant": 0
     },
     "greenhouse:bitgo": {
       "name": "(React Native)",
       "ats": "greenhouse",
       "token": "bitgo",
-      "careersUrl": "",
+      "careersUrl": "https://javascript.jobs/job/mobile-engineer-e2-react-native",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 56,
-      "indiaOpenings": 3,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 59,
+      "indiaOpenings": 5,
       "relevant": 0
     },
     "greenhouse:litmos": {
@@ -563,9 +570,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 12,
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 11,
       "indiaOpenings": 4,
       "relevant": 0
     },
@@ -578,10 +585,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 16,
-      "indiaOpenings": 3,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 10,
+      "indiaOpenings": 2,
       "relevant": 0
     },
     "greenhouse:tide": {
@@ -593,10 +600,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 82,
-      "indiaOpenings": 5,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 86,
+      "indiaOpenings": 3,
       "relevant": 0
     },
     "greenhouse:tribalscale": {
@@ -608,9 +615,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 15,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 20,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -623,9 +630,9 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 5,
+      "lastSeen": "2026-11-12",
+      "lastChecked": "2026-11-23",
+      "openings": 6,
       "indiaOpenings": 1,
       "relevant": 0
     },
@@ -639,24 +646,25 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 29,
-      "indiaOpenings": 2,
+      "lastChecked": "2026-11-23",
+      "openings": 24,
+      "indiaOpenings": 0,
       "relevant": 0
     },
     "ashby:aiprise": {
       "name": "AiPrise",
       "ats": "ashby",
       "token": "aiprise",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
       "openings": 19,
-      "indiaOpenings": 6,
+      "indiaOpenings": 8,
       "relevant": 0
     },
     "workday:abbott": {
@@ -670,11 +678,12 @@
       "firstSeen": "2026-11-05",
       "site": "abbottcareers2",
       "host": "abbott.wd5.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 7,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
       "indiaOpenings": 0,
-      "relevant": 0
+      "relevant": 0,
+      "lastError": "429 https://abbott.wd5.myworkdayjobs.com/wday/cxs/abbott/abbottcareers2/jobs"
     },
     "workday:cigna": {
       "name": "Cigna",
@@ -687,11 +696,12 @@
       "firstSeen": "2026-11-05",
       "site": "cignacareers",
       "host": "cigna.wd5.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 21,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
       "indiaOpenings": 0,
-      "relevant": 0
+      "relevant": 0,
+      "lastError": "429 https://cigna.wd5.myworkdayjobs.com/wday/cxs/cigna/cignacareers/jobs"
     },
     "workday:abcfinancial": {
       "name": "Abcfinancial",
@@ -704,11 +714,12 @@
       "firstSeen": "2026-11-05",
       "site": "ABCFinancialServices",
       "host": "abcfinancial.wd5.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 5,
-      "indiaOpenings": 4,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for abcfinancial.wd5.myworkdayjobs.com until 2026-11-23T16:14:53.690Z (https://abcfinancial.wd5.myworkdayjo"
     },
     "workday:hitachi": {
       "name": "Hitachi",
@@ -721,11 +732,12 @@
       "firstSeen": "2026-11-05",
       "site": "hitachi",
       "host": "hitachi.wd1.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 37,
-      "indiaOpenings": 19,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for hitachi.wd1.myworkdayjobs.com until 2026-11-23T16:15:14.275Z (https://hitachi.wd1.myworkdayjobs.com/wda"
     },
     "workday:vanguard": {
       "name": "Vanguard",
@@ -738,11 +750,12 @@
       "firstSeen": "2026-11-05",
       "site": "vanguard_external",
       "host": "vanguard.wd5.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 23,
-      "indiaOpenings": 15,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for vanguard.wd5.myworkdayjobs.com until 2026-11-23T15:11:10.277Z (https://vanguard.wd5.myworkdayjobs.com/w"
     },
     "workday:statestreet": {
       "name": "Statestreet",
@@ -755,11 +768,12 @@
       "firstSeen": "2026-11-05",
       "site": "Global",
       "host": "statestreet.wd1.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 38,
-      "indiaOpenings": 12,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://statestreet.wd1.myworkdayjobs.com/wday/cxs/statestreet/Global/jobs"
     },
     "workday:opella": {
       "name": "Opella",
@@ -772,11 +786,12 @@
       "firstSeen": "2026-11-05",
       "site": "OpellaCareers",
       "host": "opella.wd103.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 4,
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
       "indiaOpenings": 0,
-      "relevant": 0
+      "relevant": 0,
+      "lastError": "429 https://opella.wd103.myworkdayjobs.com/wday/cxs/opella/OpellaCareers/jobs"
     },
     "workday:lbg": {
       "name": "lbg",
@@ -789,11 +804,12 @@
       "firstSeen": "2026-11-05",
       "site": "Lloyds_Technology_Centre",
       "host": "lbg.wd3.myworkdayjobs.com",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 6,
-      "indiaOpenings": 6,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://lbg.wd3.myworkdayjobs.com/wday/cxs/lbg/Lloyds_Technology_Centre/jobs"
     },
     "workday:guidehouse": {
       "name": "Guidehouse",
@@ -806,11 +822,12 @@
       "firstSeen": "2026-11-05",
       "site": "External",
       "host": "guidehouse.wd1.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 9,
-      "indiaOpenings": 1,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for guidehouse.wd1.myworkdayjobs.com until 2026-11-23T15:10:42.942Z (https://guidehouse.wd1.myworkdayjobs.c"
     },
     "workday:thehartford": {
       "name": "Thehartford",
@@ -823,11 +840,12 @@
       "firstSeen": "2026-11-05",
       "site": "Careers_External",
       "host": "thehartford.wd5.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 18,
-      "indiaOpenings": 17,
-      "relevant": 0
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://thehartford.wd5.myworkdayjobs.com/wday/cxs/thehartford/Careers_External/jobs"
     },
     "workday:riministreet": {
       "name": "Riministreet",
@@ -840,25 +858,27 @@
       "firstSeen": "2026-11-05",
       "site": "RiminiStreet",
       "host": "riministreet.wd1.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 7,
-      "indiaOpenings": 6,
-      "relevant": 0
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://riministreet.wd1.myworkdayjobs.com/wday/cxs/riministreet/RiminiStreet/jobs"
     },
     "smartrecruiters:phonepelimited": {
       "name": "PHONEPE LIMITED",
       "ats": "smartrecruiters",
       "token": "PHONEPELIMITED",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 152,
-      "indiaOpenings": 28,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 161,
+      "indiaOpenings": 35,
       "relevant": 0
     },
     "smartrecruiters:nagarro1": {
@@ -870,10 +890,10 @@
         "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 189,
-      "indiaOpenings": 173,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 195,
+      "indiaOpenings": 175,
       "relevant": 0
     },
     "greenhouse:couchbaseinc": {
@@ -886,8 +906,8 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 16,
+      "lastChecked": "2026-11-23",
+      "openings": 17,
       "indiaOpenings": 2,
       "relevant": 0
     },
@@ -901,9 +921,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 7,
-      "indiaOpenings": 3,
+      "indiaOpenings": 4,
       "relevant": 0
     },
     "smartrecruiters:micropyramidinformaticspvtltd": {
@@ -916,7 +936,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 7,
       "indiaOpenings": 3,
       "relevant": 0
@@ -931,7 +951,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 8,
       "indiaOpenings": 7,
       "relevant": 0
@@ -946,8 +966,8 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 10,
+      "lastChecked": "2026-11-23",
+      "openings": 13,
       "indiaOpenings": 2,
       "relevant": 0
     },
@@ -963,10 +983,11 @@
       "site": "kyndrylprofessionalcareers",
       "host": "kyndryl.wd5.myworkdayjobs.com",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 37,
-      "indiaOpenings": 9,
-      "relevant": 0
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://kyndryl.wd5.myworkdayjobs.com/wday/cxs/kyndryl/kyndrylprofessionalcareers/jobs"
     },
     "workday:diconium": {
       "name": "diconium",
@@ -980,10 +1001,11 @@
       "site": "Embitel_Technologies",
       "host": "diconium.wd3.myworkdayjobs.com",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 21,
-      "indiaOpenings": 17,
-      "relevant": 0
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://diconium.wd3.myworkdayjobs.com/wday/cxs/diconium/Embitel_Technologies/jobs"
     },
     "workday:arcticwolf": {
       "name": "arcticwolf",
@@ -997,10 +1019,11 @@
       "site": "External",
       "host": "arcticwolf.wd1.myworkdayjobs.com",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 9,
-      "indiaOpenings": 7,
-      "relevant": 0
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://arcticwolf.wd1.myworkdayjobs.com/wday/cxs/arcticwolf/External/jobs"
     },
     "smartrecruiters:abhibus": {
       "name": "AbhiBus",
@@ -1012,7 +1035,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 6,
       "indiaOpenings": 4,
       "relevant": 0
@@ -1027,9 +1050,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 9,
-      "indiaOpenings": 5,
+      "lastChecked": "2026-11-23",
+      "openings": 12,
+      "indiaOpenings": 6,
       "relevant": 0
     },
     "smartrecruiters:valuelabs": {
@@ -1042,7 +1065,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 0,
       "relevant": 0
@@ -1051,15 +1074,16 @@
       "name": "SonicWall",
       "ats": "greenhouse",
       "token": "sonicwall",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "ats probe: Sonicwall"
+        "ats probe: Sonicwall",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 46,
-      "indiaOpenings": 24,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 41,
+      "indiaOpenings": 23,
       "relevant": 0
     },
     "smartrecruiters:qrata": {
@@ -1072,7 +1096,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1087,7 +1111,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 0,
       "relevant": 0
@@ -1102,7 +1126,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 4,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1117,7 +1141,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 7,
       "indiaOpenings": 5,
       "relevant": 0
@@ -1132,8 +1156,8 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 19,
+      "lastChecked": "2026-11-23",
+      "openings": 20,
       "indiaOpenings": 4,
       "relevant": 0
     },
@@ -1147,9 +1171,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 18,
-      "indiaOpenings": 2,
+      "indiaOpenings": 1,
       "relevant": 0
     },
     "ashby:span": {
@@ -1162,9 +1186,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 26,
-      "indiaOpenings": 6,
+      "lastChecked": "2026-11-23",
+      "openings": 31,
+      "indiaOpenings": 7,
       "relevant": 0
     },
     "smartrecruiters:eurofins": {
@@ -1173,14 +1197,16 @@
       "token": "eurofins",
       "careersUrl": "",
       "sources": [
-        "ats probe: Eurofins"
+        "ats probe: Eurofins",
+        "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 369,
-      "indiaOpenings": 169,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Eurofins board timed out after 180s"
     },
     "smartrecruiters:boschgroup": {
       "name": "Bosch Group",
@@ -1188,14 +1214,16 @@
       "token": "boschgroup",
       "careersUrl": "",
       "sources": [
-        "ats probe: Bosch Group"
+        "ats probe: Bosch Group",
+        "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 400,
-      "indiaOpenings": 141,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Bosch Group board timed out after 180s"
     },
     "smartrecruiters:codeyoung": {
       "name": "Codeyoung",
@@ -1207,7 +1235,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 2,
       "indiaOpenings": 0,
       "relevant": 0
@@ -1222,9 +1250,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 24,
-      "indiaOpenings": 14,
+      "lastChecked": "2026-11-23",
+      "openings": 30,
+      "indiaOpenings": 16,
       "relevant": 0
     },
     "smartrecruiters:irissoftware": {
@@ -1237,7 +1265,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 4,
       "indiaOpenings": 0,
       "relevant": 0
@@ -1252,7 +1280,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1267,7 +1295,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 11,
       "indiaOpenings": 8,
       "relevant": 0
@@ -1282,8 +1310,8 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 12,
+      "lastChecked": "2026-11-23",
+      "openings": 13,
       "indiaOpenings": 2,
       "relevant": 0
     },
@@ -1297,7 +1325,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 9,
       "indiaOpenings": 0,
       "relevant": 0
@@ -1312,9 +1340,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 32,
-      "indiaOpenings": 14,
+      "lastChecked": "2026-11-23",
+      "openings": 30,
+      "indiaOpenings": 11,
       "relevant": 0
     },
     "greenhouse:anaplan": {
@@ -1327,9 +1355,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 165,
-      "indiaOpenings": 24,
+      "lastChecked": "2026-11-23",
+      "openings": 123,
+      "indiaOpenings": 20,
       "relevant": 0
     },
     "smartrecruiters:infovisionlabs": {
@@ -1342,7 +1370,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1353,13 +1381,14 @@
       "token": "swiggy",
       "careersUrl": "",
       "sources": [
-        "ats probe: Swiggy"
+        "ats probe: Swiggy",
+        "google"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 190,
-      "indiaOpenings": 1,
+      "lastSeen": "2026-11-21",
+      "lastChecked": "2026-11-23",
+      "openings": 149,
+      "indiaOpenings": 0,
       "relevant": 0
     },
     "greenhouse:payoneer": {
@@ -1372,9 +1401,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 100,
-      "indiaOpenings": 10,
+      "lastChecked": "2026-11-23",
+      "openings": 101,
+      "indiaOpenings": 9,
       "relevant": 0
     },
     "smartrecruiters:tokyotechie": {
@@ -1387,7 +1416,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 2,
       "indiaOpenings": 2,
       "relevant": 0
@@ -1402,8 +1431,8 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 33,
+      "lastChecked": "2026-11-23",
+      "openings": 36,
       "indiaOpenings": 1,
       "relevant": 0
     },
@@ -1417,7 +1446,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1432,7 +1461,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1447,9 +1476,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 59,
-      "indiaOpenings": 9,
+      "lastChecked": "2026-11-23",
+      "openings": 61,
+      "indiaOpenings": 10,
       "relevant": 0
     },
     "smartrecruiters:applicantz": {
@@ -1462,7 +1491,7 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastChecked": "2026-11-23",
       "openings": 1,
       "indiaOpenings": 1,
       "relevant": 0
@@ -1477,9 +1506,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 68,
-      "indiaOpenings": 11,
+      "lastChecked": "2026-11-23",
+      "openings": 64,
+      "indiaOpenings": 10,
       "relevant": 0
     },
     "greenhouse:thoughtworks": {
@@ -1492,9 +1521,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 44,
-      "indiaOpenings": 1,
+      "lastChecked": "2026-11-23",
+      "openings": 31,
+      "indiaOpenings": 0,
       "relevant": 0
     },
     "greenhouse:zscaler": {
@@ -1507,9 +1536,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 374,
-      "indiaOpenings": 49,
+      "lastChecked": "2026-11-23",
+      "openings": 388,
+      "indiaOpenings": 53,
       "relevant": 0
     },
     "greenhouse:druva": {
@@ -1522,24 +1551,26 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 27,
-      "indiaOpenings": 8,
+      "lastChecked": "2026-11-23",
+      "openings": 26,
+      "indiaOpenings": 9,
       "relevant": 0
     },
     "smartrecruiters:servicenow": {
       "name": "ServiceNow",
       "ats": "smartrecruiters",
       "token": "servicenow",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "ats probe: servicenow"
+        "ats probe: servicenow",
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
       "openings": 83,
-      "indiaOpenings": 36,
+      "indiaOpenings": 23,
       "relevant": 0
     },
     "greenhouse:twilio": {
@@ -1552,9 +1583,9 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 127,
-      "indiaOpenings": 9,
+      "lastChecked": "2026-11-23",
+      "openings": 109,
+      "indiaOpenings": 10,
       "relevant": 0
     },
     "ashby:atlan": {
@@ -1567,23 +1598,24 @@
       ],
       "firstSeen": "2026-11-05",
       "lastSeen": "2026-11-05",
-      "lastChecked": "2026-11-06",
-      "openings": 6,
-      "indiaOpenings": 2,
+      "lastChecked": "2026-11-23",
+      "openings": 7,
+      "indiaOpenings": 1,
       "relevant": 0
     },
     "greenhouse:doordashusa": {
       "name": "DoorDash USA",
       "ats": "greenhouse",
       "token": "doordashusa",
-      "careersUrl": "",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-05",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 438,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 408,
       "indiaOpenings": 0,
       "relevant": 0
     },
@@ -1598,11 +1630,12 @@
       "firstSeen": "2026-11-05",
       "site": "External_Careers",
       "host": "genpact.wd108.myworkdayjobs.com",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 23,
-      "indiaOpenings": 9,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://genpact.wd108.myworkdayjobs.com/wday/cxs/genpact/External_Careers/jobs"
     },
     "smartrecruiters:softwaremind": {
       "name": "Software Mind",
@@ -1614,7 +1647,7 @@
         "google"
       ],
       "firstSeen": "2026-11-06",
-      "lastSeen": "2026-11-06"
+      "lastSeen": "2026-11-23"
     },
     "lever:smart-working-solutions": {
       "name": "smart-working-solutions",
@@ -1625,26 +1658,28 @@
         "google"
       ],
       "firstSeen": "2026-11-06",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 14,
-      "indiaOpenings": 10,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 17,
+      "indiaOpenings": 5,
       "relevant": 0
     },
     "lever:gohighlevel": {
       "name": "gohighlevel",
       "ats": "lever",
       "token": "gohighlevel",
-      "careersUrl": "",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
       "sources": [
-        "google"
+        "google",
+        "google (careers page)"
       ],
       "firstSeen": "2026-11-06",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 111,
-      "indiaOpenings": 39,
-      "relevant": 0
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "gohighlevel board timed out after 180s"
     },
     "ashby:3y-health": {
       "name": "3Y Health",
@@ -1655,11 +1690,1727 @@
         "google"
       ],
       "firstSeen": "2026-11-06",
-      "lastSeen": "2026-11-06",
-      "lastChecked": "2026-11-06",
-      "openings": 16,
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 21,
       "indiaOpenings": 3,
       "relevant": 0
+    },
+    "workday:copart": {
+      "name": "Copart",
+      "ats": "workday",
+      "token": "copart",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "Copart",
+      "host": "copart.wd12.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://copart.wd12.myworkdayjobs.com/wday/cxs/copart/Copart/jobs"
+    },
+    "workday:zoetis": {
+      "name": "zoetis",
+      "ats": "workday",
+      "token": "zoetis",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "broadbean_external",
+      "host": "zoetis.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://zoetis.wd5.myworkdayjobs.com/wday/cxs/zoetis/broadbean_external/jobs"
+    },
+    "workday:syniverse": {
+      "name": "Syniverse",
+      "ats": "workday",
+      "token": "syniverse",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "SyniverseCareers",
+      "host": "syniverse.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://syniverse.wd1.myworkdayjobs.com/wday/cxs/syniverse/SyniverseCareers/jobs"
+    },
+    "workday:msd": {
+      "name": "msd",
+      "ats": "workday",
+      "token": "msd",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "searchjobs",
+      "host": "msd.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-06",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://msd.wd5.myworkdayjobs.com/wday/cxs/msd/searchjobs/jobs"
+    },
+    "workday:unisys": {
+      "name": "Search for Jobs",
+      "ats": "workday",
+      "token": "unisys",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "External",
+      "host": "unisys.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://unisys.wd5.myworkdayjobs.com/wday/cxs/unisys/External/jobs"
+    },
+    "workday:accenture": {
+      "name": "Accenture",
+      "ats": "workday",
+      "token": "accenture",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "accenturecareers",
+      "host": "accenture.wd103.myworkdayjobs.com",
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://accenture.wd103.myworkdayjobs.com/wday/cxs/accenture/accenturecareers/jobs"
+    },
+    "workday:ncr": {
+      "name": "ncr",
+      "ats": "workday",
+      "token": "ncr",
+      "careersUrl": "",
+      "sources": [
+        "log: ATS link"
+      ],
+      "firstSeen": "2026-11-06",
+      "site": "ext_apac",
+      "host": "ncr.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-06",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://ncr.wd1.myworkdayjobs.com/wday/cxs/ncr/ext_apac/jobs"
+    },
+    "greenhouse:digicert": {
+      "name": "DigiCert",
+      "ats": "greenhouse",
+      "token": "digicert",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: DigiCert"
+      ],
+      "firstSeen": "2026-11-06",
+      "lastSeen": "2026-11-06",
+      "lastChecked": "2026-11-23",
+      "openings": 50,
+      "indiaOpenings": 4,
+      "relevant": 0
+    },
+    "ashby:headout": {
+      "name": "Headout",
+      "ats": "ashby",
+      "token": "headout",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Headout"
+      ],
+      "firstSeen": "2026-11-06",
+      "lastSeen": "2026-11-06",
+      "lastChecked": "2026-11-23",
+      "openings": 17,
+      "indiaOpenings": 1,
+      "relevant": 0
+    },
+    "smartrecruiters:wealdenhrsolutionsindiallp": {
+      "name": "Wealden HR Solutions (India) LLP",
+      "ats": "smartrecruiters",
+      "token": "wealdenhrsolutionsindiallp",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Wealden HR Solutions (India) LLP"
+      ],
+      "firstSeen": "2026-11-06",
+      "lastSeen": "2026-11-06",
+      "lastChecked": "2026-11-23",
+      "openings": 1,
+      "indiaOpenings": 1,
+      "relevant": 0
+    },
+    "greenhouse:okta": {
+      "name": "Senior Technical Writer",
+      "ats": "greenhouse",
+      "token": "okta",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-07",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 374,
+      "indiaOpenings": 62,
+      "relevant": 0
+    },
+    "ashby:cyberhaven": {
+      "name": "Cyberhaven",
+      "ats": "ashby",
+      "token": "cyberhaven",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Cyberhaven",
+        "google"
+      ],
+      "firstSeen": "2026-11-07",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 37,
+      "indiaOpenings": 9,
+      "relevant": 0
+    },
+    "smartrecruiters:techvedika": {
+      "name": "TechVedika",
+      "ats": "smartrecruiters",
+      "token": "techvedika",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: TechVedika"
+      ],
+      "firstSeen": "2026-11-07",
+      "lastSeen": "2026-11-07",
+      "lastChecked": "2026-11-23",
+      "openings": 4,
+      "indiaOpenings": 3,
+      "relevant": 0
+    },
+    "ashby:emagine": {
+      "name": "EMAGine",
+      "ats": "ashby",
+      "token": "emagine",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: EMAGine"
+      ],
+      "firstSeen": "2026-11-08",
+      "lastSeen": "2026-11-08",
+      "lastChecked": "2026-11-23",
+      "openings": 33,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "workday:levistraussandco": {
+      "name": "Levistraussandco",
+      "ats": "workday",
+      "token": "levistraussandco",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "External",
+      "host": "levistraussandco.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://levistraussandco.wd5.myworkdayjobs.com/wday/cxs/levistraussandco/External/jobs"
+    },
+    "workday:aveva": {
+      "name": "Aveva",
+      "ats": "workday",
+      "token": "aveva",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "AVEVA_careers",
+      "host": "aveva.wd3.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://aveva.wd3.myworkdayjobs.com/wday/cxs/aveva/AVEVA_careers/jobs"
+    },
+    "workday:micron": {
+      "name": "Micron",
+      "ats": "workday",
+      "token": "micron",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "External",
+      "host": "micron.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://micron.wd1.myworkdayjobs.com/wday/cxs/micron/External/jobs"
+    },
+    "workday:modmed": {
+      "name": "Modmed",
+      "ats": "workday",
+      "token": "modmed",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "ModMed12",
+      "host": "modmed.wd501.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 7,
+      "indiaOpenings": 2,
+      "relevant": 0
+    },
+    "ashby:irissoftwaregroup": {
+      "name": "IRIS Software Group",
+      "ats": "ashby",
+      "token": "irissoftwaregroup",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: IRIS Software Group"
+      ],
+      "firstSeen": "2026-11-09",
+      "lastSeen": "2026-11-09",
+      "lastChecked": "2026-11-23",
+      "openings": 44,
+      "indiaOpenings": 2,
+      "relevant": 0
+    },
+    "smartrecruiters:coditastechnologies": {
+      "name": "Coditas Technologies",
+      "ats": "smartrecruiters",
+      "token": "coditastechnologies",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Coditas Technologies"
+      ],
+      "firstSeen": "2026-11-09",
+      "lastSeen": "2026-11-09",
+      "lastChecked": "2026-11-23",
+      "openings": 1,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "smartrecruiters:vyaparin": {
+      "name": "Vyapar.in",
+      "ats": "smartrecruiters",
+      "token": "vyaparin",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Vyaparin"
+      ],
+      "firstSeen": "2026-11-09",
+      "lastSeen": "2026-11-09",
+      "lastChecked": "2026-11-23",
+      "openings": 7,
+      "indiaOpenings": 4,
+      "relevant": 0
+    },
+    "smartrecruiters:endava": {
+      "name": "Endava",
+      "ats": "smartrecruiters",
+      "token": "endava",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Endava"
+      ],
+      "firstSeen": "2026-11-09",
+      "lastSeen": "2026-11-09",
+      "lastChecked": "2026-11-23",
+      "openings": 19,
+      "indiaOpenings": 6,
+      "relevant": 0
+    },
+    "lever:teamsnap": {
+      "name": "TeamSnap",
+      "ats": "lever",
+      "token": "teamsnap",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 7,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "workday:bristolmyerssquibb": {
+      "name": "Bristolmyerssquibb",
+      "ats": "workday",
+      "token": "bristolmyerssquibb",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "BMS",
+      "host": "bristolmyerssquibb.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://bristolmyerssquibb.wd5.myworkdayjobs.com/wday/cxs/bristolmyerssquibb/BMS/jobs"
+    },
+    "workday:synechron": {
+      "name": "Synechron",
+      "ats": "workday",
+      "token": "synechron",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "SynechronCareers",
+      "host": "synechron.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for synechron.wd1.myworkdayjobs.com until 2026-11-23T15:10:50.565Z (https://synechron.wd1.myworkdayjobs.com"
+    },
+    "workday:salesforce": {
+      "name": "Salesforce",
+      "ats": "workday",
+      "token": "salesforce",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-09",
+      "site": "External_Career_Site",
+      "host": "salesforce.wd12.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for salesforce.wd12.myworkdayjobs.com until 2026-11-23T15:11:33.784Z (https://salesforce.wd12.myworkdayjobs"
+    },
+    "workday:accendra": {
+      "name": "Accendra",
+      "ats": "workday",
+      "token": "accendra",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-10",
+      "site": "AccendraCareers",
+      "host": "accendra.wd504.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://accendra.wd504.myworkdayjobs.com/wday/cxs/accendra/AccendraCareers/jobs"
+    },
+    "workday:equisoft": {
+      "name": "Search for Jobs",
+      "ats": "workday",
+      "token": "equisoft",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-11",
+      "site": "External",
+      "host": "equisoft.wd10.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 3,
+      "indiaOpenings": 2,
+      "relevant": 0
+    },
+    "lever:figfinancial": {
+      "name": "Fig",
+      "ats": "lever",
+      "token": "figfinancial",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-11",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 4,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "greenhouse:hubspotjobs": {
+      "name": "HubSpot",
+      "ats": "greenhouse",
+      "token": "hubspotjobs",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-11",
+      "lastSeen": "2026-11-22",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "HubSpot board timed out after 180s"
+    },
+    "smartrecruiters:sgs": {
+      "name": "SGS",
+      "ats": "smartrecruiters",
+      "token": "sgs",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: SGS"
+      ],
+      "firstSeen": "2026-11-11",
+      "lastSeen": "2026-11-11",
+      "lastChecked": "2026-11-23",
+      "openings": 23,
+      "indiaOpenings": 4,
+      "relevant": 0
+    },
+    "ashby:sentilink": {
+      "name": "SentiLink",
+      "ats": "ashby",
+      "token": "sentilink",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 46,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "ashby:plane": {
+      "name": "About Plane",
+      "ats": "ashby",
+      "token": "plane",
+      "careersUrl": "https://www.onlyfrontendjobs.com/react-developer-jobs-hyderabad",
+      "sources": [
+        "google",
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 35,
+      "indiaOpenings": 8,
+      "relevant": 0
+    },
+    "ashby:bidgely-inc": {
+      "name": "Bidgely, Inc",
+      "ats": "ashby",
+      "token": "bidgely-inc",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 19,
+      "indiaOpenings": 4,
+      "relevant": 0
+    },
+    "ashby:techtorch": {
+      "name": "Techtorch",
+      "ats": "ashby",
+      "token": "techtorch",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 8,
+      "indiaOpenings": 2,
+      "relevant": 0
+    },
+    "lever:matillion": {
+      "name": "Matillion",
+      "ats": "lever",
+      "token": "matillion",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Matillion"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-12",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Matillion board timed out after 180s"
+    },
+    "smartrecruiters:enreap": {
+      "name": "Enreap",
+      "ats": "smartrecruiters",
+      "token": "enreap",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Enreap"
+      ],
+      "firstSeen": "2026-11-12",
+      "lastSeen": "2026-11-12",
+      "lastChecked": "2026-11-23",
+      "openings": 1,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "workday:ssctech": {
+      "name": "Ssctech",
+      "ats": "workday",
+      "token": "ssctech",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-13",
+      "site": "SSCTechnologies",
+      "host": "ssctech.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://ssctech.wd1.myworkdayjobs.com/wday/cxs/ssctech/SSCTechnologies/jobs"
+    },
+    "smartrecruiters:miratech1": {
+      "name": "Miratech",
+      "ats": "smartrecruiters",
+      "token": "Miratech1",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google",
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-13",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 69,
+      "indiaOpenings": 55,
+      "relevant": 0
+    },
+    "smartrecruiters:ifs1": {
+      "name": "IFS",
+      "ats": "smartrecruiters",
+      "token": "IFS1",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-13",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "IFS board timed out after 180s"
+    },
+    "smartrecruiters:experian": {
+      "name": "Experian",
+      "ats": "smartrecruiters",
+      "token": "Experian",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-13",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Experian board timed out after 180s"
+    },
+    "smartrecruiters:syncreonconsulting": {
+      "name": "Syncreon Consulting",
+      "ats": "smartrecruiters",
+      "token": "SyncreonConsulting",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-13",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Syncreon Consulting board timed out after 180s"
+    },
+    "greenhouse:accordionindia": {
+      "name": "Accordion India",
+      "ats": "greenhouse",
+      "token": "accordionindia",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Accordion India"
+      ],
+      "firstSeen": "2026-11-13",
+      "lastSeen": "2026-11-13",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Accordion India board timed out after 180s"
+    },
+    "workday:crowe": {
+      "name": "Crowe",
+      "ats": "workday",
+      "token": "crowe",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-14",
+      "site": "External_Careers",
+      "host": "crowe.wd12.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "circuit open for crowe.wd12.myworkdayjobs.com until 2026-11-23T15:10:56.225Z (https://crowe.wd12.myworkdayjobs.com/wday/"
+    },
+    "workday:roche": {
+      "name": "Roche",
+      "ats": "workday",
+      "token": "roche",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-14",
+      "site": "roche-ext",
+      "host": "roche.wd3.myworkdayjobs.com",
+      "lastSeen": "2026-11-16",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://roche.wd3.myworkdayjobs.com/wday/cxs/roche/roche-ext/jobs"
+    },
+    "smartrecruiters:vams": {
+      "name": "VAMS",
+      "ats": "smartrecruiters",
+      "token": "vams",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: VAMS"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "VAMS board timed out after 180s"
+    },
+    "ashby:true-talent-solutions-partners": {
+      "name": "true-talent-solutions-partners",
+      "ats": "ashby",
+      "token": "true-talent-solutions-partners",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 195,
+      "indiaOpenings": 1,
+      "relevant": 0
+    },
+    "ashby:clera": {
+      "name": "Clera",
+      "ats": "ashby",
+      "token": "Clera",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 309,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "greenhouse:encora10": {
+      "name": "encora10",
+      "ats": "greenhouse",
+      "token": "encora10",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "encora10 board timed out after 180s"
+    },
+    "ashby:beaconai": {
+      "name": "beaconai",
+      "ats": "ashby",
+      "token": "beaconai",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 17,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "ashby:mirage": {
+      "name": "mirage",
+      "ats": "ashby",
+      "token": "mirage",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 16,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "greenhouse:grvty": {
+      "name": "grvty",
+      "ats": "greenhouse",
+      "token": "grvty",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "grvty board timed out after 180s"
+    },
+    "greenhouse:okx": {
+      "name": "okx",
+      "ats": "greenhouse",
+      "token": "okx",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "okx board timed out after 180s"
+    },
+    "greenhouse:workatbackbase": {
+      "name": "workatbackbase",
+      "ats": "greenhouse",
+      "token": "workatbackbase",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "workatbackbase board timed out after 180s"
+    },
+    "greenhouse:reddit": {
+      "name": "reddit",
+      "ats": "greenhouse",
+      "token": "reddit",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "reddit board timed out after 180s"
+    },
+    "ashby:perplexity": {
+      "name": "Perplexity",
+      "ats": "ashby",
+      "token": "Perplexity",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 151,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "greenhouse:cresta": {
+      "name": "cresta",
+      "ats": "greenhouse",
+      "token": "cresta",
+      "careersUrl": "https://www.engg.space/jobs/mobile",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-14",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "cresta board timed out after 180s"
+    },
+    "ashby:surveymonkey": {
+      "name": "SurveyMonkey",
+      "ats": "ashby",
+      "token": "surveymonkey",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-14",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 37,
+      "indiaOpenings": 15,
+      "relevant": 0
+    },
+    "workday:lilly": {
+      "name": "lilly",
+      "ats": "workday",
+      "token": "lilly",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-15",
+      "site": "LLY",
+      "host": "lilly.wd115.myworkdayjobs.com",
+      "lastSeen": "2026-11-16",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://lilly.wd115.myworkdayjobs.com/wday/cxs/lilly/LLY/jobs"
+    },
+    "smartrecruiters:bigbinary": {
+      "name": "BigBinary",
+      "ats": "smartrecruiters",
+      "token": "bigbinary",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: BigBinary"
+      ],
+      "firstSeen": "2026-11-15",
+      "lastSeen": "2026-11-15",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "BigBinary board timed out after 180s"
+    },
+    "ashby:openai": {
+      "name": "openai",
+      "ats": "ashby",
+      "token": "openai",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-16",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 851,
+      "indiaOpenings": 1,
+      "relevant": 0
+    },
+    "ashby:loopio": {
+      "name": "Loopio Inc.",
+      "ats": "ashby",
+      "token": "loopio",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-16",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 14,
+      "indiaOpenings": 2,
+      "relevant": 0
+    },
+    "ashby:eightsleep": {
+      "name": "eightsleep",
+      "ats": "ashby",
+      "token": "eightsleep",
+      "careersUrl": "https://devsunite.com/jobs/uplers-sde-1-react-native-developer-onsite-bangalore-india-nov2026-d0871a",
+      "sources": [
+        "google (careers page)",
+        "google"
+      ],
+      "firstSeen": "2026-11-16",
+      "lastSeen": "2026-11-16",
+      "lastChecked": "2026-11-23",
+      "openings": 34,
+      "indiaOpenings": 0,
+      "relevant": 0
+    },
+    "greenhouse:deepintent": {
+      "name": "DeepIntent",
+      "ats": "greenhouse",
+      "token": "deepintent",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: DeepIntent",
+        "google"
+      ],
+      "firstSeen": "2026-11-16",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "DeepIntent board timed out after 180s"
+    },
+    "greenhouse:nice": {
+      "name": "NICE",
+      "ats": "greenhouse",
+      "token": "nice",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-17",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "NICE board timed out after 180s"
+    },
+    "smartrecruiters:nielseniq": {
+      "name": "NielsenIQ",
+      "ats": "smartrecruiters",
+      "token": "NielsenIQ",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-17",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "NielsenIQ board timed out after 180s"
+    },
+    "ashby:riveron": {
+      "name": "Riveron",
+      "ats": "ashby",
+      "token": "riveron",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Riveron"
+      ],
+      "firstSeen": "2026-11-17",
+      "lastSeen": "2026-11-17",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Riveron board timed out after 180s"
+    },
+    "smartrecruiters:mobitechwirelesssolutionprivatelimited": {
+      "name": "Mobitech Wireless Solution private limited",
+      "ats": "smartrecruiters",
+      "token": "mobitechwirelesssolutionprivatelimited",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Mobitech Wireless Solution Private Limited"
+      ],
+      "firstSeen": "2026-11-17",
+      "lastSeen": "2026-11-17",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Mobitech Wireless Solution private limited board timed out after 180s"
+    },
+    "greenhouse:monks": {
+      "name": "Colombia",
+      "ats": "greenhouse",
+      "token": "monks",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Colombia board timed out after 180s"
+    },
+    "ashby:vinci": {
+      "name": "Vinci",
+      "ats": "ashby",
+      "token": "vinci",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Vinci board timed out after 180s"
+    },
+    "workday:telstra": {
+      "name": "Telstra",
+      "ats": "workday",
+      "token": "telstra",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "Telstra_Careers",
+      "host": "telstra.wd3.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Telstra board timed out after 180s"
+    },
+    "workday:aresmgmt": {
+      "name": "aresmgmt",
+      "ats": "workday",
+      "token": "aresmgmt",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "External",
+      "host": "aresmgmt.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "aresmgmt board timed out after 180s"
+    },
+    "workday:veralto": {
+      "name": "Veralto",
+      "ats": "workday",
+      "token": "veralto",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "EskoJobs",
+      "host": "veralto.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "veralto board timed out after 180s"
+    },
+    "workday:mastercard": {
+      "name": "mastercard",
+      "ats": "workday",
+      "token": "mastercard",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "CorporateCareers",
+      "host": "mastercard.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "mastercard board timed out after 180s"
+    },
+    "workday:web": {
+      "name": "web",
+      "ats": "workday",
+      "token": "web",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "ExternalCareerSite",
+      "host": "web.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://web.wd1.myworkdayjobs.com/wday/cxs/web/ExternalCareerSite/jobs"
+    },
+    "workday:jiostar": {
+      "name": "Jiostar",
+      "ats": "workday",
+      "token": "jiostar",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "JioStar",
+      "host": "jiostar.wd102.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Jiostar board timed out after 180s"
+    },
+    "workday:trellix": {
+      "name": "trellix",
+      "ats": "workday",
+      "token": "trellix",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "EnterpriseCareers",
+      "host": "trellix.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "trellix board timed out after 180s"
+    },
+    "workday:fractal": {
+      "name": "fractal",
+      "ats": "workday",
+      "token": "fractal",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-19",
+      "site": "Careers",
+      "host": "fractal.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://fractal.wd1.myworkdayjobs.com/wday/cxs/fractal/Careers/jobs"
+    },
+    "smartrecruiters:revalsystechnologies": {
+      "name": "Revalsys Technologies",
+      "ats": "smartrecruiters",
+      "token": "revalsystechnologies",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Revalsys Technologies"
+      ],
+      "firstSeen": "2026-11-19",
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Revalsys Technologies board timed out after 180s"
+    },
+    "ashby:gen-digital": {
+      "name": "Gen Digital Inc.",
+      "ats": "ashby",
+      "token": "gen-digital",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Gen Digital Inc."
+      ],
+      "firstSeen": "2026-11-19",
+      "lastSeen": "2026-11-19",
+      "lastChecked": "2026-11-23",
+      "openings": 93,
+      "indiaOpenings": 8,
+      "relevant": 0
+    },
+    "greenhouse:andurilindustries": {
+      "name": "Anduril Industries",
+      "ats": "greenhouse",
+      "token": "andurilindustries",
+      "careersUrl": "https://devsunite.com/jobs/uplers-sde-1-react-native-developer-onsite-bangalore-india-nov2026-d0871a",
+      "sources": [
+        "google (careers page)",
+        "google"
+      ],
+      "firstSeen": "2026-11-20",
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Anduril Industries board timed out after 180s"
+    },
+    "greenhouse:cordance": {
+      "name": "Cordance",
+      "ats": "greenhouse",
+      "token": "cordance",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Cordance"
+      ],
+      "firstSeen": "2026-11-20",
+      "lastSeen": "2026-11-20",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Cordance board timed out after 180s"
+    },
+    "workday:boeing": {
+      "name": "boeing",
+      "ats": "workday",
+      "token": "boeing",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-21",
+      "site": "EXTERNAL_CAREERS",
+      "host": "boeing.wd1.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://boeing.wd1.myworkdayjobs.com/wday/cxs/boeing/EXTERNAL_CAREERS/jobs"
+    },
+    "workday:zelis": {
+      "name": "zelis",
+      "ats": "workday",
+      "token": "zelis",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-21",
+      "site": "ZelisCareers",
+      "host": "zelis.wd115.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://zelis.wd115.myworkdayjobs.com/wday/cxs/zelis/ZelisCareers/jobs"
+    },
+    "workday:pwc": {
+      "name": "Pwc",
+      "ats": "workday",
+      "token": "pwc",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-21",
+      "site": "Global_Experienced_Careers",
+      "host": "pwc.wd3.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://pwc.wd3.myworkdayjobs.com/wday/cxs/pwc/Global_Experienced_Careers/jobs"
+    },
+    "greenhouse:platformscience": {
+      "name": "Platform Science",
+      "ats": "greenhouse",
+      "token": "platformscience",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: Platform Science"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-22",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Platform Science board timed out after 180s"
+    },
+    "ashby:atlys": {
+      "name": "atlys",
+      "ats": "ashby",
+      "token": "atlys",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 34,
+      "indiaOpenings": 3,
+      "relevant": 0
+    },
+    "smartrecruiters:wabtec": {
+      "name": "Wabtec",
+      "ats": "smartrecruiters",
+      "token": "Wabtec",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "Wabtec board timed out after 180s"
+    },
+    "greenhouse:showpad": {
+      "name": "showpad",
+      "ats": "greenhouse",
+      "token": "showpad",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "showpad board timed out after 180s"
+    },
+    "greenhouse:sigmoid": {
+      "name": "sigmoid",
+      "ats": "greenhouse",
+      "token": "sigmoid",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "sigmoid board timed out after 180s"
+    },
+    "lever:pditechnologies": {
+      "name": "PDI Technologies",
+      "ats": "lever",
+      "token": "pditechnologies",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)",
+        "google"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 28,
+      "indiaOpenings": 6,
+      "relevant": 0
+    },
+    "greenhouse:purestorage": {
+      "name": "purestorage",
+      "ats": "greenhouse",
+      "token": "purestorage",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "purestorage board timed out after 180s"
+    },
+    "ashby:clickhouse": {
+      "name": "clickhouse",
+      "ats": "ashby",
+      "token": "clickhouse",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 205,
+      "indiaOpenings": 9,
+      "relevant": 0
+    },
+    "workday:omnissa": {
+      "name": "omnissa",
+      "ats": "workday",
+      "token": "omnissa",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "site": "Omnissa_External_Career_Site",
+      "host": "omnissa.wd501.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://omnissa.wd501.myworkdayjobs.com/wday/cxs/omnissa/Omnissa_External_Career_Site/jobs"
+    },
+    "greenhouse:saucelabs": {
+      "name": "saucelabs",
+      "ats": "greenhouse",
+      "token": "saucelabs",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "saucelabs board timed out after 180s"
+    },
+    "greenhouse:sumologic": {
+      "name": "sumologic",
+      "ats": "greenhouse",
+      "token": "sumologic",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "sumologic board timed out after 180s"
+    },
+    "ashby:tekion": {
+      "name": "Tekion",
+      "ats": "ashby",
+      "token": "Tekion",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 89,
+      "indiaOpenings": 33,
+      "relevant": 0
+    },
+    "smartrecruiters:thenielsencompany": {
+      "name": "TheNielsenCompany",
+      "ats": "smartrecruiters",
+      "token": "TheNielsenCompany",
+      "careersUrl": "https://openroles.in/jobs/aiprise-software-engineer-i-frontend-bangalore-india-6af41079b323b5a13d095804",
+      "sources": [
+        "google (careers page)"
+      ],
+      "firstSeen": "2026-11-22",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "TheNielsenCompany board timed out after 180s"
+    },
+    "workday:ffive": {
+      "name": "ffive",
+      "ats": "workday",
+      "token": "ffive",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-22",
+      "site": "f5jobs",
+      "host": "ffive.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "429 https://ffive.wd5.myworkdayjobs.com/wday/cxs/ffive/f5jobs/jobs"
+    },
+    "greenhouse:gcmgrosvenor": {
+      "name": "GCM Grosvenor",
+      "ats": "greenhouse",
+      "token": "gcmgrosvenor",
+      "careersUrl": "https://devsunite.com/jobs/uplers-sde-1-react-native-developer-onsite-bangalore-india-nov2026-d0871a",
+      "sources": [
+        "google (careers page)",
+        "google"
+      ],
+      "firstSeen": "2026-11-23",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "GCM Grosvenor board timed out after 180s"
+    },
+    "greenhouse:vmlenterprisesolutions": {
+      "name": "vmlenterprisesolutions",
+      "ats": "greenhouse",
+      "token": "vmlenterprisesolutions",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-23",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "vmlenterprisesolutions board timed out after 180s"
+    },
+    "ashby:actcareers": {
+      "name": "actcareers",
+      "ats": "ashby",
+      "token": "actcareers",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-23",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 485,
+      "indiaOpenings": 12,
+      "relevant": 0
+    },
+    "workday:jda": {
+      "name": "jda",
+      "ats": "workday",
+      "token": "jda",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-23",
+      "site": "JDA_Careers",
+      "host": "jda.wd5.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "jda board timed out after 180s"
+    },
+    "workday:factset": {
+      "name": "factset",
+      "ats": "workday",
+      "token": "factset",
+      "careersUrl": "",
+      "sources": [
+        "google"
+      ],
+      "firstSeen": "2026-11-23",
+      "site": "FactSetCareers",
+      "host": "factset.wd108.myworkdayjobs.com",
+      "lastSeen": "2026-11-23",
+      "lastChecked": "2026-11-23",
+      "openings": 0,
+      "indiaOpenings": 0,
+      "relevant": 0,
+      "lastError": "factset board timed out after 180s"
+    },
+    "smartrecruiters:stackavenuetechnologies": {
+      "name": "StackAvenue Technologies",
+      "ats": "smartrecruiters",
+      "token": "stackavenuetechnologies",
+      "careersUrl": "",
+      "sources": [
+        "ats probe: StackAvenue Technologies"
+      ],
+      "firstSeen": "2026-11-23",
+      "lastSeen": "2026-11-23"
     }
   }
 }

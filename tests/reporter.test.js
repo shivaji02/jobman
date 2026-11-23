@@ -34,6 +34,8 @@ test('reporter.write includes Manual Apply summary', () => {
     assert.match(md, /shivajirn02\.pdf/);
     assert.match(md, /0 unaccounted/);
     assert.match(md, /#already-applied/); // evidence is printed next to the applied job
+    assert.match(md, /Unresolved manual follow-ups/);
+    assert.match(md, /not approvals and will not be submitted automatically/);
   } finally {
     fs.unlinkSync(file);
   }
