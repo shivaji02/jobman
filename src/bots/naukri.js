@@ -13,10 +13,10 @@ const { scoreJob, shouldApply, parseExperienceRange } = require('../core/filter'
 const logger = require('../core/logger');
 const { classifyLocation, SEARCH_CITIES } = require('../core/location');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit } = require('../core/disposition');
-const { planAnswers } = require('../core/screening');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
+const { planAnswers, answerFor } = require('../core/screening');
 
-const QUERIES = ['react native developer', 'react native engineer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
+const QUERIES = ['react native developer', 'react native engineer', 'react native', 'cross platform mobile developer', 'mobile developer', 'frontend engineer react', 'full stack developer node react'];
 const MAX_APPS_PER_RUN = Number(process.env.JOBMAN_MAX_APPS) || 30;
 const MAX_SCREENING_ROUNDS = 10;
 
@@ -124,11 +124,12 @@ function formatScreeningLog(answers, filled) {
  * rounded (2.7 → 3), which still covers 1-3, 2-4, 2-5, 3-5 ranges.
  */
 const SEARCH_EXPERIENCE_YEARS = Number(process.env.JOBMAN_NAUKRI_EXPERIENCE) || 3;
+const NAUKRI_JOB_AGE_DAYS = Number(process.env.JOBMAN_NAUKRI_JOB_AGE) || 7;
 
 function searchUrl(query, city) {
   const slug = query.trim().toLowerCase().replace(/\s+/g, '-');
-  // jobAge=3 → posted in the last 3 days; sort=r → most recent first
-  const recent = `jobAge=3&sort=r&experience=${SEARCH_EXPERIENCE_YEARS}`;
+  // jobAge=7 → posted in the last 7 days (a missed daily run no longer drops jobs); sort=r → most recent first
+  const recent = `jobAge=${NAUKRI_JOB_AGE_DAYS}&sort=r&experience=${SEARCH_EXPERIENCE_YEARS}`;
   if (!city) return `https://www.naukri.com/${slug}-jobs?k=${encodeURIComponent(query)}&${recent}`;
   return `https://www.naukri.com/${slug}-jobs-in-${city}?k=${encodeURIComponent(query)}&l=${encodeURIComponent(city)}&${recent}`;
 }
@@ -297,10 +298,6 @@ async function openExternalOnPage(page, url) {
  */
 function answerOneScreeningRound(page, answers) {
   return page.evaluate((answers) => {
-    const root =
-      document.querySelector('[class*="chatbot"], [class*="Chatbot"], [class*="screening"], [class*="drawer"], [class*="modal"], [role="dialog"]') ||
-      document.body;
-
     const visible = (el) => {
       if (!el) return false;
       const s = window.getComputedStyle(el);
@@ -308,9 +305,22 @@ function answerOneScreeningRound(page, answers) {
       const r = el.getBoundingClientRect();
       return r.width > 0 && r.height > 0;
     };
+    // Most specific container first. `[class*="drawer"]` alone matched Naukri's header
+    // (nI-gNb-drawer), so the questionnaire was never seen (2026-11-23).
+    const pickRoot = () => {
+      for (const sel of ['[class*="chatbot_Drawer"], [class*="chatbot_drawer"]', '[class*="chatbot"], [class*="Chatbot"]', '[class*="screening"], [role="dialog"], [class*="modal"], [class*="drawer"]']) {
+        const hit = Array.from(document.querySelectorAll(sel)).filter((el) => !/nI-gNb/.test(String(el.className)) && visible(el));
+        if (hit.length) return hit[0];
+      }
+      return document.body;
+    };
+    const root = pickRoot();
 
+    const isChatbot = !!root.querySelector('.botMsg') || /chatbot/i.test(String(root.className));
     const clickable = Array.from(root.querySelectorAll('button, a, span, div, li, label'))
       .filter(visible)
+      // never click inside the chat history (an earlier "Yes" reply bubble)
+      .filter((el) => !el.closest('ul.list, [id^="chatList"]'))
       .filter((el) => {
         const t = (el.textContent || '').trim();
         return t.length > 0 && t.length <= 80 && el.children.length <= 2;
@@ -321,7 +331,11 @@ function answerOneScreeningRound(page, answers) {
       root.querySelectorAll('[class*="question"], [class*="bot"], [class*="msg"], [class*="message"], p, h2, h3, h4, label')
     ).filter(visible);
     let question = '';
-    for (let i = questionEls.length - 1; i >= 0; i--) {
+    if (isChatbot) {
+      const bots = Array.from(root.querySelectorAll('.botItem .botMsg, .botMsg')).filter(visible);
+      question = bots.length ? (bots[bots.length - 1].textContent || '').replace(/\s+/g, ' ').trim() : '';
+    }
+    for (let i = questionEls.length - 1; i >= 0 && !question; i--) {
       const t = (questionEls[i].textContent || '').replace(/\s+/g, ' ').trim();
       if (t.length >= 8 && t.length <= 220 && /\?|experience|ctc|notice|relocat|salary|available|startup|location|willing/i.test(t)) {
         question = t;
@@ -365,6 +379,14 @@ function answerOneScreeningRound(page, answers) {
     }
 
     function fillText(value) {
+      const editable = Array.from(root.querySelectorAll('[contenteditable="true"]')).filter(visible).pop();
+      if (editable) {
+        // Naukri's chat box only enables Save on real keystrokes — Node types it.
+        document.querySelectorAll('[data-jm-type]').forEach((el) => el.removeAttribute('data-jm-type'));
+        editable.setAttribute('data-jm-type', '1');
+        typeValue = String(value);
+        return true;
+      }
       const inputs = Array.from(root.querySelectorAll('input:not([type="hidden"]), textarea, select')).filter(visible);
       const empty = inputs.find((el) => !el.value || el.value === '0' || el.selectedIndex === 0);
       const el = empty || inputs[inputs.length - 1];
@@ -386,8 +408,17 @@ function answerOneScreeningRound(page, answers) {
       return true;
     }
 
+    let typeValue = null;
+    let deferSend = false;
     function clickSend() {
-      const send = clickable.find((b) => /^(send|submit|next|continue|save|done)$/i.test(b.textContent.trim()));
+      // Chatbot Save (.sendMsg) is disabled until the answer registers — Node waits and clicks it.
+      if (root.querySelector('.sendMsg')) {
+        deferSend = true;
+        return true;
+      }
+      const send =
+        Array.from(root.querySelectorAll('[class*="sendMsg"], [class*="send-btn"], [class*="sendBtn"]')).find(visible) ||
+        clickable.find((b) => /^(send|submit|next|continue|save|done)$/i.test(b.textContent.trim()));
       if (send) {
         send.click();
         return true;
@@ -398,8 +429,20 @@ function answerOneScreeningRound(page, answers) {
     let key = 'other';
     let answer = null;
     let optionalSkip = false;
+    const normQ = (t) => String(t).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const known = (answers.known || []).find((k) => {
+      const a = normQ(k.question);
+      const b = normQ(question);
+      return a && b && (b.includes(a) || a.includes(b));
+    });
 
-    if (/relocat|willing to (re)?locate|open to (re)?locat/i.test(q)) {
+    if (known) {
+      key = 'profile';
+      // Free-text answers ("3") are typed — a partial option match could click the
+      // question bubble itself (e.g. "CSS3"). Only radio/select answers are clicked.
+      if (known.type === 'text') answer = fillText(known.answer) ? known.answer : null;
+      else answer = pickOption(known.answer, [known.answer]) || (fillText(known.answer) ? known.answer : null);
+    } else if (/relocat|willing to (re)?locate|open to (re)?locat/i.test(q)) {
       key = 'relocate';
       answer = pickOption(answers.relocate, ['Yes', 'Y']);
       if (!answer && fillText(answers.relocate)) answer = answers.relocate;
@@ -465,7 +508,7 @@ function answerOneScreeningRound(page, answers) {
 
     if (answer) {
       clickSend();
-      return { status: 'answered', key, question, answer };
+      return { status: 'answered', key, question, answer, typeValue, deferSend, botCount: root.querySelectorAll('.botMsg').length };
     }
 
     if (optionalSkip) {
@@ -481,8 +524,38 @@ function answerOneScreeningRound(page, answers) {
   }, answers);
 }
 
-async function handleScreeningDrawer(page, job, profile) {
+/** Type a chat answer with real keystrokes, wait for Save to enable, click it, wait for the next question. */
+async function finishChatbotAnswer(page, result) {
+  if (result.typeValue != null) {
+    await page.click('[data-jm-type="1"]').catch(() => {});
+    await page.keyboard.type(String(result.typeValue), { delay: 40 });
+  }
+  if (!result.deferSend) return;
+  await page
+    .waitForFunction(() => { const s = document.querySelector('.chatbot_Drawer .send, .sendMsgbtn_container .send'); return s && !s.classList.contains('disabled'); }, { timeout: 4000 })
+    .catch(() => {});
+  await page.click('.chatbot_Drawer .sendMsg').catch(() => page.evaluate(() => document.querySelector('.sendMsg')?.click()));
+  // Next bot question (or the drawer closing after the last one).
+  await page
+    .waitForFunction(
+      (n) => document.querySelectorAll('.botMsg').length > n || !document.querySelector('.chatbot_Drawer'),
+      { timeout: 6000 },
+      result.botCount || 0
+    )
+    .catch(() => {});
+}
+
+async function handleScreeningDrawer(page, job, profile, apiQuestions = []) {
   const answers = buildScreeningAnswers(job, profile);
+  // Exact per-question answers from candidate.json (screening.js) for the questionnaire
+  // Naukri returned; the drawer matches its visible question against these first.
+  answers.known = apiQuestions
+    .map((q) => ({ question: q.question, type: q.type, answer: answerFor(q.question, q, profile) }))
+    .filter((k) => k.question && k.answer != null && k.answer !== '');
+  // The chatbot renders a moment after the Apply click.
+  await page
+    .waitForFunction(() => Array.from(document.querySelectorAll('[class*="chatbot"], [class*="Chatbot"]')).some((el) => el.offsetWidth || el.offsetHeight), { timeout: apiQuestions.length ? 10000 : 3000 })
+    .catch(() => {});
   const filled = [];
   let unanswered = '';
 
@@ -490,6 +563,7 @@ async function handleScreeningDrawer(page, job, profile) {
     const result = await answerOneScreeningRound(page, answers);
     if (result.status === 'idle') break;
     if (result.status === 'answered' || result.status === 'skipped_optional') {
+      await finishChatbotAnswer(page, result);
       filled.push({
         key: result.key,
         question: result.question,
@@ -527,6 +601,18 @@ async function clickApplyForReal(page) {
     if (!/apply-workflow\/v\d+\/apply/.test(res.url()) || res.request().method() !== 'POST') return;
     try {
       const body = JSON.parse(await res.text());
+      // Single-apply replies can be { applyStatus: { <jobId>: code }, applyRedirectUrl } with
+      // no jobs[]: 409001 = already applied, 202 = redirected to the company site (2026-11-23).
+      const codes = Object.values(body.applyStatus || {}).map(Number);
+      if (!body.jobs && codes.length) {
+        const code = codes[0];
+        api = {
+          status: code === 409001 ? 409 : code,
+          message: code === 409001 ? 'already applied (Naukri 409001)' : code === 202 ? 'redirected to company site (Naukri 202)' : `applyStatus ${code}`,
+          quota: body.quotaDetails || null, httpStatus: res.status(), questions: [], redirectUrl: body.applyRedirectUrl || '',
+        };
+        return;
+      }
       const j = (body.jobs || [])[0] || {};
       const typeOf = (t) => (/radio/i.test(t) ? 'radio' : /list|check|drop/i.test(t) ? 'select' : 'text');
       const questions = (j.questionnaire || []).map((q) => ({
@@ -606,15 +692,22 @@ async function applyToJob(browser, job, profile = {}) {
     );
 
     // Apply / Applied controls hydrate late — wait for them (replaces a fixed 2s sleep).
+    // Wait for a VISIBLE apply/applied control. Under parallel load the job header
+    // hydrates after 10 s while the footer is already there, which produced
+    // "Apply button not found — page buttons [Connect with us | About us ...]"
+    // on jobs whose Apply button was fine (2026-11-23: 12 failures in one run).
+    const CONTROL_SEL = '#apply-button, #company-site-button, #already-applied, .already-applied, [class*="already-applied"]';
+    await page.bringToFront().catch(() => {});
     await page
-      .waitForSelector(
-        '#apply-button, #company-site-button, [class*="apply-button"], [id*="apply"], [class*="already-applied"], [id*="already-applied"]',
-        { timeout: 10000 }
+      .waitForFunction(
+        (sel) => Array.from(document.querySelectorAll(sel)).some((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; }),
+        { timeout: 25000 },
+        CONTROL_SEL
       )
       .catch(() => {});
     await checkForCaptcha(page);
 
-    const outcome = await page.evaluate(() => {
+    const detect = () => page.evaluate(() => {
       const visible = (el) => {
         if (!el) return false;
         const s = window.getComputedStyle(el);
@@ -629,8 +722,9 @@ async function applyToJob(browser, job, profile = {}) {
       const appliedEl = document.querySelector('#already-applied, .already-applied, [class*="already-applied"]');
       if (appliedEl && visible(appliedEl)) return 'already-applied';
 
-      const applyEl = document.querySelector('#apply-button');
-      if (applyEl && visible(applyEl)) {
+      // Naukri renders two #apply-button elements (one 0x0); use the visible one.
+      const applyEl = Array.from(document.querySelectorAll('#apply-button')).find(visible);
+      if (applyEl) {
         const t = labelOf(applyEl);
         // After a prior apply Naukri keeps #apply-button but relabels it Applied.
         if (/^applied$/i.test(t) || applyEl.disabled) return 'already-applied';
@@ -665,6 +759,13 @@ async function applyToJob(browser, job, profile = {}) {
         .slice(0, 10);
       return `none: [${[...new Set(labels)].join(' | ')}]`;
     });
+    let outcome = await detect();
+    for (let retry = 0; retry < 2 && String(outcome).startsWith('none:'); retry++) {
+      // Still hydrating: give the header time before declaring the button missing.
+      await new Promise((r) => setTimeout(r, 4000));
+      await page.bringToFront().catch(() => {});
+      outcome = await detect();
+    }
 
     if (outcome === 'external') {
       const resolved = await resolveExternalCompanyUrl(page, browser);
@@ -713,6 +814,11 @@ async function applyToJob(browser, job, profile = {}) {
           return { status: 'manual-apply', page, companyUrl: page.url(), resume, submitted: false, reason: `needs your answer: ${missing.join('; ')}` };
         }
       }
+      if (applyApi?.status === 202 && /company site/.test(applyApi.message)) {
+        await new Promise((r) => setTimeout(r, 1500));
+        const companyUrl = /naukri\.com/i.test(page.url()) ? applyApi.redirectUrl || page.url() : page.url();
+        return { status: 'manual-apply', page, companyUrl, resume, submitted: false, error: new ExternalAtsError(companyUrl) };
+      }
       if (/already applied/i.test(applyApi?.message || '')) {
         return { status: 'already-applied', page, resume, reason: 'already applied on Naukri (apply API)' };
       }
@@ -744,7 +850,7 @@ async function applyToJob(browser, job, profile = {}) {
     }
 
     // Answer screening questions (relocate / experience / notice / CTC / etc.)
-    const screening = await handleScreeningDrawer(page, job, profile);
+    const screening = await handleScreeningDrawer(page, job, profile, applyApi?.questions || []);
     if (screening.unanswered) {
       // Apply was clicked but Naukri holds the application until the drawer is
       // completed — the user must answer; the tab stays open.
@@ -783,9 +889,13 @@ async function applyToJob(browser, job, profile = {}) {
   }
 }
 
-async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
-  const seenThisRun = new Set(); // same job shows up under several city/query searches
+async function run({ profile = {}, dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'naukri', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
+  const seenThisRun = (st.seen = st.seen || new Set()); // same job shows up under several city/query searches
   const tabs = createTabTracker('naukri');
   const page = await newPage();
   await blockHeavyAssets(page);
@@ -798,6 +908,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
     // Hyderabad first, then the other southern cities; each city x each query.
     const searches = SEARCH_CITIES.flatMap((city) => QUERIES.map((query) => ({ city, query })));
     for (const { city, query } of searches) {
+      if (doneSearches.has(`${city}|${query}`)) continue;
       if (attempted() >= MAX_APPS_PER_RUN) break;
 
       // networkidle2 never resolves on Naukri (continuous background XHR/analytics)
@@ -840,6 +951,8 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
 
         const score = scoreJob({ title: card.title, description: card.text, experienceText: card.experienceText });
         if (!shouldApply(score)) {
+          // Card-only evidence for a role-family title → full-description check first.
+          if (offerIfUncertain(pipeline, portal, job, card, 'Naukri')) continue;
           job.reason = `score ${score} below threshold`;
           results.skipped.push(job);
           log(card, 'skipped', job.reason);
@@ -850,6 +963,9 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
           results.skipped.push(job);
           continue;
         }
+
+        // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+        if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
         if (dryRun) {
           const preview = buildScreeningAnswers(card, profile);
@@ -923,6 +1039,7 @@ async function run({ profile = {}, dedup, dryRun, newPage, browser }) {
 
         await humanDelay();
       }
+      doneSearches.add(`${city}|${query}`);
     }
   } catch (err) {
     tabs.printSummary();

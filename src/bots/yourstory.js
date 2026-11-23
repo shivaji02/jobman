@@ -14,10 +14,11 @@ const { humanDelay, checkForCaptcha, SkipPortalError } = require('../core/browse
 const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 const { classifyLocation, byLocationPreference } = require('../core/location');
 
 const QUERIES = [
+  'react native',
   'react native developer',
   'mobile developer',
   'frontend engineer react',
@@ -133,10 +134,14 @@ async function applyToJob(browser, job) {
   }
 }
 
-async function run({ dedup, dryRun, newPage, browser }) {
-  const results = emptyResults();
+async function run({ dedup, dryRun, newPage, browser, approvedJobs = [], pipeline = null, portal = 'yourstory', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
   const page = await newPage();
-  const seen = new Set();
+  const seen = (st.seen = st.seen || new Set());
 
   try {
     // Search params are ignored by the site — one careers page covers all queries.
@@ -175,6 +180,7 @@ async function run({ dedup, dryRun, newPage, browser }) {
       const job = { title: card.title, company: card.company, url: card.url };
 
       if (!shouldApply(score)) {
+        if (offerIfUncertain(pipeline, portal, job, card, 'YourStory')) continue;
         job.reason = `score ${score} below threshold`;
         results.skipped.push(job);
         if (!dryRun) {
@@ -189,6 +195,9 @@ async function run({ dedup, dryRun, newPage, browser }) {
         }
         continue;
       }
+
+      // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+      if (!(await claimGate(results, dedup, card.url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: card.text, experienceText: card.experienceText, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
       if (dryRun) {
         job.reason = `would apply (score ${score})`;

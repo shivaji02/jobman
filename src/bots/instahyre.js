@@ -27,7 +27,7 @@ const { withRetry } = require('../core/retry');
 const { scoreJob, shouldApply } = require('../core/filter');
 const logger = require('../core/logger');
 const { waitForSuccess, capture, evidenceNote } = require('../core/evidence');
-const { emptyResults, admit } = require('../core/disposition');
+const { emptyResults, admit, claimGate, offerIfUncertain } = require('../core/disposition');
 
 /** Thrown after the Apply click when success can't be verified — never retried. */
 class UnconfirmedError extends Error {}
@@ -286,8 +286,12 @@ async function applyToCard(page, index, resumePath) {
   return evidence;
 }
 
-async function run({ profile, dedup, dryRun, newPage }) {
-  const results = emptyResults();
+async function run({ profile, dedup, dryRun, newPage, approvedJobs = [], pipeline = null, portal = 'instahyre', resume: state = null }) {
+  // Resumable within a run: a portal retried after a crash continues where it stopped
+  // (same results, same seen-set, finished searches skipped) — no job is processed twice.
+  const st = state || {};
+  const results = (st.results = st.results || emptyResults());
+  const doneSearches = (st.doneSearches = st.doneSearches || new Set());
   const page = await newPage();
 
   try {
@@ -349,7 +353,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
       .sort(byLocationPreference);
     results.discovered = cards.length;
     logger.info(`[instahyre] ${cards.length} job cards after search`);
-    const seen = new Set();
+    const seen = (st.seen = st.seen || new Set());
 
     for (const card of cards) {
       const url = dedupKey(card.company, card.title);
@@ -372,6 +376,7 @@ async function run({ profile, dedup, dryRun, newPage }) {
 
       const score = scoreJob({ title: card.title, description: `${card.text} ${card.skills}` });
       if (!shouldApply(score)) {
+        if (offerIfUncertain(pipeline, portal, job, { ...card, text: `${card.text} ${card.skills}` }, 'Instahyre')) continue;
         job.reason = `score ${score} below threshold`;
         results.skipped.push(job);
         if (!dryRun) {
@@ -386,6 +391,9 @@ async function run({ profile, dedup, dryRun, newPage }) {
         }
         continue;
       }
+
+      // Parallel runs: atomically claim the job across portal workers (no-op otherwise).
+      if (!(await claimGate(results, dedup, url, job, { dryRun, approvedJobs, pipeline, portal, offer: { text: `${card.text} ${card.skills}`, location: card.location, detailUrl: card.detailUrl } }))) continue;
 
       if (dryRun) {
         job.reason = `would apply (score ${score}; resume=${resume})`;

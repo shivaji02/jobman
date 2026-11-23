@@ -65,13 +65,13 @@ function funnelTable(rows) {
 /** Per-ATS funnel of the direct channels: eligible → attempts → confirmed, hand-offs and their blockers. */
 function perAtsTable(results, channels, opts) {
   const stats = {};
-  const row = (ats) => (stats[ats] = stats[ats] || { eligible: 0, attempts: 0, confirmed: 0, unconfirmed: 0, handoffs: 0, failed: 0, rejected: 0, blockers: {} });
+  const row = (ats) => (stats[ats] = stats[ats] || { eligible: 0, attempts: 0, confirmed: 0, unconfirmed: 0, handoffs: 0, failed: 0, blocked: 0, rejected: 0, blockers: {} });
   for (const p of channels) {
     const g = byDisposition(results[p], opts);
     for (const [key, list] of Object.entries(g)) {
       for (const j of list) {
         const s = row(j.ats || 'unknown');
-        if (['applied_confirmed', 'would_apply', 'applied_unconfirmed', 'manual_required', 'failed_technical'].includes(key)) s.eligible++;
+        if (['applied_confirmed', 'would_apply', 'applied_unconfirmed', 'manual_required', 'failed_technical', 'blocked_by_site'].includes(key)) s.eligible++;
         if (key === 'applied_confirmed') (s.confirmed++, s.attempts++);
         if (key === 'would_apply') s.attempts++;
         if (key === 'applied_unconfirmed') (s.unconfirmed++, s.attempts++);
@@ -80,6 +80,7 @@ function perAtsTable(results, channels, opts) {
           for (const b of blockersFrom(j.reason)) s.blockers[b] = (s.blockers[b] || 0) + 1;
         }
         if (key === 'failed_technical') s.failed++;
+        if (key === 'blocked_by_site') s.blocked++;
         if (key.startsWith('rejected_')) s.rejected++;
       }
     }
@@ -95,7 +96,8 @@ function perAtsTable(results, channels, opts) {
   for (const n of names) {
     const s = stats[n];
     const why = Object.entries(s.blockers).sort((a, b) => b[1] - a[1]).map(([b, c]) => `${b} ×${c}`).join(', ');
-    out.push(`| ${n} | ${s.eligible} | ${s.attempts} | ${s.confirmed} | ${s.unconfirmed} | ${s.handoffs} | ${s.failed} | ${s.rejected} | ${why || '-'} |`);
+    const failedCell = `${s.failed}${s.blocked ? ` (+${s.blocked} blocked by site, retried later)` : ''}`;
+    out.push(`| ${n} | ${s.eligible} | ${s.attempts} | ${s.confirmed} | ${s.unconfirmed} | ${s.handoffs} | ${failedCell} | ${s.rejected} | ${why || '-'} |`);
   }
   out.push('', '_Eligible = passed location, experience, role and freshness checks on the live posting. Confirmed = the ATS showed its own success message (screenshot kept)._', '');
   return out;
@@ -124,7 +126,7 @@ function directSection(results, opts) {
   const rows = [];
   for (const p of channels) {
     const groups = byDisposition(results[p], opts);
-    for (const key of ['applied_confirmed', 'would_apply', 'applied_unconfirmed', 'manual_required', 'failed_technical']) {
+    for (const key of ['applied_confirmed', 'would_apply', 'applied_unconfirmed', 'manual_required', 'failed_technical', 'blocked_by_site']) {
       for (const j of groups[key]) rows.push({ p, key, ...j });
     }
   }
@@ -145,7 +147,7 @@ function directSection(results, opts) {
   return out;
 }
 
-function write(date, results, { dryRun = false } = {}) {
+function write(date, results, { dryRun = false, suffix = '' } = {}) {
   const opts = { dryRun };
   const portals = Object.keys(results);
   const { total, perPortal } = reconcileAll(results, opts);
@@ -161,8 +163,11 @@ function write(date, results, { dryRun = false } = {}) {
       ? `- **Would apply:** ${c.would_apply}`
       : `- **Confirmed applications (with evidence):** ${c.applied_confirmed}`,
     `- **Submitted but unconfirmed (blocked from resubmission):** ${c.applied_unconfirmed}`,
+    `- **Prepared — awaiting your approval:** ${c.awaiting_approval}${c.awaiting_approval ? ' → `npm run review` (or `npm run approvals`)' : ''}`,
     `- **Needs you:** ${c.manual_required}`,
+    ...(c.needs_enrichment ? [`- **Insufficient evidence (re-checked next run, not rejected):** ${c.needs_enrichment}`] : []),
     `- **Technical failures:** ${c.failed_technical}`,
+    ...(c.blocked_by_site ? [`- **Blocked by the site (rate-limited / circuit open; retried next run, not a code fault):** ${c.blocked_by_site}`] : []),
     '',
     '## Funnel (reconciled)',
     '',
@@ -214,6 +219,12 @@ function write(date, results, { dryRun = false } = {}) {
     }
   }
 
+  const followups = require('./followups').createFollowupStore().list();
+  if (followups.length) {
+    lines.push('## Unresolved manual follow-ups', '',
+      `${followups.length} carried-forward item(s) need a fresh posting and eligibility check. They are not approvals and will not be submitted automatically. Run \`npm run followups\` to review them.`, '');
+  }
+
   // End summary — kept for continuity with older reports.
   lines.push('## Summary', '');
   lines.push(`- **Applied:** ${confirmed}`);
@@ -234,7 +245,7 @@ function write(date, results, { dryRun = false } = {}) {
   }
 
   fs.mkdirSync(REPORTS_DIR, { recursive: true });
-  const file = path.join(REPORTS_DIR, `${date}${dryRun ? '-dry-run' : ''}.md`);
+  const file = path.join(REPORTS_DIR, `${date}${dryRun ? '-dry-run' : ''}${suffix ? `-${suffix}` : ''}.md`);
   fs.writeFileSync(file, lines.join('\n'));
   return file;
 }

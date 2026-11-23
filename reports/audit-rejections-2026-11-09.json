@@ -1,0 +1,698 @@
+{
+ "byBasis": {
+  "card-only, title outside role family": 445,
+  "definitive": 1038,
+  "card-only, role-family title": 290,
+  "card now eligible (title-tier fix)": 4
+ },
+ "total": 1777,
+ "checked": 294,
+ "fetched": 244,
+ "corrected": [
+  {
+   "portal": "naukri",
+   "title": "Full Stack Engineer (Freelancer)",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-hyderabad-1-to-5-years-061126919039",
+   "was": "score -100 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 7,
+    "competing": 13,
+    "top": [
+     "angular",
+     "vue",
+     "django"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Frontend Engineer – Modern JS Frameworks",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-hyderabad-2-to-4-years-061126918517",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 1,
+    "competing": 2,
+    "top": [
+     "angular",
+     "vue"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "FullStack Engineer",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-hyderabad-2-to-5-years-061126918695",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 3,
+    "top": [
+     "angular",
+     "django",
+     "java"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Full Stack Engineer (Freelancer)",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-bengaluru-1-to-5-years-061126918703",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 7,
+    "competing": 13,
+    "top": [
+     "angular",
+     "vue",
+     "django"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Full-Stack Developer - AI-Native Engineering",
+   "company": "Salesforce",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-ai-native-engineering-salesforce-bengaluru-2-to-7-years-061126502236",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Frontend Engineer – Modern JS Frameworks",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-bengaluru-2-to-4-years-061126918934",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 1,
+    "competing": 2,
+    "top": [
+     "angular",
+     "vue"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "FullStack Engineer",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-bengaluru-2-to-5-years-061126918698",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 3,
+    "top": [
+     "angular",
+     "django",
+     "java"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-5-years-061126920851",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Fullstack Developer",
+   "company": "Leading Client",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-6-years-061126921453",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 3,
+    "top": [
+     "python"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Custom Software Engineer",
+   "company": "Accenture",
+   "url": "https://www.naukri.com/job-listings-custom-software-engineer-accenture-solutions-pvt-ltd-bengaluru-2-to-7-years-061126914320",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 4,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "Full Stack Engineer (Freelancer)",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-chennai-1-to-5-years-061126918342",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 7,
+    "competing": 13,
+    "top": [
+     "angular",
+     "vue",
+     "django"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "naukri",
+   "title": "FullStack Engineer",
+   "company": "Soul Ai",
+   "url": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-chennai-2-to-5-years-061126918219",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 3,
+    "competing": 3,
+    "top": [
+     "angular",
+     "django",
+     "java"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Mobile Developer (Android & iOS)",
+   "company": "turium ai",
+   "url": "https://in.talent.com/view?id=643473013036095354",
+   "was": "score 50 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 9,
+    "competing": 4,
+    "top": [
+     "golang",
+     "kotlin",
+     "java"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "turium ai",
+   "url": "https://in.talent.com/view?id=627463876215178596",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 7,
+    "competing": 4,
+    "top": [
+     "python"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "Insight Global",
+   "url": "https://in.talent.com/view?id=644735701610864615",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 9,
+    "competing": 7,
+    "top": [
+     "python",
+     "django"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full-Stack Mobile/Web App Developer",
+   "company": "anx labs (formerly antariksha labs)",
+   "url": "https://in.talent.com/view?id=640658611881313062",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 18,
+    "competing": 13,
+    "top": [
+     "flutter",
+     "dart",
+     "python"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Mobile Application Developer",
+   "company": "Flipkart Leap",
+   "url": "https://in.talent.com/view?id=612955709488045872",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 2,
+    "competing": 4,
+    "top": [
+     "kotlin",
+     "swift"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Hybrid Mobile Application Developer",
+   "company": "HCL TechBee",
+   "url": "https://in.talent.com/view?id=643400678782805712",
+   "was": "score 30 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 3,
+    "competing": 3,
+    "top": [
+     "angular"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Mobile Application Developer",
+   "company": "swipe fit",
+   "url": "https://in.talent.com/view?id=615158906897962500",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 6,
+    "competing": 17,
+    "top": [
+     "java",
+     "flutter",
+     "python"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "innoppl it services",
+   "url": "https://in.talent.com/view?id=643001461773172893",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 7,
+    "competing": 1,
+    "top": [
+     "python"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full-Stack Developer",
+   "company": "Jayanthi Aparna (Proprietor of Craft Your Career)",
+   "url": "https://in.talent.com/view?id=641708826048791334",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 3,
+    "competing": 5,
+    "top": [
+     "python",
+     "java",
+     "angular"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Mobile Application Developer",
+   "company": "xencia technology solutions",
+   "url": "https://in.talent.com/view?id=643146477373105872",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 6,
+    "competing": 12,
+    "top": [
+     "flutter",
+     "swift",
+     "kotlin"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "mantle solutions",
+   "url": "https://in.talent.com/view?id=640923372766691860",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 6,
+    "competing": 4,
+    "top": [
+     "angular"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full-Stack Web Developer WordPress & Modern Technologies",
+   "company": "Web India Solutions",
+   "url": "https://in.talent.com/view?id=639522483262330278",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 9,
+    "competing": 5,
+    "top": [
+     "php",
+     "vue.js"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Fullstack Developer",
+   "company": "Turing",
+   "url": "https://in.talent.com/view?id=623407573577704334",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 4,
+    "competing": 8,
+    "top": [
+     "python",
+     "angular",
+     "vue"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "superlabs india",
+   "url": "https://in.talent.com/view?id=615158903048508307",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 10,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer and Instructor",
+   "company": "better tomorrow training institute",
+   "url": "https://in.talent.com/view?id=644735752451203047",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 4,
+    "competing": 6,
+    "top": [
+     "java",
+     "python",
+     "django"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Django Full Stack Developer",
+   "company": "codevantage inc",
+   "url": "https://in.talent.com/view?id=612336101227634480",
+   "was": "score 30 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 2,
+    "competing": 9,
+    "top": [
+     "django",
+     "python",
+     "vue"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Remote Full Stack Developer",
+   "company": "Turing",
+   "url": "https://in.talent.com/view?id=605410726404107628",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 4,
+    "competing": 8,
+    "top": [
+     "python",
+     "angular",
+     "vue"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Mobile Developer",
+   "company": "CONNECTING 2 WORK",
+   "url": "https://in.talent.com/view?id=534433959831144422",
+   "was": "score -100 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 1,
+    "competing": 3,
+    "top": [
+     "swift",
+     "java",
+     "flutter"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "CONNECTING 2 WORK",
+   "url": "https://in.talent.com/view?id=534434059415980006",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 10,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "a business studio",
+   "url": "https://in.talent.com/view?id=618511123259071384",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 15,
+    "competing": 16,
+    "top": [
+     "java",
+     "angular"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "talent",
+   "title": "Full Stack Developer",
+   "company": "Persistent Systems",
+   "url": "https://in.talent.com/view?id=605332554900186036",
+   "was": "score 10 below threshold",
+   "now": "score 55 (full description)",
+   "via": "cache(talent-html)",
+   "stack": {
+    "js": 2,
+    "competing": 7,
+    "top": [
+     "java",
+     "angular",
+     "python"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "linkedin",
+   "title": "Expo (Android/iOS) developer",
+   "company": "Rentesy",
+   "url": "https://www.linkedin.com/jobs/view/4487191199/",
+   "was": "score 29 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(linkedin-guest)",
+   "stack": {
+    "js": 5,
+    "competing": 0,
+    "top": [],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "linkedin",
+   "title": "Software Development Engineer (SDE) – Mobile (iOS & Android) with Web",
+   "company": "Niti Aide",
+   "url": "https://www.linkedin.com/jobs/view/4487115796/",
+   "was": "score 29 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(linkedin-guest)",
+   "stack": {
+    "js": 10,
+    "competing": 4,
+    "top": [
+     "flutter",
+     "python"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "linkedin",
+   "title": "Java full stack developer",
+   "company": "Quess Corp Limited",
+   "url": "https://www.linkedin.com/jobs/view/4486586299/",
+   "was": "role rejected (seniority / tech stack)",
+   "now": "score 55 (full description)",
+   "via": "cache(linkedin-guest)",
+   "stack": {
+    "js": 2,
+    "competing": 3,
+    "top": [
+     "java"
+    ],
+    "dominant": "other"
+   }
+  },
+  {
+   "portal": "foundit",
+   "title": "Hybrid Mobile Application Developer",
+   "company": "HCL TechBee",
+   "url": "https://www.foundit.in/job/69584931",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 2,
+    "competing": 2,
+    "top": [
+     "angular"
+    ],
+    "dominant": "ours"
+   }
+  },
+  {
+   "portal": "foundit",
+   "title": "Mobile Application Developer",
+   "company": "xencia technology solutions",
+   "url": "https://www.foundit.in/job/69549270",
+   "was": "score 10 below threshold",
+   "now": "score 70 (full description)",
+   "via": "cache(browser-json-ld)",
+   "stack": {
+    "js": 4,
+    "competing": 5,
+    "top": [
+     "flutter",
+     "swift",
+     "java"
+    ],
+    "dominant": "other"
+   }
+  }
+ ],
+ "strong": 20,
+ "confirmed": 206,
+ "unavailable": 50,
+ "unavailableWhy": {
+  "naukri.com: no browser available": 1,
+  "wellfound.com: no browser available": 48,
+  "jobs.smartrecruiters.com: no browser available": 1
+ }
+}

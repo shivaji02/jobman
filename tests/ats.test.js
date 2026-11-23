@@ -16,6 +16,7 @@ const { answerQuestion, planForm } = require('../src/ats/answers');
 const { createDirectory } = require('../src/core/companies');
 const { companyFromTitle } = require('../src/bots/google');
 const { classify } = require('../src/core/disposition');
+const { isTransientApplicationUrl, primaryApplicationUrl } = require('../src/core/direct');
 
 test('parseAtsUrl: every supported ATS, with job ids', () => {
   assert.deepEqual(parseAtsUrl('https://job-boards.eu.greenhouse.io/cognite/jobs/5021327101'), { ats: 'greenhouse', token: 'cognite', jobId: '5021327101' });
@@ -39,6 +40,22 @@ test('one canonical key per ATS posting however it was reached (cross-channel de
   assert.equal(normalizeJobUrl('https://boards.greenhouse.io/embed/job_app?for=capco&token=8288671'), 'https://job-boards.greenhouse.io/capco/jobs/8288671');
   assert.equal(normalizeJobUrl('https://jobs.ashbyhq.com/aiprise/ade1484a-8158-4a7f-8991-69ce294ca11d/application'), 'https://jobs.ashbyhq.com/aiprise/ade1484a-8158-4a7f-8991-69ce294ca11d');
   assert.equal(canonicalAtsUrl('https://jobs.lever.co/cred'), ''); // board, not a posting
+});
+
+test('manual application links prefer stable employer URLs over transient ATS form state', () => {
+  const original = 'https://in.indeed.com/viewjob?jk=1234567890abcdef';
+  for (const transient of [
+    'https://smartapply.indeed.com/beta/indeedapply/form/demographic-questions/1',
+    'https://www.naukri.com/myapply/showAcp?file=123',
+    'https://jobs.smartrecruiters.com/oneclick-ui/company/SWIGGY/publication/x',
+    'https://in.talent.com/redirect?id=123&action=f-link',
+  ]) {
+    assert.equal(isTransientApplicationUrl(transient), true);
+    assert.equal(primaryApplicationUrl(original, transient), original);
+  }
+  const employer = 'https://jobs.smartrecruiters.com/SWIGGY/6000000001552647';
+  assert.equal(isTransientApplicationUrl(employer), false);
+  assert.equal(primaryApplicationUrl(original, employer), employer);
 });
 
 test('an application logged from one channel blocks the same ATS job on every other', () => {

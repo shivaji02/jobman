@@ -1,0 +1,3824 @@
+{
+ "generatedAt": "2026-11-17T15:11:53.746Z",
+ "mode": "live (ATS postings re-read)",
+ "total": 272,
+ "counts": {
+  "NEEDS_REVERIFICATION": 259,
+  "ALREADY_APPLIED": 3,
+  "NEEDS_USER_INPUT": 6,
+  "EXPIRED_OR_INELIGIBLE": 4
+ },
+ "note": "Approval state was NOT changed. READY_FOR_AUTO_APPLY still requires a real run with JOBMAN_AUTO_APPLY=1.",
+ "results": [
+  {
+   "id": "6b3f52a",
+   "status": "pending",
+   "title": "Mobile Developer (Android & iOS)",
+   "company": "turium ai",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643473013036095354",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1eac0a3",
+   "status": "pending",
+   "title": "Full Stack Engineer (Freelancer)",
+   "company": "Soul Ai",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-freelancer-soul-ai-hyderabad-1-to-5-years-061126919039",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "74c9de3",
+   "status": "pending",
+   "title": "Fullstack Web Developer(React+Node+AWS)",
+   "company": "Infosys",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-web-developer-react-node-aws-infosys-hyderabad-chennai-bengaluru-1-to-3-years-091126006595",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8b6f965",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "The People's Corp",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=534433793813841894",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "18c0826",
+   "status": "pending",
+   "title": "Frontend Engineer – Modern JS Frameworks",
+   "company": "Soul Ai",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-frontend-engineer-modern-js-frameworks-soul-ai-hyderabad-2-to-4-years-061126918517",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "dd12097",
+   "status": "pending",
+   "title": "FullStack Engineer",
+   "company": "Soul Ai",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-engineer-soul-ai-hyderabad-2-to-5-years-061126918695",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fcdaf7b",
+   "status": "pending",
+   "title": "Full-Stack Mobile/Web App Developer",
+   "company": "anx labs (formerly antariksha labs)",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=640658611881313062",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "42afbed",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "Flipkart Leap",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=612955709488045872",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "037da5e",
+   "status": "pending",
+   "title": "Full-Stack Developer - AI-Native Engineering",
+   "company": "Salesforce",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-ai-native-engineering-salesforce-bengaluru-2-to-7-years-061126502236",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5ce18fa",
+   "status": "pending",
+   "title": "Middle Software Engineer - Java Full Stack ReactJS",
+   "company": "Epam Systems",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-middle-software-engineer-java-full-stack-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025957",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "bc3dcf3",
+   "status": "pending",
+   "title": "Middle Java Full Stack Software Engineer (ReactJS)",
+   "company": "Epam Systems",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-middle-java-full-stack-software-engineer-reactjs-epam-systems-pune-bengaluru-3-to-8-years-061126025947",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e7f82cc",
+   "status": "pending",
+   "title": "Software Development Engineer (SDE) – Mobile (iOS & Android) with Web",
+   "company": "Niti Aide",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4487115796/",
+   "category": "ALREADY_APPLIED",
+   "reasons": [
+    "previous application exists in the log"
+   ],
+   "priorReason": "already applied (log)",
+   "liveChecked": false
+  },
+  {
+   "id": "bcae941",
+   "status": "pending",
+   "title": "Frontend Engineer - OctavoLab",
+   "company": "OCTAVOLAB",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/5008587",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a3fd2e0",
+   "status": "pending",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-5-years-061126920851",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "29f4d95",
+   "status": "pending",
+   "title": "Hybrid Mobile Application Developer",
+   "company": "HCL TechBee",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643400678782805712",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0a6a30a",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "swipe fit",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=615158906897962500",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ca4ea4b",
+   "status": "pending",
+   "title": "React + Capacitor Mobile Developer",
+   "company": "ai crew solutions",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/67728624",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1a71b00",
+   "status": "pending",
+   "title": "React Native/Node.js Developer",
+   "company": "Tata Elxsi",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/tata-elxsi/react-native-node-js-developer",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "964afba",
+   "status": "pending",
+   "title": "React Developer Opcenter",
+   "company": "Birlasoft",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/birlasoft/react-developer-opcenter",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b6346e6",
+   "status": "pending",
+   "title": "Software Engineer - React",
+   "company": "IQVIA",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/iqvia/software-engineer-react",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b93ac26",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Leading Client",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-bengaluru-2-to-6-years-061126921453",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1650812",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "innoppl it services",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643001461773172893",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d734f94",
+   "status": "pending",
+   "title": "Full-Stack Developer",
+   "company": "Jayanthi Aparna (Proprietor of Craft Your Career)",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=641708826048791334",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2b0b199",
+   "status": "pending",
+   "title": "Java Fullstack Developer (Immediate Joiners Preferred)",
+   "company": "athenahealth",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-immediate-joiners-preferred-athenahealth-chennai-2-to-3-years-070826013728",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9ced67a",
+   "status": "pending",
+   "title": "Frontend Developer (React)",
+   "company": "Photon",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/photon/frontend-developer-react",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "aaf162a",
+   "status": "pending",
+   "title": "Web Developer",
+   "company": "lascade",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=628544477029272364",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3647d88",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "xencia technology solutions",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643146477373105872",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5ef175d",
+   "status": "pending",
+   "title": "Frontend Developer/Engineer -Male or Female-JOB CODE-N/07/11/26-Kakkanad",
+   "company": "IT COMPANY",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=645021083448379060",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6db8b6a",
+   "status": "pending",
+   "title": "Junior Software Engineer, AI-Native Development",
+   "company": "Perfecter.ai",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-junior-software-engineer-ai-native-development-perfecter-ai-chennai-0-to-4-years-061126025131",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0eb6eeb",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "mantle solutions",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=640923372766691860",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b1d26b4",
+   "status": "pending",
+   "title": "Full-Stack Web Developer WordPress & Modern Technologies",
+   "company": "Web India Solutions",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=639522483262330278",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "869f9a9",
+   "status": "pending",
+   "title": "Product Engineer (Mobile)",
+   "company": "cardboard.ai",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4803708",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "061eeb1",
+   "status": "pending",
+   "title": "Founding Full Stack Engineering (Equity-First) (Clone)",
+   "company": "Vantrix Ventures",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4867199",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a93224c",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "superlabs india",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=615158903048508307",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "07f0bd6",
+   "status": "pending",
+   "title": "Full Stack Developer and Instructor",
+   "company": "better tomorrow training institute",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=644735752451203047",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a63cd1e",
+   "status": "pending",
+   "title": "Django Full Stack Developer",
+   "company": "codevantage inc",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=612336101227634480",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5bc4baf",
+   "status": "pending",
+   "title": "Remote Full Stack Developer",
+   "company": "Turing",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=605410726404107628",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fc050eb",
+   "status": "pending",
+   "title": "Java Fullstack Developer",
+   "company": "KGISL Group of Companies",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=612830139704938147",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8e94f6b",
+   "status": "pending",
+   "title": "Frontend Developer – React / TypeScript",
+   "company": "SRM360 Consulting Services Pvt Ltd",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4488719774/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5cab705",
+   "status": "pending",
+   "title": "Mobile Developer",
+   "company": "CONNECTING 2 WORK",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=534433959831144422",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8ecd3c2",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "a business studio",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=618511123259071384",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9c97a50",
+   "status": "pending",
+   "title": "Fullstack Engineer",
+   "company": "GreedyGame",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4897418",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5a013b8",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "AmberFlux EdgeAI",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4486265519/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "bcacd8d",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "ALTCloudAI",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4486302098/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5ae6c39",
+   "status": "pending",
+   "title": "Frontend Engineer",
+   "company": "Confidential Company",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4748771",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "de8725a",
+   "status": "pending",
+   "title": "FRONTEND ENGINEER",
+   "company": "REcollab",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4781700",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fa990db",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "Feathery",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4040744",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "65b1212",
+   "status": "pending",
+   "title": "Full Stack Engineer, Early Career",
+   "company": "Feathery",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/4118950",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a9465f5",
+   "status": "pending",
+   "title": "Frontend Engineer",
+   "company": "Feathery",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/1550818",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fc1d66e",
+   "status": "pending",
+   "title": "Full-Stack Engineer, AI Platform",
+   "company": "Confidential Company",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/3934791",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "519427f",
+   "status": "pending",
+   "title": "Software Engineering MTS (Full-Stack)",
+   "company": "Salesforce",
+   "portal": "google",
+   "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/India---Hyderabad/Software-Engineering-MTS--Full-Stack-_JR362247",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "posting not verified active in this run (description not read live)"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "c4f1bd9",
+   "status": "pending",
+   "title": "C2H - Infosys - Full stack Java, Weblogic, Middleware Admin - Hyd",
+   "company": "Infosys",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-c2h-infosys-full-stack-java-weblogic-middleware-admin-hyd-nityo-infotech-hyderabad-2-to-7-years-101126004211",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ca7897b",
+   "status": "pending",
+   "title": "Full-Stack Developer (React + Node)",
+   "company": "Tech Outs",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=8de95d8b4f376b5d",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0ebe624",
+   "status": "pending",
+   "title": "Full Stack Developer React Native with Java Golang Nodejs",
+   "company": "Seikor Group",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-react-native-with-java-golang-nodejs-seikor-group-bengaluru-3-to-8-years-101126006021",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6840dbf",
+   "status": "pending",
+   "title": "Java Fullstack Developer",
+   "company": "Globallogic",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-globallogic-bengaluru-3-to-5-years-101126004369",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a43da00",
+   "status": "pending",
+   "title": "ReactJS Developer",
+   "company": "CONNECTING 2 WORK",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=534433942524528614",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f415254",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "CONNECTING 2 WORK",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=534434059415980006",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ec2391c",
+   "status": "pending",
+   "title": "Mobile app developer",
+   "company": "BAS Consulting Service",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=90d52794741ec211",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a619099",
+   "status": "pending",
+   "title": "Full stack Engineer",
+   "company": "Bosch Group",
+   "portal": "careers",
+   "url": "https://jobs.smartrecruiters.com/BoschGroup/744000160794268-full-stack-engineer",
+   "category": "EXPIRED_OR_INELIGIBLE",
+   "reasons": [
+    "location eligibility not confirmed (not verified)",
+    "description is mainly java / python / django, not the candidate's stack"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "2f93200",
+   "status": "pending",
+   "title": "Full-Stack Developer — AI-Native Engineering",
+   "company": "Salesforce",
+   "portal": "careers",
+   "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/India---Bangalore/Full-Stack-Developer---AI-Native-Engineering_JR359537",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "posting not verified active in this run (description not read live)",
+    "location eligibility not confirmed (not verified)"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "0b50299",
+   "status": "pending",
+   "title": "React + Capacitor Mobile Developer",
+   "company": "ai crew solutions",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=637895903446370085",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "4944a74",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Vivenns Global Private Limited",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-vivenns-management-services-hyderabad-3-to-8-years-101126014261",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c816ccf",
+   "status": "pending",
+   "title": "Walk-in || Fullstack Developer",
+   "company": "Peoplelink Unified Communications",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-peoplelink-unified-communications-hyderabad-2-to-4-years-101126012439",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a29f467",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Zenwork Digital",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-zenwork-digital-hyderabad-3-to-6-years-101126011500",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3f493fa",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "turium ai",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=627463876215178596",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f24c29c",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Turing",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=623407037657974853",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f41855e",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Insight Global",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=644735701610864615",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3162e1c",
+   "status": "pending",
+   "title": "Job -Full Stack Developer | Zenwork Digital India | Hyderabad.",
+   "company": "Zenwork Digital",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-zenwork-digital-india-hyderabad-zenwork-digital-hyderabad-3-to-5-years-101126011355",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6f99d9e",
+   "status": "pending",
+   "title": "Java Full Stack Developer",
+   "company": "ADP Private Limited",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-full-stack-developer-adp-private-limited-hyderabad-3-to-6-years-101126011663",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1500956",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Monde Nissin Corporation (MNC)",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-tekshapers-software-solutions-bengaluru-3-to-5-years-101126009626",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c984acd",
+   "status": "pending",
+   "title": "Java Fullstack Developer",
+   "company": "KGiSL Institute of Technology",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=615901703685154665",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f45485c",
+   "status": "pending",
+   "title": "Software Engineer [FDE]",
+   "company": "ScanPay",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4487458998/",
+   "category": "ALREADY_APPLIED",
+   "reasons": [
+    "previous application exists in the log"
+   ],
+   "priorReason": "already applied (log)",
+   "liveChecked": false
+  },
+  {
+   "id": "27a549a",
+   "status": "pending",
+   "title": "React JS Developer",
+   "company": "ITRadiant Solutions Pvt Ltd",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=59c795d53c01415f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "70aef35",
+   "status": "pending",
+   "title": "React Developer",
+   "company": "KTree",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=c58fd13c40d7ba7c",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3e27f3b",
+   "status": "pending",
+   "title": "Fullstack Software Developer",
+   "company": "Digispoc Technology",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-software-developer-digispoc-technology-chennai-2-to-5-years-101126009634",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6170319",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Persistent Systems",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=605332554900186036",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c327b29",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "merit tutoring",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643400666196682448",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b1cbec8",
+   "status": "pending",
+   "title": "Front-end developer",
+   "company": "Turnkey Learning",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5d223912d6e34dd7",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "4d509cb",
+   "status": "pending",
+   "title": "React Developer",
+   "company": "EffiaSoft",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=55c11a20e2adf35c",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c42897b",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "Thandra Consulting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=a84cbb783beb6b2a",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5f14d52",
+   "status": "pending",
+   "title": "AVP, CL, FrontEnd Eng - iOS, WRB Tech",
+   "company": "Standard Chartered",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=8492c89c4492a205",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2faaea6",
+   "status": "pending",
+   "title": "Software Development Engineer -1",
+   "company": "ConvertCart",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=f95e27c4b3e724dc",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b1ce9d7",
+   "status": "pending",
+   "title": "React Developer",
+   "company": "Sunseaz Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=9ba5cc5725acf4f0",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d712fa3",
+   "status": "pending",
+   "title": "Java Developer + React",
+   "company": "Infosys",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-developer-react-infosys-hyderabad-pune-chennai-2-to-3-years-170826025516",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "438bd7a",
+   "status": "pending",
+   "title": "React Native Developer (3+ Years)",
+   "company": "Cashapona",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=36929207b519b50e",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7e6523f",
+   "status": "pending",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-5-years-111126913798",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e94a8cc",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Apxor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-apxor-hyderabad-1-to-3-years-111126506073",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8be2ab4",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "ServCrust",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4487884671/",
+   "category": "ALREADY_APPLIED",
+   "reasons": [
+    "previous application exists in the log"
+   ],
+   "priorReason": "already applied (log)",
+   "liveChecked": false
+  },
+  {
+   "id": "79276e4",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Leading Client",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-delight-hr-services-pvt-ltd-hyderabad-2-to-6-years-111126913007",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "54966d4",
+   "status": "pending",
+   "title": "Java Fullstack Developer",
+   "company": "Infosys",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-infosys-hyderabad-3-to-5-years-290926934472",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "55592a4",
+   "status": "pending",
+   "title": "Java Fullstack Developer (Java + Angular/ ReactJS)",
+   "company": "Capgemini",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-java-angular-reactjs-capgemini-technology-services-india-limited-hyderabad-chennai-bengaluru-1-to-5-years-111126908447",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e7543dc",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-developer-websenor-udaipur-bengaluru-3-to-8-years-111126505107",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a8109b2",
+   "status": "pending",
+   "title": "Walk-in || Python Full stack Developer - Bangalore - Only Immediate Joiners",
+   "company": "Infiniti Research",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-python-full-stack-developer-bangalore-only-immediate-joiners-infiniti-research-bengaluru-3-to-7-years-271026019117",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "33bdad5",
+   "status": "pending",
+   "title": "Java + ReactJS Developer",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-reactjs-developer-websenor-udaipur-bengaluru-3-to-8-years-111126502184",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b7dfcf4",
+   "status": "pending",
+   "title": "Frontend Developer",
+   "company": "Nextwebi IT solutions Pvt ltd",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-frontend-developer-nextwebi-it-solutions-bengaluru-2-to-7-years-111126501745",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "200afc6",
+   "status": "pending",
+   "title": "SDE 2 React",
+   "company": "Niyo Solutions",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-sde-2-react-niyo-solutions-bengaluru-3-to-5-years-111126505553",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7c17ac1",
+   "status": "pending",
+   "title": "Software Developer For web based SaaS application",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-developer-for-web-based-saas-application-websenor-udaipur-bengaluru-2-to-5-years-111126504250",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a7cf245",
+   "status": "pending",
+   "title": "Software Development Engineer- Frontend",
+   "company": "HP",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-frontend-hp-bengaluru-3-to-8-years-111126501401",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "cb9c8e9",
+   "status": "pending",
+   "title": "Software Engineer II - Frontend Engineer",
+   "company": "Wayfair",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-engineer-ii-frontend-engineer-wayfair-technologies-bengaluru-3-to-8-years-111126502061",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "cabec71",
+   "status": "pending",
+   "title": "Java AWS + React",
+   "company": "Zensar",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/zensar/java-aws-react",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a2bdebc",
+   "status": "pending",
+   "title": "Full Stack Trainer Cum Developer",
+   "company": "Galtech",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-trainer-developer-galtech-chengalpattu-thrissur-chennai-1-to-6-years-111126504784",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ae0a179",
+   "status": "pending",
+   "title": "AI Full Stack Engineer",
+   "company": "Avix Labs",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-ai-full-stack-engineer-avix-labs-chennai-1-to-5-years-111126503625",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "172d681",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Turing",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=623407573577704334",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "905d7dd",
+   "status": "pending",
+   "title": "Python Full Stack Developer (Django)",
+   "company": "India Filings Pvt Ltd",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-python-full-stack-developer-django-india-filings-pvt-ltd-chennai-1-to-3-years-111126034059",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d785a22",
+   "status": "pending",
+   "title": "Frontend Developer ( React JS )",
+   "company": "Enqos Software Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-frontend-developer-react-js-enqos-chennai-2-to-5-years-111126502164",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9415dd7",
+   "status": "pending",
+   "title": "Software Development Engineer - Fresher",
+   "company": "Enqos Software Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-fresher-enqos-chennai-2-to-4-years-111126504456",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "94e5b5f",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "Nuora",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=e76c42d16572131d",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "65ca218",
+   "status": "pending",
+   "title": "Next.js or React.js Developer",
+   "company": "Planet Logics",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=355c2c94e6ee3e25",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "72e4519",
+   "status": "pending",
+   "title": "Full-Stack App Developer (Mobile & Web Applications)",
+   "company": "Asquare Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5bd43d5a7c78f6f3",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "45a1da0",
+   "status": "pending",
+   "title": "Mobile Application Developer - React Native",
+   "company": "Innocito",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-mobile-application-developer-react-native-innocito-visakhapatnam-2-to-7-years-111126503680",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8019b18",
+   "status": "pending",
+   "title": "Software Developer Mentor- Python & React Developer",
+   "company": "Wikpolt Private Limited",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=59298e439cbb82f1",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5930199",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Blueberry Labs Private Limited",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=7e6e4487e0063b76",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "4159681",
+   "status": "pending",
+   "title": "Software Engineer I, Frontend (Bangalore, India)",
+   "company": "AiPrise",
+   "portal": "careers",
+   "url": "https://jobs.ashbyhq.com/aiprise/4994f7fc-b974-420f-9823-32d6c493f5c2",
+   "category": "EXPIRED_OR_INELIGIBLE",
+   "reasons": [
+    "location eligibility not confirmed (not verified)"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "7a6ab73",
+   "status": "pending",
+   "title": "Software Engineer I, Full Stack (Frontend Focused) (Bangalore, India)",
+   "company": "AiPrise",
+   "portal": "careers",
+   "url": "https://jobs.ashbyhq.com/aiprise/41af4efa-a550-484e-afde-a9f5f3807eca",
+   "category": "EXPIRED_OR_INELIGIBLE",
+   "reasons": [
+    "location eligibility not confirmed (not verified)"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "bb7fc81",
+   "status": "pending",
+   "title": "React Native Professional",
+   "company": "Maha Software Solutions",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-professional-mahasos-info-private-ltd-hyderabad-1-to-4-years-111126506724",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "db836eb",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Techally Labs",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-techally-labs-hyderabad-3-to-4-years-111126506686",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7a68a1c",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "Sugar.fit",
+   "portal": "instahyre",
+   "url": "https://www.instahyre.com/#job/sugar-fit/react-native-developer",
+   "category": "NEEDS_USER_INPUT",
+   "reasons": [
+    "no direct submit route for instahyre; apply from the URL or the portal bot"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7acb5f2",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-developer-websenor-udaipur-bengaluru-0-to-3-years-111126504474",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "351f953",
+   "status": "pending",
+   "title": "Java full stack developer",
+   "company": "Quess Corp Limited",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4486586299/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2ef27f6",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "Wheelson BizAI",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=620135314151387105",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "aa55675",
+   "status": "pending",
+   "title": "React Full Stack",
+   "company": "UST",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=73212a7f2e6f2313",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7c5adc5",
+   "status": "pending",
+   "title": "Full stack trainer",
+   "company": "PUMO TECHNOVATION INDIA PVT LTD",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=bff35b72d8d3194f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e57b6b5",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "EITB Global Infosolutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=1cfafcadfd950d08",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1c607ad",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "EITB global info solutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=9c9954a99e8dd1ac",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d2ba11b",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "All Hands Global",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-mobile-application-developer-all-hands-global-pvt-ltd-visakhapatnam-hyderabad-2-to-7-years-121126503181",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "da295f4",
+   "status": "pending",
+   "title": "React js Developer",
+   "company": "Ratnam Solutions",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-js-developer-ratnam-solutions-private-limited-hyderabad-1-to-6-years-121126503048",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0389b11",
+   "status": "pending",
+   "title": "Mobile Engineer (React Native + Fullstack)",
+   "company": "superkalam (yc w23)",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=625135620914877969",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1817d28",
+   "status": "pending",
+   "title": "Python Fullstack Developer",
+   "company": "FactSet",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-python-fullstack-developer-factset-hyderabad-2-to-3-years-121126034908",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6db5f24",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "Sketch Brahma Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-developer-sketchbrahma-technologies-bengaluru-2-to-7-years-121126504631",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e73c97c",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-developer-websenor-bengaluru-0-to-3-years-121126500657",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0faa0ee",
+   "status": "pending",
+   "title": "React Js Developer",
+   "company": "Sketch Brahma Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-js-developer-sketchbrahma-technologies-bengaluru-2-to-7-years-121126504820",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1f11dc5",
+   "status": "pending",
+   "title": "Walk-in || Python Full stack Developer - Bangalore - Only Immediate Joiners",
+   "company": "Infiniti Research",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-python-full-stack-developer-bangalore-only-immediate-joiners-infiniti-research-bengaluru-3-to-6-years-271026019117",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f4f3e6e",
+   "status": "pending",
+   "title": "Walk-in || Java Full Stack Developer",
+   "company": "BT Group",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-full-stack-developer-bt-group-bengaluru-3-to-5-years-121126018335",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "66c1d90",
+   "status": "pending",
+   "title": "Intermediate Application Developer- eCommerce (Shopify) Platform Support",
+   "company": "UPS",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=629045022808804140",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "36bfd3f",
+   "status": "pending",
+   "title": "Walk-in Drive | Full Stack Developer | Quantzig | Bangalore",
+   "company": "Infiniti Research",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-walk-in-drive-full-stack-developer-quantzig-bangalore-infiniti-research-bengaluru-3-to-4-years-121126019666",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "adc79e3",
+   "status": "pending",
+   "title": "Full-Stack Developer",
+   "company": "Webomindapps",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-webomindapps-private-limited-bengaluru-1-to-4-years-121126502939",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8a5ef75",
+   "status": "pending",
+   "title": "Java + ReactJS Developer",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-reactjs-developer-websenor-bengaluru-3-to-8-years-121126500807",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "56d9d61",
+   "status": "pending",
+   "title": "SDE I - Frontend (React + React Native)",
+   "company": "Flexiple",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69781762",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "380f593",
+   "status": "pending",
+   "title": "SFCC Frontend Developer",
+   "company": "Willware Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-sfcc-frontend-developer-willware-technologies-private-limited-bengaluru-3-to-8-years-121126504911",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f782b4d",
+   "status": "pending",
+   "title": "Full Stack Mobile Engineer",
+   "company": "HuntingCube",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69779387",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "46186f3",
+   "status": "pending",
+   "title": "Software Development Engineer II - Fullstack",
+   "company": "Moolya Software Testing",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-ii-fullstack-moolya-software-testing-bengaluru-3-to-8-years-131026016004",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9ae1fb8",
+   "status": "pending",
+   "title": "Software Developer For web based SaaS application",
+   "company": "WebSenor",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-developer-for-web-based-saas-application-websenor-bengaluru-2-to-5-years-121126500872",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c91dc60",
+   "status": "pending",
+   "title": "Full Stack Trainer Cum Developer",
+   "company": "Galtech",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-trainer-developer-galtech-chennai-1-to-6-years-121126500210",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "37d350a",
+   "status": "pending",
+   "title": "Software Developer",
+   "company": "Afresh Study Abroad",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-developer-afresh-study-abroad-thiruvananthapuram-1-to-4-years-121126504718",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "da18c56",
+   "status": "pending",
+   "title": "Full Stack Developer - Coimbatore - IMMEDIATE JOINER",
+   "company": "tandem crystals pvt ltd",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69779221",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "cc3a483",
+   "status": "pending",
+   "title": "React Js Developer",
+   "company": "OSV Solutions",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-js-developer-osv-solutions-pvt-ltd-hyderabad-3-to-5-years-121126913688",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ed75a51",
+   "status": "pending",
+   "title": "ReactJS Developer",
+   "company": "Krisantec Solutions Private Limited",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=df10eb70fd5fc6d9",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a1a3a21",
+   "status": "pending",
+   "title": "ReactJS & NextJsDeveloper - Hyderabad Location",
+   "company": "Vrinda Techapps India Pvt Ltd",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=d9e8055ec71626bb",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ad86f68",
+   "status": "pending",
+   "title": "Java Fullstack (React) Engineer",
+   "company": "Infosys",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-react-engineer-infosys-limited-hyderabad-2-to-3-years-081026947318",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "48dee6b",
+   "status": "pending",
+   "title": "Frontend Engineer React Native",
+   "company": "PinnacleU",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=788087625bb583a8",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fbafc04",
+   "status": "pending",
+   "title": "Fullstack - Node.js, React",
+   "company": "UST",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=dac207dc3bc23980",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "58e1660",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Bitespeed",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-bitespeed-bengaluru-2-to-6-years-121126917196",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "461bedb",
+   "status": "pending",
+   "title": "Front-End Engineer, Website Platform",
+   "company": "MyAdvice",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=c050a5a69b594a0d",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d2930c0",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "Brewkspace Pvt Ltd",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=c0bc87417b3d6e02",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "eacbe8e",
+   "status": "pending",
+   "title": "Full Stack Web Developer (AI-Powered Development Tools)",
+   "company": "Switchr",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=d096d11010e3e75f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ac31e4c",
+   "status": "pending",
+   "title": "Software Engineer II - Backend Leaning FullStack",
+   "company": "Rippling",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=21b4453ade8296e7",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a280553",
+   "status": "pending",
+   "title": "Software Engineer II",
+   "company": "Experity, Inc",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=97a1077bc8d0e659",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "54cd9a3",
+   "status": "pending",
+   "title": "React Native App Developer",
+   "company": "Codeverse Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=9b4cb92ffaae80d7",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7457ed3",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "BEST BYBITES",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=a22d1d3ee6de0d14",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "435515c",
+   "status": "pending",
+   "title": "Front End Developer",
+   "company": "Leading Client",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-front-end-developer-delight-hr-services-pvt-ltd-chennai-2-to-5-years-111126913800",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "56d86da",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "S4Carlisle",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-s4carlisle-chennai-3-to-5-years-121126912506",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "50f7ced",
+   "status": "pending",
+   "title": "Full Stack Data Engineer",
+   "company": "Medblocks Inc",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5d74c221112d0254",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "222ea0d",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Expleo",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=b26217cb7c77d7e3",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "cb03e32",
+   "status": "pending",
+   "title": "Full Stack developer SSE (React/Python)- 26000KL6",
+   "company": "SA Technologies",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=645797260810192125",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "009369c",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Emerge",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4490500899/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b6c1e7d",
+   "status": "pending",
+   "title": "Java React Fullstack Developer",
+   "company": "12542 Citicorp Services India Private Limited",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=645802131656477202",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "73b35a2",
+   "status": "pending",
+   "title": "React Native IOS Developer",
+   "company": "Ninos IT Solution",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=4a91849a8b876c2f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "694a8c6",
+   "status": "pending",
+   "title": "Java React Fullstack Developer",
+   "company": "Citi",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=fe714328f7793108",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ca90254",
+   "status": "pending",
+   "title": "Full Stack Developer (Angular + Node) 3-8 Yr",
+   "company": "The Viswa Group",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5f5517d09819a526",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1af59f2",
+   "status": "pending",
+   "title": "React Native Hybrid Mobile Application Developers",
+   "company": "Vistas AD Media Communications Pvt. Ltd.",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/58453371",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a6d5a72",
+   "status": "pending",
+   "title": "Full Stack Developer (React + Node)",
+   "company": "BeamX TechLabs Pvt. Ltd.",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=3dfb4c6ac1c06640",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b09dc54",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "sri ethiraja technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=07c5268917a05463",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f70fe38",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "GYSZ Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=cbee58ab09385c65",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "03abacf",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Abbas Business Solutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=6bb1ecc360b4ed7f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9e160ec",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "Deepspatial",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-native-developer-deepspatial-hyderabad-jaipur-3-to-6-years-121126919071",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "cea8cf4",
+   "status": "pending",
+   "title": "Full stack Developer",
+   "company": "Leadpulse.io",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-leadpulse-io-hyderabad-bengaluru-delhi-ncr-2-to-3-years-121126918591",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9ef302a",
+   "status": "pending",
+   "title": "Mobile App Developer",
+   "company": "Zelora Infotech Private Limited",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=835e00cdeca85cc6",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3b1362d",
+   "status": "pending",
+   "title": "Full Stack Developer (MEAN Stack + Kafka) - 3 To 5 yrs - Bangalore",
+   "company": "Globallogic",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-mean-stack-kafka-3-to-5-yrs-bangalore-globallogic-bengaluru-3-to-5-years-131126013507",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "fe3e3e5",
+   "status": "pending",
+   "title": "Technical Trainer – Python, React, AI & Web Development",
+   "company": "PUMO TECHNOVATION INDIA PVT LTD",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=bbac76e79cb1b36a",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "390dde1",
+   "status": "pending",
+   "title": "Full Stack Java and Angular Developer",
+   "company": "Citi",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=3d5131ce7a9265fb",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "926bb95",
+   "status": "pending",
+   "title": "Full Stack Developer - React.JS Node.JS",
+   "company": "CAFS Pvt Ltd",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=0edd5ae7a12bb5a9",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "763e954",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Online Consultancy Services",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=52b5c57549171778",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "85aa03f",
+   "status": "pending",
+   "title": "Software Engineer - Agentic Flows",
+   "company": "Cyncly",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=224ad04688fc833e",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "8c4d23f",
+   "status": "pending",
+   "title": "Full Stack Mobile Application Developer",
+   "company": "Lynky AI",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=cabd509c894163e0",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c7606e3",
+   "status": "pending",
+   "title": "Full Stack Engineer-Flutter Developer",
+   "company": "Blackstone Evolve",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=d0e3777e61d3d9d4",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "215b91d",
+   "status": "pending",
+   "title": "Mobile app developer",
+   "company": "BAS Consulting Service",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=4557329b7cf7a27b",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e23e6ad",
+   "status": "pending",
+   "title": "Python Full Stack Development Trainer",
+   "company": "Career Ladder",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=167668fe1c5a93cb",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7334400",
+   "status": "pending",
+   "title": "React Native Developer",
+   "company": "Webomindapps",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=cf4cf9b0e45302ee",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "118ac65",
+   "status": "pending",
+   "title": "MERN Stack Developer – Full Stack",
+   "company": "Welspun World",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-mern-stack-developer-full-stack-welspun-world-hyderabad-3-to-5-years-141126011221",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7268116",
+   "status": "pending",
+   "title": "Mobile Engineer - React Native (100% Remote)",
+   "company": "Tether Operations Limited",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=641604514643840908",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "62ba338",
+   "status": "pending",
+   "title": "Consultant | Full Stack - Java + React | Bengaluru | Engineering | Platform Development & Integratio",
+   "company": "Deloitte",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=a26973153489cd61",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "aa601f6",
+   "status": "pending",
+   "title": "FBS Agile Dev Team Member II - Guidewire and React Developer",
+   "company": "Capgemini",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4480083025/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1bee992",
+   "status": "pending",
+   "title": "React Native Hybrid Mobile Application Developer - Consultant / Part time / Freelancer",
+   "company": "InQ Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=d05f3822c71090dc",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "21593ba",
+   "status": "pending",
+   "title": "Full stack Native AI - Node & React",
+   "company": "Firstsource",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4489558018/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b2c979a",
+   "status": "pending",
+   "title": "AI Automation & Full-Stack Engineer",
+   "company": "Swift",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/5077430",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1fd6f21",
+   "status": "pending",
+   "title": "ReactJS Engineer",
+   "company": "Desirous Global Consulting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=cd1341054735b360",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "4d560b2",
+   "status": "pending",
+   "title": "React Native Mobile Developer",
+   "company": "Desirous Global Consulting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=0b5910507207cfc7",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "95bc7b5",
+   "status": "pending",
+   "title": "Mobile App Developer - IOS , Android",
+   "company": "Desirous Global Consulting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5b1b910cb5969b75",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9bf374c",
+   "status": "pending",
+   "title": "Hybrid Application Developer",
+   "company": "Nigama Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-hybrid-application-developer-nigama-technologies-bangalore-rural-bengaluru-3-to-12-years-131126032826",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ac72db1",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "Rarr Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-mobile-application-developer-rarr-technologies-bengaluru-3-to-8-years-131126503203",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c639c10",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Desirous Global Consulting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=028f1074b503d31b",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "47a6441",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Medi Assist",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-medi-assist-bangalore-rural-bengaluru-2-to-5-years-141026020275",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1879713",
+   "status": "pending",
+   "title": "SDE 2 - Backend",
+   "company": "Riyom Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-sde-2-backend-riyom-technologies-bengaluru-3-to-6-years-121126919544",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6c4fdfc",
+   "status": "pending",
+   "title": "Front-End Developer – Angular",
+   "company": "PAYWINT LLP",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=72d0630e56e344d5",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "40ca871",
+   "status": "pending",
+   "title": "React JS Developer",
+   "company": "Nstar Tech Overseas Private Limited",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69799208",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "464cb97",
+   "status": "pending",
+   "title": "Mobile app developer",
+   "company": "BAS Consulting Service",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=9f90097e0e50e0ab",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "38b35c1",
+   "status": "pending",
+   "title": "Full Stack AI Engineer",
+   "company": "Lynky AI",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=85585ae1b8c6c95a",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a119c60",
+   "status": "pending",
+   "title": "Full Stack Developer cum Trainer",
+   "company": "Phoenix Infotech& Solutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=32e9fe17444602cf",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "4977831",
+   "status": "pending",
+   "title": "Mobile Engineer",
+   "company": "Glomo AB",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643400292411706659",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2ffef76",
+   "status": "pending",
+   "title": "Front End Developer (Remote)",
+   "company": "Netlabs",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=4427bcf9258b152f",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2d9a7b2",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Movate Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-movate-technologies-bengaluru-3-to-8-years-141126012808",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "544ff7f",
+   "status": "pending",
+   "title": "Java FullStack Developer",
+   "company": "Artech",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4489564173/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "c4bfdb1",
+   "status": "pending",
+   "title": "Full Stack AI Application Engineer",
+   "company": "NForce One",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4488939577/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "db2b2e7",
+   "status": "pending",
+   "title": "SDE II - Frontend (React + React Native)",
+   "company": "Flexiple",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69811794",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "dc1232d",
+   "status": "pending",
+   "title": "Python Full Stack Development with AI Integration – Faculty",
+   "company": "TEKBIT LEARNING HUB",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=71bfe4e288f12957",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1dd0323",
+   "status": "pending",
+   "title": "Full Stack Engineer (AWS, TypeScript, React/Next.js, Node.js)",
+   "company": "Peri Security",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-engineer-aws-typescript-react-next-js-node-js-peri-security-coimbatore-3-to-6-years-141126015925",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "777ba42",
+   "status": "pending",
+   "title": "AI Engineer, Full Stack (Automation & Frontend Focus)",
+   "company": "Swift",
+   "portal": "wellfound",
+   "url": "https://wellfound.com/jobs/5077918",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "28fb023",
+   "status": "pending",
+   "title": "Full-Stack Python Developer (FastAPI + React + Automation) – GST SaaS Platform",
+   "company": "NYLUN GLOBAL PRIVATE LIMITED",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=29cbd297a35786bf",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "2e5df16",
+   "status": "pending",
+   "title": "Mobile Developer (React Native)",
+   "company": "Balusen Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=56203be0e7d7d6ea",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a78fa19",
+   "status": "pending",
+   "title": "React Native Full Stack Developer [Deloitte]",
+   "company": "Global Consultings",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=a0773835c7787f5b",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "81508c3",
+   "status": "pending",
+   "title": "Junior React Developer (0–2 Years)",
+   "company": "Lumel",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=fc34d9b604e96594",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d9dc699",
+   "status": "pending",
+   "title": "Software Engineer II - Backend Leaning FullStack",
+   "company": "Rippling",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69801657",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "64535db",
+   "status": "pending",
+   "title": "Frontend Developer (React Js),React Native",
+   "company": "valency contech",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=476a05d8ab327acf",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "13986b7",
+   "status": "pending",
+   "title": "Mobile app developer",
+   "company": "BAS Consulting Service",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=955e9ae024269826",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "dcd6e21",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "Capco",
+   "portal": "careers",
+   "url": "https://job-boards.greenhouse.io/capco/jobs/8354687",
+   "category": "EXPIRED_OR_INELIGIBLE",
+   "reasons": [
+    "posting closed: 404 https://boards-api.greenhouse.io/v1/boards/capco/jobs/8354687?questions=true"
+   ],
+   "priorReason": null,
+   "liveChecked": true
+  },
+  {
+   "id": "99d14d1",
+   "status": "pending",
+   "title": "Full Stack Mobile Developer (React Native, Python & FastAPI)",
+   "company": "Labs 24 Global Enterprises Private Limited",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=ebc391eca80134b1",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "715e4c2",
+   "status": "pending",
+   "title": "Junior Full-Stack Developer",
+   "company": "Windfall Production Pvt Ltd",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5cf6587b0cda4251",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "f4ba97a",
+   "status": "pending",
+   "title": "Full-Stack Mobile Application Developer (Android & iOS)",
+   "company": "ECOSPHERE WASTE SOLUTIONS",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=8689cbac204064cf",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0ea46ab",
+   "status": "pending",
+   "title": "Walk-in || Full-Stack Python Developer (FastAPI + React + Automation)",
+   "company": "Analogue It Solutions",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-python-developer-fastapi-react-automation-analogue-it-solutions-hyderabad-2-to-3-years-161126002515",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "efccddb",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "turium ai",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69809750",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a9e3ab4",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "HTC Global Services",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4490727740/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "60b33ad",
+   "status": "pending",
+   "title": "AI Product Engineer (Full Stack + Forward Deployed AI)",
+   "company": "Assistly | Senior Care Software",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4489383888/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "94c2317",
+   "status": "pending",
+   "title": "AI Product Engineer (Full Stack + Forward Deployed AI)",
+   "company": "Orcaworks",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4489700291/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "77dcfb2",
+   "status": "pending",
+   "title": "Software Engineer II - React JS",
+   "company": "trimble inc.",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=612254873243026388",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "9713831",
+   "status": "pending",
+   "title": "Software Engineer",
+   "company": "Quanteon Solutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=01b0189a4d72a454",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7a5845d",
+   "status": "pending",
+   "title": "Middle Software Engineer - Java Full Stack ReactJS",
+   "company": "Epam Systems",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-middle-software-engineer-java-full-stack-reactjs-epam-systems-hyderabad-pune-bengaluru-3-to-8-years-061126025957",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "dda4c26",
+   "status": "pending",
+   "title": "Java Fullstack (React) Engineer",
+   "company": "Infosys Limited",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=639817484906863576",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7984377",
+   "status": "pending",
+   "title": "Middle Java Full Stack Software Engineer (ReactJS)",
+   "company": "Epam Systems",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-middle-java-full-stack-software-engineer-reactjs-epam-systems-hyderabad-pune-bengaluru-3-to-8-years-061126025947",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e1625f5",
+   "status": "pending",
+   "title": "Virtual scheduled Interview-React JS Developer | 31st Oct, Saturday",
+   "company": "Cognizant",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-virtual-scheduled-interview-react-js-developer-31st-oct-saturday-cognizant-hyderabad-chennai-bengaluru-3-to-8-years-221026010347",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5a393db",
+   "status": "pending",
+   "title": "Distinguished Frontend Engineer",
+   "company": "Backbase",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-distinguished-frontend-engineer-backbase-hyderabad-3-to-7-years-161126504636",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "445eb9c",
+   "status": "pending",
+   "title": "Mobile Application Developer",
+   "company": "SANESQUARE TECHNOLOGIES",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5848418aa4d9b542",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d2d1c72",
+   "status": "pending",
+   "title": "JAVA Fullstack Developer- React Native / React - Bangalore",
+   "company": "teamplus staffing solution",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-java-fullstack-developer-react-native-react-bangalore-teamplus-staffing-solution-bengaluru-3-to-8-years-161126013428",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a1b66ee",
+   "status": "pending",
+   "title": "Fullstack Developer(React+Node/Python)",
+   "company": "Bounteous",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-react-node-python-bounteous-bengaluru-3-to-5-years-231026019999",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3e3e5c9",
+   "status": "pending",
+   "title": "Mobile Application Developer (Flutter)",
+   "company": "Qurinom Solutions",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=f5243bdc92773b67",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "1676595",
+   "status": "pending",
+   "title": "Mobile Engineer React Native (100% Remote)",
+   "company": "Tether Operations Limited",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=641516720575152660",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "be10e81",
+   "status": "pending",
+   "title": "React Native Hybrid Mobile Application Developers",
+   "company": "Vistas AD Media Communications Pvt. Ltd.",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=627627225491841985",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "61e613f",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "EchoStar",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=3359d103a4823da2",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "ab9b4d2",
+   "status": "pending",
+   "title": "Developer- Java and React",
+   "company": "a data and digital engineering services company",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643400653229463418",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b92fe72",
+   "status": "pending",
+   "title": "Software Engineer- Frontend",
+   "company": "Auxoai",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-engineer-frontend-auxoai-bengaluru-2-to-6-years-161126500645",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a600afb",
+   "status": "pending",
+   "title": "Software Development Engineer II",
+   "company": "JioStar(Viacom18 )",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-software-development-engineer-ii-viacom-18-media-private-limited-bengaluru-2-to-4-years-161126507371",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "91c6dc7",
+   "status": "pending",
+   "title": "Fullstack Developer",
+   "company": "Fouralpha Prime Wealth",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-fullstack-developer-fouralpha-prime-wealth-bengaluru-3-to-7-years-161126004213",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "59e94b5",
+   "status": "pending",
+   "title": "React Frontend Developer",
+   "company": "Nrich It Consulting Services",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-react-frontend-developer-nrich-it-consulting-services-bengaluru-3-to-6-years-161126505191",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6ceed58",
+   "status": "pending",
+   "title": "UI React Developer",
+   "company": "Clifyx Technology",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-ui-react-developer-clifyx-technology-bengaluru-3-to-6-years-161126506377",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "e6e2847",
+   "status": "pending",
+   "title": "Front End Developer- React + Next",
+   "company": "Genpact",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=f817cd30b0ddd2c7",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "b81fcac",
+   "status": "pending",
+   "title": "Full-Stack Development Engineer",
+   "company": "Zensar Technologies",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=e4f1dcf8ec2c5c5b",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "781747d",
+   "status": "pending",
+   "title": "Full Stack Developer with React, Node.js & Snowflake Experience",
+   "company": "TESTQ Technologies",
+   "portal": "naukri",
+   "url": "https://www.naukri.com/job-listings-full-stack-developer-with-react-node-js-snowflake-experience-testq-technologies-limited-chennai-2-to-8-years-161126504302",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "05920f3",
+   "status": "pending",
+   "title": "Python Full Stack Developer",
+   "company": "Compunet Connections",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=643799983479597863",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6efa0ac",
+   "status": "pending",
+   "title": "Java Full Stack Developer",
+   "company": "Bnp Paribas Bank",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=613114228674134996",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "6b94e2f",
+   "status": "pending",
+   "title": "React.js Technical Specialist - JavaScript, Node.js",
+   "company": "HCLTech",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=68e04144351e292a",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a69acb6",
+   "status": "pending",
+   "title": "Junior Full Stack Engineer with AI",
+   "company": "Citi",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=34d11db681e63ba6",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "23af9c4",
+   "status": "pending",
+   "title": "Full Stack Developer",
+   "company": "ValueLabs",
+   "portal": "linkedin",
+   "url": "https://www.linkedin.com/jobs/view/4490295346/",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "87c5183",
+   "status": "pending",
+   "title": "Front-End Engineer - Trading Platform (India, Chennai)",
+   "company": "GoCharting",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=6772548a8b2a2c5a",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "0a541e5",
+   "status": "pending",
+   "title": "Full Stack Engineer - JavaScript",
+   "company": "2Base Technologies",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=610450300173426527",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "a1f8824",
+   "status": "pending",
+   "title": "Full Stack Engineer",
+   "company": "runloyal: pet software",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=623407020887377989",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "3a6ed0f",
+   "status": "pending",
+   "title": "AEM Fullstack Developer",
+   "company": "Cognizant Softvision",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=644458208602827559",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "db2c032",
+   "status": "pending",
+   "title": "Software Developer (JavaScript / TypeScript)",
+   "company": "Turing",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=623335188784818935",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "22887c4",
+   "status": "pending",
+   "title": "Web Developer",
+   "company": "Red sand group",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=5b17df4ca27ed71d",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "06ecfa7",
+   "status": "pending",
+   "title": "SDE I - Frontend (React + React Native)",
+   "company": "Flexiple",
+   "portal": "foundit",
+   "url": "https://www.foundit.in/job/69823060",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "372e70c",
+   "status": "pending",
+   "title": "Fullstack Engineer (Frontend Heavy)",
+   "company": "Uplers",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=642440971097015624",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "5ab5f44",
+   "status": "pending",
+   "title": "Java Full Stack Cloud Native Developer",
+   "company": "SAP Fioneer",
+   "portal": "talent",
+   "url": "https://in.talent.com/view?id=605410716575083884",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "d9ae527",
+   "status": "pending",
+   "title": "Next.js Full Stack Developer",
+   "company": "World E Mart",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=20252c00fd3a1e14",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  },
+  {
+   "id": "7cbea9b",
+   "status": "pending",
+   "title": "Java Fullstack with React",
+   "company": "Citi",
+   "portal": "indeed",
+   "url": "https://in.indeed.com/viewjob?jk=4a60759d90eac1a2",
+   "category": "NEEDS_REVERIFICATION",
+   "reasons": [
+    "live posting check has not run"
+   ],
+   "priorReason": null,
+   "liveChecked": false
+  }
+ ]
+}

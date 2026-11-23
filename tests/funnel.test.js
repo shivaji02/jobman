@@ -176,7 +176,7 @@ test('career-site pre-filter keeps Indian software roles and drops global/non-so
 test('Naukri search URL pushes the experience filter into discovery', () => {
   const { searchUrl } = require('../src/bots/naukri');
   assert.match(searchUrl('react native developer', 'hyderabad'), /[?&]experience=3\b/);
-  assert.match(searchUrl('react native developer', 'hyderabad'), /jobAge=3/);
+  assert.match(searchUrl('react native developer', 'hyderabad'), /jobAge=7/);
 });
 
 test('an unconfirmed job is unblocked only by a later "verified not applied" check', () => {
